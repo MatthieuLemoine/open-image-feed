@@ -1,6 +1,6 @@
 {
   "name": "application-name",
-  "version": "0.1",
+  "version": "0.0.1",
   "private": false,
   "description": "A open source self-hosted image feed.",
   "repository": "https://github.com/MatthieuLemoine/open-image-feed",
