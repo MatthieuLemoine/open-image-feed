@@ -60,9 +60,11 @@ if (env === 'production') {
 // serve index and view partials
 app.get('/', routes.index);
 app.get('/partials/home', routes.partials);
+app.get('/partials/dialog', routes.dialog);
 
 // JSON API
 app.get('/api/feed', api.feed);
+app.post('/api/post',api.addPost);
 
 // redirect all others to the index (HTML5 history)
 //app.get('*', routes.index);

@@ -7,3 +7,7 @@ exports.index = function(req, res){
 exports.partials = function (req, res) {
     res.render('partials/home');
 };
+
+exports.dialog = function (req, res) {
+    res.render('partials/dialog');
+};

@@ -1,2 +1,25 @@
-div
-    h1 Open Image Feed
+div(layout="column", layout-fill)
+    md-toolbar.md-primary
+        div(class="md-toolbar-tools")
+            h1 Open Image Feed
+            span(flex)
+    div(ng-controller="AddPostCtrl")
+        md-content.md-padding.light-grey-background
+            section(layout="row")
+                md-button(class="md-fab md-primary", aria-label="Refresh", ng-click="updateFeed()")
+                    md-icon(md-svg-src="/img/icons/ic_refresh_white_48px.svg")
+                    md-tooltip(md-direction="bottom") Refresh feed
+                span(flex)
+                md-button(class="md-fab md-warn", aria-label="Add post", ng-click="showAddDialog($event)")
+                    md-icon(md-svg-src="/img/icons/ic_add_white_48px.svg")
+                    md-tooltip(md-direction="bottom") Add a new post
+    div(ng-controller="FeedCtrl")
+        md-content.md-padding.light-grey-background
+            div(ng-show="showLoading", layout="row", layout-sm="column", layout-align="center center")
+                md-progress-circular(md-mode="indeterminate")
+            md-card(ng-repeat="post in feed.posts")
+                img(ng-src="{{ post.image }}", class="md-card-image", alt="{{ post.title }}")
+                md-card-content
+                    h2.md-title {{ post.title }}
+                    h3.md-subheader {{ post.author }}
+            br

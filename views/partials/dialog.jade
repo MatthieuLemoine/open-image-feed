@@ -1,0 +1,30 @@
+md-dialog(aria-label="Add Post Dialog",  ng-cloak)
+    form
+        md-toolbar
+            div(class="md-toolbar-tools")
+                h2 Add a post
+                span(flex)
+                md-button(class="md-icon-button", ng-click="cancel()")
+                    md-icon(md-svg-src="img/icons/ic_clear_white_24px.svg", aria-label="Close dialog")
+        div(ng-show="showLoading", layout="row", layout-sm="column", layout-align="center center")
+           md-progress-circular(md-mode="indeterminate")
+      md-dialog-content(style="max-width:800px;max-height:810px; ")
+         div(class="md-dialog-content")
+            md-content(layout-padding)
+                form(name="userForm")
+                    div(layout layout-sm="row")
+                        md-input-container
+                            label Author
+                            input(ng-model="post.author")
+                    div(layout layout-sm="row")
+                        md-input-container(layout-sm="row")
+                            label Title
+                            input(ng-model="post.title")
+                    div(layout layout-sm="row")
+                        md-input-container(layout-sm="row")
+                            label Image
+                            input(ng-model="post.image")
+      div(class="md-actions", layout="row")
+         span(flex)
+         md-button(ng-click="valid()", style="margin-right:20px;")
+            |Add
