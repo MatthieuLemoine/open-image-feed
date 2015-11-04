@@ -1,37 +1,45 @@
 md-dialog(aria-label="Add Post Dialog",  ng-cloak)
-    form
-        md-toolbar
-            div(class="md-toolbar-tools")
-                h2 Add a post
-                span(flex)
-                md-button(class="md-icon-button", ng-click="cancel()")
-                    md-icon(md-svg-src="img/icons/ic_clear_white_24px.svg", aria-label="Close dialog")
-        div(ng-show="obj.flow.isUploading()", layout="row", layout-sm="column", layout-align="center center")
-           md-progress-circular(md-mode="indeterminate")
-      md-dialog-content(style="max-width:800px;max-height:810px; ")
-         div(class="md-dialog-content")
-            md-content(layout-padding)
-                form(name="userForm")
+    md-toolbar
+        div(class="md-toolbar-tools")
+            h2 Add a post
+            span(flex)
+            md-button(class="md-icon-button", ng-click="cancel()")
+                md-icon(md-svg-src="img/icons/ic_clear_white_24px.svg", aria-label="Close dialog")
+    div(ng-show="obj.flow.isUploading()", layout="row", layout-sm="column", layout-align="center center")
+       md-progress-circular(md-mode="indeterminate")
+    md-dialog-content(style="max-width:800px;max-height:810px; ")
+        div(class="md-dialog-content")
+            form(name="form",ng-submit="valid(form.$valid)", novalidate)
+                md-content(layout-padding)
                     div(layout, layout-sm="row")
-                        md-input-container
+                        md-input-container(ng-class="{ 'has-error' : form.author.$invalid && !form.author.$pristine && form.author.$touched }")
                             label Author
-                            input(ng-model="post.author")
+                            input.addPostInput(ng-model="post.author", type="text", name="author", ng-required="true", ng-minlength="3", ng-maxlength="30")
+                            div(ng-messages="form.author.$error",ng-show="form.author.$touched")
+                                p(ng-message="required", class="help-block")
+                                    | An Author name is required
+                                p(ng-message="minlength", class="help-block")
+                                    | Author name is too short
+                                p(ng-message="maxlength", class="help-block")
+                                    | Author name is too long
                     div(layout, layout-sm="row")
-                        md-input-container(layout-sm="row")
+                        md-input-container(layout-sm="row",ng-class="{ 'has-error' : form.title.$invalid && !form.title.$pristine && form.title.$touched }")
                             label Title
-                            input(ng-model="post.title")
-                    div(flow-init="config", flow-name="obj.flow", layout, layout-sm="row")
+                            input.addPostInput(ng-model="post.title", type="text", name="title", ng-required="true",, ng-minlength="5", ng-maxlength="50")
+                            div(ng-messages="form.title.$error",ng-show="form.title.$touched")
+                                p(ng-message="required", class="help-block")
+                                    | A Title is required
+                                p(ng-message="minlength", class="help-block")
+                                    | Title is too short
+                                p(ng-message="maxlength", class="help-block")
+                                    | Title is too long
+                    div(layout, layout-sm="row")
                         md-input-container
-                            div.drop(flow-drop, flow-drag-enter="style={border:'4px solid green'}", flow-drag-leave="style={}",
-                            ng-style="style")
-                                |Drag And Drop your image here
-                            img(flow-img="$flow.files[0]",ng-show="$flow.files.length")
+                            div.addPostInput(ngf-drop,ng-model="files", class="drop", ngf-max-size="5MB", ngf-resize="{width: 800, height: 800}",ngf-drag-over-class="drag-over",ngf-pattern="image/*")
+                                |Drag and drop image here
                             br
-                            div(layout="row")
-                                span(flex)
-                                md-button(class="md-raised md-warn", ng-click="$flow.files[0].cancel()", ng-show="$flow.files.length")
-                                    | Remove
-      div(class="md-actions", layout="row")
-         span(flex)
-         md-button(ng-click="valid()", style="margin-right:20px;")
-            |Add
+                            img(ngf-src="file", ngf-resize="{width: 800, height: 800}")
+                div(class="md-actions", layout="row")
+                    span(flex)
+                    md-button(type="submit", style="margin-right:20px;")
+                        |Add

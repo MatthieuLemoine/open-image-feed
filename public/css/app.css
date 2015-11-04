@@ -9,3 +9,10 @@
     color: #777;
     font-weight: 300;
 }
+.drag-over{
+    border: 3px #646464 dashed;
+}
+
+.addPostInput{
+    min-width: 400px;
+}

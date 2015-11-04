@@ -13,7 +13,6 @@ angular.module('openImageFeed.controllers', [])
             $http.get('/api/feed')
                 .then(function successCallback(response) {
                     $scope.feed = response.data;
-                    console.log(JSON.stringify($scope.feed));
                     $scope.showLoading = false;
                 }, function errorCallback(response) {
                     $scope.showLoading = false;
@@ -65,7 +64,7 @@ angular.module('openImageFeed.controllers', [])
         }
     }]);
 
-function DialogController($scope, $mdDialog, $http) {
+function DialogController($scope, $mdDialog, Upload) {
     $scope.obj = {};
     $scope.hide = function () {
         $mdDialog.hide();
@@ -73,16 +72,24 @@ function DialogController($scope, $mdDialog, $http) {
     $scope.cancel = function () {
         $mdDialog.cancel();
     };
-    $scope.valid = function () {
-        $scope.showLoading = true;
-        // TODO Add form validation
-        $http.post('/api/post', $scope.post)
-            .then(function successCallback(response) {
-                $scope.showLoading = false;
-                $mdDialog.hide(true);
-            }, function errorCallback(response) {
-                $scope.showLoading = false;
-                // TODO Show error
-            });
+    $scope.valid = function(isValid) {
+        if (isValid && $scope.file) {
+            $scope.upload($scope.file);
+        }
+    };
+    $scope.upload = function (file) {
+        Upload.upload({
+            url: '/api/post',
+            data: {file: file, author: $scope.post.author, title: $scope.post.title}
+        }).then(function (resp) {
+            $scope.showLoading = false;
+            $mdDialog.hide(true);
+        }, function (resp) {
+            $scope.showLoading = false;
+            // TODO Show error
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        });
     };
 }

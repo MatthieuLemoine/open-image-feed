@@ -9,7 +9,8 @@ angular.module('openImageFeed', [
   'openImageFeed.directives',
   'ngRoute',
   'ngMaterial',
-  'flow'
+  'ngFileUpload',
+  'ngMessages'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
