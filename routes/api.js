@@ -30,10 +30,6 @@ exports.feed = function (req, res) {
 exports.addPost = function (req, res){
 	console.log("BODY : ");
 	console.log(JSON.stringify(req.body, null, 4));
-	console.log("FILES : ");
-	console.log(JSON.stringify(req.files, null, 4));
-	console.log("QUERY : ");
-	console.log(JSON.stringify(req.query, null, 4));
 	var post = new Post();
 	post.author = req.body.author;
 	post.title = req.body.title;

@@ -66,17 +66,17 @@ angular.module('openImageFeed.controllers', [])
     }]);
 
 function DialogController($scope, $mdDialog, $http) {
-    $scope.user ={};
-    $scope.hide = function() {
+    $scope.obj = {};
+    $scope.hide = function () {
         $mdDialog.hide();
     };
-    $scope.cancel = function() {
+    $scope.cancel = function () {
         $mdDialog.cancel();
     };
-    $scope.valid = function() {
+    $scope.valid = function () {
         $scope.showLoading = true;
         // TODO Add form validation
-        $http.post('/api/post',$scope.post)
+        $http.post('/api/post', $scope.post)
             .then(function successCallback(response) {
                 $scope.showLoading = false;
                 $mdDialog.hide(true);

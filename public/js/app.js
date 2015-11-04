@@ -8,7 +8,8 @@ angular.module('openImageFeed', [
   'openImageFeed.services',
   'openImageFeed.directives',
   'ngRoute',
-  'ngMaterial'
+  'ngMaterial',
+  'flow'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.
