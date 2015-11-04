@@ -35,10 +35,10 @@ md-dialog(aria-label="Add Post Dialog",  ng-cloak)
                                     | Title is too long
                     div(layout, layout-sm="row")
                         md-input-container
-                            div.addPostInput(ngf-drop,ng-model="files", class="drop", ngf-max-size="5MB", ngf-resize="{width: 800, height: 800}",ngf-drag-over-class="drag-over",ngf-pattern="image/*")
+                            div.addPostInput(ngf-drop,ng-model="file", class="drop",ngf-resize="{width: 600, height: 600}", ngf-max-size="5MB",ngf-drag-over-class="drag-over",ngf-pattern="image/*")
                                 |Drag and drop image here
                             br
-                            img(ngf-src="file", ngf-resize="{width: 800, height: 800}")
+                            img(ngf-src="file", ngf-resize="{width: 600, height: 600}")
                 div(class="md-actions", layout="row")
                     span(flex)
                     md-button(type="submit", style="margin-right:20px;")

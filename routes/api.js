@@ -30,10 +30,12 @@ exports.feed = function (req, res) {
 exports.addPost = function (req, res){
 	console.log("BODY : ");
 	console.log(JSON.stringify(req.body, null, 4));
+	console.log("FILE : ");
+	console.log(JSON.stringify(req.file, null, 4));
 	var post = new Post();
 	post.author = req.body.author;
 	post.title = req.body.title;
-	post.image = req.body.image;
+	post.image = "/uploads/"+req.file.filename;
 	post.save(function(err){
 		if(err) {
 			console.error(err);

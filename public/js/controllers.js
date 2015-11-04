@@ -13,6 +13,7 @@ angular.module('openImageFeed.controllers', [])
             $http.get('/api/feed')
                 .then(function successCallback(response) {
                     $scope.feed = response.data;
+                    console.log(JSON.stringify($scope.feed));
                     $scope.showLoading = false;
                 }, function errorCallback(response) {
                     $scope.showLoading = false;

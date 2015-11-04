@@ -13,6 +13,7 @@ var express = require('express'),
   api = require('./routes/api'),
   http = require('http'),
   path = require('path'),
+  multer  = require('multer'),
   flash = require('connect-flash');
 
 var app = module.exports = express();
@@ -20,6 +21,7 @@ var dbConfig = require('./db.js');
 var mongoose = require('mongoose');
 mongoose.connect(dbConfig.url);
 require('./models/Posts');
+var upload = multer({ dest: 'public/uploads/' })
 
 /**
  * Configuration
@@ -64,7 +66,7 @@ app.get('/partials/dialog', routes.dialog);
 
 // JSON API
 app.get('/api/feed', api.feed);
-app.post('/api/post',api.addPost);
+app.post('/api/post',upload.single('file'),api.addPost);
 
 // redirect all others to the index (HTML5 history)
 //app.get('*', routes.index);

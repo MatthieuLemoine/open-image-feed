@@ -14,7 +14,7 @@ div(layout="column", layout-fill)
                     md-icon(md-svg-src="/img/icons/ic_add_white_48px.svg")
                     md-tooltip(md-direction="bottom") Add a new post
     div(ng-controller="FeedCtrl")
-        md-content.md-padding.light-grey-background
+        md-content.md-padding.light-grey-background.card-container
             div(ng-show="showLoading", layout="row", layout-sm="column", layout-align="center center")
                 md-progress-circular(md-mode="indeterminate")
             md-card(ng-repeat="post in feed.posts")

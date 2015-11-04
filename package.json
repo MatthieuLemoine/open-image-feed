@@ -17,7 +17,8 @@
     "method-override": "^1.0.0",
     "mongoose": "^4.1.11",
     "mongoose-timestamp": "^0.4.0",
-    "morgan": "^1.0.0"
+    "morgan": "^1.0.0",
+    "multer": "^1.1.0"
   },
   "scripts": {
     "postinstall": "cd public/ && bower install && cd -",

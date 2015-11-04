@@ -16,3 +16,10 @@
 .addPostInput{
     min-width: 400px;
 }
+.card-container{
+    width : 800px;
+    margin : auto;
+}
+md-card{
+    padding: 20px 20px 0 20px;
+}
