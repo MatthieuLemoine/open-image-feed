@@ -7,16 +7,23 @@ Clone the repository, run `npm install`
 
 ### Install
 
-<ul>
-    <li>Install npm & Node</li>
-    <li>Install Mongo : https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/</li>
-    <li>Create a user in Mongo and a db open-image-feed</li>
-    <li>Create a db.js file : <br>     
-        
-        `echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database }" > db.js`
-        
-    </li>
-</ul>
+
+**Install npm & Node**
+
+    sudo apt-get install npm
+    sudo apt-get install nodejs
+    sudo apt-get install nodejs-legacy
+**Install Mongo**
+
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+    echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list
+    sudo apt-get update
+    sudo apt-get install -y mongodb-org
+**Create a user in Mongo and a db** (optional)
+
+**Create a db.js file**
+
+    echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database' }" > db.js
 
 ### Running the app
 
