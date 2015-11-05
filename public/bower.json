@@ -14,7 +14,7 @@
     "components-font-awesome": "~4.3.0",
     "angular-animate": "^1.4.6",
     "angular-aria": "^1.4.6",
-    "angular-material": "^0.11.2",
+    "angular-material": "0.11.4",
     "ng-file-upload": "~9.1.2",
     "angular-messages": "~1.4.7"
   },

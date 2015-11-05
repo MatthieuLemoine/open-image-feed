@@ -11,3 +11,8 @@ exports.partials = function (req, res) {
 exports.dialog = function (req, res) {
     res.render('partials/dialog');
 };
+
+exports.loginPartial = function (req, res) {
+    res.render('partials/login');
+};
+

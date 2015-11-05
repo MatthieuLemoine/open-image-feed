@@ -13,7 +13,7 @@
     border: 3px #4caf50 dashed;
 }
 
-.addPostInput{
+.addPostInput, .signinInput{
     min-width: 400px;
 }
 .card-container{
@@ -25,4 +25,7 @@ md-card{
 }
 #dialog_parent, #add_post_parent{
     position: relative;
+}
+md-icon svg {
+    fill: inherit;
 }
