@@ -9,10 +9,12 @@ Clone the repository, run `npm install`
 
 <ul>
     <li>Install npm & Node</li>
-    <li>Install Mongo</li>
+    <li>Install Mongo : https://docs.mongodb.org/master/tutorial/install-mongodb-on-ubuntu/</li>
     <li>Create a user in Mongo and a db open-image-feed</li>
     <li>Create a db.js file : <br>     
-        echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database } > db.js"
+        
+        `echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database }" > db.js`
+        
     </li>
 </ul>
 
