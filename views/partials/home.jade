@@ -5,7 +5,7 @@ div(layout="column", layout-fill)
             span(flex)
     div(ng-controller="AddPostCtrl")
         md-content.md-padding.light-grey-background
-            section(layout="row")
+            section(id="add_post_parent",layout="row")
                 md-button(class="md-fab md-primary", aria-label="Refresh", ng-click="updateFeed()")
                     md-icon(md-svg-src="/img/icons/ic_refresh_white_48px.svg")
                     md-tooltip(md-direction="bottom") Refresh feed
