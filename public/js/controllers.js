@@ -79,6 +79,7 @@ function DialogController($scope, $mdDialog, Upload) {
         }
     };
     $scope.upload = function (file) {
+        $scope.showLoading = true;
         Upload.upload({
             url: '/api/post',
             data: {file: file, author: $scope.post.author, title: $scope.post.title}
