@@ -3,14 +3,14 @@
 }
 .drop{
     padding: 15px;
-    border: 2px #f1f1f1 dashed;
+    border: 3px #f1f1f1 dashed;
     border-radius: 5px;
     font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #777;
     font-weight: 300;
 }
-.drag-over{
-    border: 3px #646464 dashed;
+.dragover{
+    border: 3px #4caf50 dashed;
 }
 
 .addPostInput{
