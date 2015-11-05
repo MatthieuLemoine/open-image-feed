@@ -25,7 +25,7 @@ Clone the repository, run `npm install`
 
     echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database' }" > db.js
 
-### Running the app
+### Running
 
 Runs like a typical express app:
 
