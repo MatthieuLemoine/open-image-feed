@@ -1,4 +1,5 @@
-# open-image-feed
+# open-image-feed [![Build Status](https://travis-ci.org/MatthieuLemoine/open-image-feed.svg)](https://travis-ci.org/MatthieuLemoine/open-image-feed)
+
 A open source self-hosted image feed.
 
 ## How to use
