@@ -20,7 +20,7 @@ exports.feed = function (req, res) {
         	}
         ]
     };
-	Post.find({},{},{sort : {'createdAt' : '-1'}}, function(err, posts){
+	Post.find({},{},{sort : {'createdAt' : '-1'}}).populate({path:'author',select:'username'}).exec(function(err, posts){
 		if(err) console.error(err);
 		data.posts = posts;
 		res.json(data);
@@ -28,12 +28,8 @@ exports.feed = function (req, res) {
 };
 
 exports.addPost = function (req, res){
-	console.log("BODY : ");
-	console.log(JSON.stringify(req.body, null, 4));
-	console.log("FILE : ");
-	console.log(JSON.stringify(req.file, null, 4));
 	var post = new Post();
-	post.author = req.body.author;
+	post.author = req.user;
 	post.title = req.body.title;
 	post.image = "/uploads/"+req.file.filename;
 	post.save(function(err){

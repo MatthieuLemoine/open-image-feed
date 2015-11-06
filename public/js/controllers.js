@@ -166,7 +166,7 @@ function DialogController($scope, $mdDialog, Upload, $mdToast, $document) {
         $scope.showLoading = true;
         Upload.upload({
             url: '/api/post',
-            data: {file: file, author: $scope.post.author, title: $scope.post.title}
+            data: {file: file, title: $scope.post.title}
         }).then(function (resp) {
             $scope.showLoading = false;
             $mdDialog.hide(true);

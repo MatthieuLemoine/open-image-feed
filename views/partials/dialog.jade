@@ -12,17 +12,6 @@ md-dialog(aria-label="Add Post Dialog",  ng-cloak)
             form(name="form",ng-submit="valid(form.$valid)", novalidate)
                 md-content(layout-padding)
                     div(layout, layout-sm="row")
-                        md-input-container(ng-class="{ 'has-error' : form.author.$invalid && !form.author.$pristine && form.author.$touched }")
-                            label Author
-                            input.addPostInput(ng-model="post.author", type="text", name="author", ng-required="true", ng-minlength="3", ng-maxlength="30")
-                            div(ng-messages="form.author.$error",ng-show="form.author.$touched")
-                                p(ng-message="required", class="help-block")
-                                    | An Author name is required
-                                p(ng-message="minlength", class="help-block")
-                                    | Author name is too short
-                                p(ng-message="maxlength", class="help-block")
-                                    | Author name is too long
-                    div(layout, layout-sm="row")
                         md-input-container(layout-sm="row",ng-class="{ 'has-error' : form.title.$invalid && !form.title.$pristine && form.title.$touched }")
                             label Title
                             input.addPostInput(ng-model="post.title", type="text", name="title", ng-required="true",, ng-minlength="5", ng-maxlength="50")

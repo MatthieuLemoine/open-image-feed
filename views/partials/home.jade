@@ -3,7 +3,7 @@ div(layout="column", layout-fill)
         div(class="md-toolbar-tools")
             h1 Open Image Feed
             span(flex)
-            div(ng-if="currentUser") Hello, {{ currentUser.username }}
+            div(ng-if="currentUser") Hello {{ currentUser.username }}
     div(ng-controller="AddPostCtrl")
         md-content.md-padding.light-grey-background
             section(id="add_post_parent",layout="row")
@@ -22,7 +22,7 @@ div(layout="column", layout-fill)
                 img(ng-src="{{ post.image }}", class="md-card-image", alt="{{ post.title }}")
                 md-card-content
                     h2.md-title {{ post.title }}
-                    h3.md-subheader {{ post.author }}
+                    h3.md-subheader {{ post.author.username }}
                 div.md-actions(layout="row",layout-align="end center")
                     md-button(class="md-icon-button", aria-label="Favorite")
                         md-icon(md-svg-icon="/img/icons/ic_mode_comment_white_48px.svg", ng-click="showComments(post)")
