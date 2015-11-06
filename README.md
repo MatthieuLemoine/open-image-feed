@@ -55,3 +55,26 @@ Runs like a typical express app:
       layout.jade       --> doctype, title, head boilerplate
       partials/         --> angular view partials (partial jade templates)
         home.jade
+
+
+## Mongo
+**Shell**
+
+    mongo
+
+**Show dbs**
+
+    show dbs
+
+**Choose a db**
+
+    use db_name
+
+**Show collections**
+
+    show collections
+
+**Drop a collection**
+
+    db.collection_name.drop()
+    
