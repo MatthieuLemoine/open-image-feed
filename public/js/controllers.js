@@ -93,7 +93,7 @@ angular.module('openImageFeed.controllers', [])
     .controller('AddPostCtrl',['$scope','$mdDialog', '$mdToast','$rootScope','$document','AuthService','AUTH_EVENTS',function($scope, $mdDialog, $mdToast, $rootScope,$document,AuthService,AUTH_EVENTS){
         $scope.showAddDialog = function(ev) {
             if (!AuthService.isAuthenticated()) {
-                event.preventDefault();
+                ev.preventDefault();
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }
             else {
