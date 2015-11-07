@@ -91,7 +91,6 @@ app.post('/signup',passport.authenticate('signup',{
   successRedirect:'/profile'
 }));
 app.get('/profile',isAuthenticated,function(req,res){
-  console.log(JSON.stringify(req.user));
   res.json({
     user : {
       id: req.user._id,
@@ -110,6 +109,8 @@ app.get('/partials/login', routes.loginPartial);
 
 // JSON API
 app.get('/api/feed', api.feed);
+app.get('/api/comments/:post',api.comments);
+app.post('/api/comment',isAuthenticated,api.comment);
 app.post('/api/post',isAuthenticated,upload.single('file'),api.addPost);
 
 // redirect all others to the index (HTML5 history)

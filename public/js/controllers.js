@@ -48,7 +48,7 @@ angular.module('openImageFeed.controllers', [])
         $scope.$on('showToast',$scope.showSimpleToast);
 
     }])
-    .controller('FeedCtrl',['$scope','$http','AuthService','$rootScope','AUTH_EVENTS',function($scope,$http,AuthService,$rootScope,AUTH_EVENTS){
+    .controller('FeedCtrl',['$scope','$http',function($scope,$http){
         $scope.showLoading = true;
         $scope.updateFeed = function() {
             $scope.showLoading = true;
@@ -66,9 +66,21 @@ angular.module('openImageFeed.controllers', [])
         $scope.$on('updateFeed',function(){
             $scope.updateFeed();
         });
+    }])
+    .controller('PostCtrl',['$scope','$http','AuthService','$rootScope','AUTH_EVENTS',function($scope,$http,AuthService,$rootScope,AUTH_EVENTS){
+        $scope.showComments = false;
+        $scope.isCommentsLoading = false;
+        $scope.showAddComment = false;
+        $scope.newComment = {};
 
-        $scope.showComments = function(post){
-
+        $scope.toggleComments = function(post){
+            $scope.showComments = ! $scope.showComments;
+            if($scope.showComments){
+                $scope.getComments(post);
+            }
+            else{
+                $scope.showAddComment = false;
+            }
         };
         $scope.upvote = function(post){
             if (!AuthService.isAuthenticated()) {
@@ -88,6 +100,56 @@ angular.module('openImageFeed.controllers', [])
                 // TODO Downvote
             }
         };
+
+        $scope.showAddCommentForm = function(){
+            if (!AuthService.isAuthenticated()) {
+                event.preventDefault();
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+            }
+            else {
+                $scope.showAddComment = true;
+            }
+        };
+
+        $scope.addComment = function(isValid){
+            if (isValid && !$scope.isCommentsLoading) {
+                $scope.uploadComment({content : $scope.newComment.content,post: $scope.post._id});
+            }
+            else{
+                if($scope.isCommentsLoading){
+                    $scope.showSimpleToast('Sending...');
+                }
+                else if(!isValid){
+                    $scope.showSimpleToast('Invalid comment');
+                }
+            }
+        };
+        $scope.uploadComment = function (comment) {
+            $scope.isCommentsLoading = true;
+            $http
+                .post('/api/comment', comment)
+                .then(function successCallback(response) {
+                    $scope.isCommentsLoading = false;
+                    $scope.newComment = {};
+                    $scope.showAddComment = false;
+                    $rootScope.$broadcast('showToast','Comment added !');
+                    $scope.getComments($scope.post)
+                }, function errorCallback(response) {
+                    $scope.isCommentsLoading = false;
+                });
+        };
+
+        $scope.getComments = function(post){
+            $scope.isCommentsLoading = true;
+            $http.get('/api/comments/'+post._id)
+                .then(function successCallback(response) {
+                    $scope.post.comments = response.data;
+                    $scope.isCommentsLoading = false;
+                }, function errorCallback(response) {
+                    $scope.isCommentsLoading = false;
+                    // TODO Show error
+                });
+        }
 
     }])
     .controller('AddPostCtrl',['$scope','$mdDialog', '$mdToast','$rootScope','$document','AuthService','AUTH_EVENTS',function($scope, $mdDialog, $mdToast, $rootScope,$document,AuthService,AUTH_EVENTS){
@@ -202,7 +264,7 @@ function DialogController($scope, $mdDialog, Upload, $mdToast, $document) {
 }
 
 // Authenticate dialog
-function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog, $http, $mdToast, $document) {
+function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog, $mdToast, $document) {
     $scope.credentials = {
         username: '',
         password: '',
