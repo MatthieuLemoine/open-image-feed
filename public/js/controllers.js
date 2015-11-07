@@ -39,7 +39,7 @@ angular.module('openImageFeed.controllers', [])
                     .content(message)
                     .position($scope.getToastPosition())
                     .hideDelay(3000)
-                    .parent($document[0].querySelector('#add_post_parent'))
+                    //.parent($document[0].querySelector('#feed-container'))
             );
         };
         $scope.$on(AUTH_EVENTS.notAuthenticated,$scope.showLoginDialog);
@@ -189,7 +189,8 @@ angular.module('openImageFeed.controllers', [])
         }
 
     }])
-    .controller('AddPostCtrl',['$scope','$mdDialog', '$mdToast','$rootScope','$document','AuthService','AUTH_EVENTS',function($scope, $mdDialog, $mdToast, $rootScope,$document,AuthService,AUTH_EVENTS){
+    .controller('AddPostCtrl',['$scope','$mdDialog','$rootScope','$document','AuthService','AUTH_EVENTS',function($scope, $mdDialog, $rootScope,$document,AuthService,AUTH_EVENTS){
+        $scope.speedDial ={isOpen:false};
         $scope.showAddDialog = function(ev) {
             if (!AuthService.isAuthenticated()) {
                 ev.preventDefault();
@@ -204,32 +205,13 @@ angular.module('openImageFeed.controllers', [])
                     clickOutsideToClose: true
                 })
                     .then(function (answer) {
+                        $rootScope.$broadcast('showToast','Post added !');
                         $scope.showSimpleToast('Post added !');
                         $scope.updateFeed();
                     }, function () {
                         // Cancel
                     });
             }
-        };
-        $scope.toastPosition = {
-            bottom : false,
-            top : true,
-            left : false,
-            right : true
-        };
-        $scope.getToastPosition = function() {
-            return Object.keys($scope.toastPosition)
-                .filter(function(pos) { return $scope.toastPosition[pos]; })
-                .join(' ');
-        };
-        $scope.showSimpleToast = function(message) {
-            $mdToast.show(
-                $mdToast.simple()
-                    .content(message)
-                    .position($scope.getToastPosition())
-                    .hideDelay(3000)
-                    .parent($document[0].querySelector('#add_post_parent'))
-            );
         };
         $scope.updateFeed = function(){
             $rootScope.$broadcast('updateFeed');

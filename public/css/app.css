@@ -40,3 +40,19 @@ md-icon svg {
 .list-comments.hidden{
     max-height: 0;
 }
+#header{
+    position : fixed;
+}
+#feed-container{
+    margin-top : 60px;
+}
+.fixed{
+    position : fixed;
+}
+#custom-fab-speed{
+    top:80px;
+    position: fixed;
+}
+md-fab-speed-dial .md-button.md-fab md-icon{
+    color : rgb(88,88,88);
+}
