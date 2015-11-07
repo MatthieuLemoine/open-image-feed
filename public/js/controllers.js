@@ -24,8 +24,8 @@ angular.module('openImageFeed.controllers', [])
         $scope.toastPosition = {
             bottom : false,
             top : true,
-            left : false,
-            right : true
+            left : true,
+            right : false
         };
         $scope.getToastPosition = function() {
             return Object.keys($scope.toastPosition)
@@ -39,7 +39,7 @@ angular.module('openImageFeed.controllers', [])
                     .content(message)
                     .position($scope.getToastPosition())
                     .hideDelay(3000)
-                    //.parent($document[0].querySelector('#feed-container'))
+                    .parent($document[0].querySelector('#toast-parent'))
             );
         };
         $scope.$on(AUTH_EVENTS.notAuthenticated,$scope.showLoginDialog);
@@ -206,7 +206,6 @@ angular.module('openImageFeed.controllers', [])
                 })
                     .then(function (answer) {
                         $rootScope.$broadcast('showToast','Post added !');
-                        $scope.showSimpleToast('Post added !');
                         $scope.updateFeed();
                     }, function () {
                         // Cancel

@@ -56,3 +56,10 @@ md-icon svg {
 md-fab-speed-dial .md-button.md-fab md-icon{
     color : rgb(88,88,88);
 }
+#toast-parent{
+    position:fixed;
+    top:80px;
+    height:200px;
+    width:100%;
+    z-index: 5;
+}
