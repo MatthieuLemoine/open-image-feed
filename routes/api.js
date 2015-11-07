@@ -88,3 +88,53 @@ exports.comments = function(req,res){
 		});
 	});
 };
+
+// Upvote a post
+exports.upvote = function(req,res){
+	Post.findById(req.body.post,function(err, post){
+		if(err) {
+			console.error(err);
+			res.json({status : "fail"});
+		}
+		if(post.upvotes.indexOf(req.user._id) > -1){
+			res.json({status : "ALREADY_UPVOTED"});
+		}
+		else{
+			post.upvotes.push(req.user);
+			post.save(function(err){
+				if(err){
+					console.error(err);
+					res.json({status : "fail"});
+				}
+				else{
+					res.json({status: "success"});
+				}
+			});
+		}
+	});
+};
+
+// Downvote a post
+exports.downvote = function(req,res){
+	Post.findById(req.body.post,function(err, post){
+		if(err) {
+			console.error(err);
+			res.json({status : "fail"});
+		}
+		if(post.downvotes.indexOf(req.user._id) > -1){
+			res.json({status : "ALREADY_DOWNVOTED"});
+		}
+		else{
+			post.downvotes.push(req.user);
+			post.save(function(err){
+				if(err){
+					console.error(err);
+					res.json({status : "fail"});
+				}
+				else{
+					res.json({status: "success"});
+				}
+			});
+		}
+	});
+};

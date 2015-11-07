@@ -111,6 +111,8 @@ app.get('/partials/login', routes.loginPartial);
 app.get('/api/feed', api.feed);
 app.get('/api/comments/:post',api.comments);
 app.post('/api/comment',isAuthenticated,api.comment);
+app.post('/api/upvote',isAuthenticated,api.upvote);
+app.post('/api/downvote',isAuthenticated,api.downvote);
 app.post('/api/post',isAuthenticated,upload.single('file'),api.addPost);
 
 // redirect all others to the index (HTML5 history)

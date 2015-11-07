@@ -88,7 +88,25 @@ angular.module('openImageFeed.controllers', [])
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }
             else {
-                // TODO Upvote
+                if(post.upvotes.indexOf($scope.currentUser.id) > -1) {
+                    $rootScope.$broadcast('showToast', 'Post already upvoted !');
+                }
+                else{
+                    $http
+                        .post('/api/upvote', {post: post._id})
+                        .then(function successCallback(response) {
+                            console.log(JSON.stringify(response.data));
+                            if (response.data.status == "ALREADY_UPVOTED") {
+                                $rootScope.$broadcast('showToast', 'Post already upvoted !');
+                            }
+                            else {
+                                $scope.post.upvotes.push($scope.currentUser.id);
+                                $rootScope.$broadcast('showToast', 'Post upvoted !');
+                            }
+                        }, function errorCallback(response) {
+                            // TODO Show error
+                        });
+                }
             }
         };
         $scope.downvote = function(post){
@@ -97,7 +115,25 @@ angular.module('openImageFeed.controllers', [])
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }
             else {
-                // TODO Downvote
+                if(post.downvotes.indexOf($scope.currentUser.id) > -1) {
+                    $rootScope.$broadcast('showToast', 'Post already downvoted !');
+                }
+                else {
+                    $http
+                        .post('/api/downvote', {post: post._id})
+                        .then(function successCallback(response) {
+                            console.log(JSON.stringify(response.data));
+                            if (response.data.status == "ALREADY_DOWNVOTED") {
+                                $rootScope.$broadcast('showToast', 'Post already downvoted !');
+                            }
+                            else {
+                                $scope.post.downvotes.push($scope.currentUser.id);
+                                $rootScope.$broadcast('showToast', 'Post downvoted !');
+                            }
+                        }, function errorCallback(response) {
+                            // TODO Show error
+                        });
+                }
             }
         };
 
@@ -117,10 +153,10 @@ angular.module('openImageFeed.controllers', [])
             }
             else{
                 if($scope.isCommentsLoading){
-                    $scope.showSimpleToast('Sending...');
+                    $rootScope.$broadcast('showToast','Sending...');
                 }
                 else if(!isValid){
-                    $scope.showSimpleToast('Invalid comment');
+                    $rootScope.$broadcast('showToast','Invalid comment');
                 }
             }
         };
@@ -136,6 +172,7 @@ angular.module('openImageFeed.controllers', [])
                     $scope.getComments($scope.post)
                 }, function errorCallback(response) {
                     $scope.isCommentsLoading = false;
+                    // TODO Show error
                 });
         };
 

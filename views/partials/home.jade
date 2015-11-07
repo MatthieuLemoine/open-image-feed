@@ -24,10 +24,13 @@ div(layout="column", layout-fill)
                     h2.md-title {{ post.title }}
                     h3.md-subheader {{ post.author.username }}
                 div.md-actions(layout="row",layout-align="end center")
+                    |{{ post.comments.length }}
                     md-button(class="md-icon-button", aria-label="Favorite")
                         md-icon(md-svg-icon="/img/icons/ic_mode_comment_white_48px.svg", ng-click="toggleComments(post)")
+                    |{{ post.upvotes.length }}
                     md-button(class="md-icon-button md-primary", aria-label="Settings")
                         md-icon(md-svg-icon="/img/icons/ic_keyboard_arrow_up_white_48px.svg", ng-click="upvote(post)")
+                    |{{ post.downvotes.length }}
                     md-button(class="md-icon-button md-warn", aria-label="Favorite")
                        md-icon(md-svg-icon="/img/icons/ic_keyboard_arrow_down_white_48px.svg", ng-click="downvote(post)")
                 md-list(class="list-comments", ng-class=" {'hidden' : !showComments}")
