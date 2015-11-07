@@ -10,7 +10,8 @@ angular.module('openImageFeed', [
   'ngRoute',
   'ngMaterial',
   'ngFileUpload',
-  'ngMessages'
+  'ngMessages',
+  'validation.match'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.

@@ -67,7 +67,7 @@ md-dialog(aria-label="Sign In Dialog",  ng-cloak)
                      div(layout, layout-sm="row")
                         md-input-container(layout-sm="row",ng-class="{ 'has-error' : form_signup.password_confirm.$invalid && !form_signup.password_confirm.$pristine && form_signup.password_confirm.$touched }")
                            label Password confirm
-                           input.signinInput(ng-model="credentials.password_confirm", type="password", name="password_confirm", ng-required="true", ng-minlength="5", ng-maxlength="30")
+                           input.signinInput(match="credentials.password",ng-model="credentials.password_confirm", type="password", name="password_confirm", ng-required="true", ng-minlength="5", ng-maxlength="30")
                            div(ng-messages="form_signup.password_confirm.$error",ng-show="form_signup.password_confirm.$touched")
                               p(ng-message="required", class="help-block")
                                  | Password is required
@@ -75,6 +75,8 @@ md-dialog(aria-label="Sign In Dialog",  ng-cloak)
                                  | Password is too short
                               p(ng-message="maxlength", class="help-block")
                                  | Password is too long
+                              p(ng-message="match", class="help-block")
+                                 | Does not match the previous password
                   div(class="md-dialog-actions", layout="row")
                      span(flex)
                      md-button(type="submit", style="margin-right:20px;")

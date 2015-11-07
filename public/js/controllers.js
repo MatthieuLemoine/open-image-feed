@@ -95,7 +95,6 @@ angular.module('openImageFeed.controllers', [])
                     $http
                         .post('/api/upvote', {post: post._id})
                         .then(function successCallback(response) {
-                            console.log(JSON.stringify(response.data));
                             if (response.data.status == "ALREADY_UPVOTED") {
                                 $rootScope.$broadcast('showToast', 'Post already upvoted !');
                             }
@@ -122,7 +121,6 @@ angular.module('openImageFeed.controllers', [])
                     $http
                         .post('/api/downvote', {post: post._id})
                         .then(function successCallback(response) {
-                            console.log(JSON.stringify(response.data));
                             if (response.data.status == "ALREADY_DOWNVOTED") {
                                 $rootScope.$broadcast('showToast', 'Post already downvoted !');
                             }
