@@ -2,9 +2,12 @@ var mongoose = require('mongoose');
 require('../models/Posts');
 require('../models/Comments');
 require('../models/Users');
+require('../models/Activities');
 var Post = mongoose.model('Posts');
 var Comment = mongoose.model('Comments');
 var User = mongoose.model('Users');
+var Activity = mongoose.model('Activities');
+
 /*
  * Serve JSON to our AngularJS client
  */
@@ -33,7 +36,14 @@ exports.addPost = function (req, res){
 			res.json({status: "fail"});
 		}
 		else {
-			res.json({status: "success"});
+			var activity = new Activity();
+			activity.post = post;
+			activity.author = req.user;
+			activity.type = "POST";
+			activity.save(function(err){
+				if(err) console.error(err);
+				res.json({status: "success"});
+			});
 		}
 	});
 };
@@ -60,7 +70,14 @@ exports.comment = function(req,res){
 					res.json({status : "fail"});
 				}
 				else{
-					res.json({status: "success"});
+					var activity = new Activity();
+					activity.post = post;
+					activity.author = req.user;
+					activity.type = "COMMENT";
+					activity.save(function(err){
+						if(err) console.error(err);
+						res.json({status: "success"});
+					});
 				}
 			});
 		});
@@ -107,7 +124,14 @@ exports.upvote = function(req,res){
 					res.json({status : "fail"});
 				}
 				else{
-					res.json({status: "success"});
+					var activity = new Activity();
+					activity.post = post;
+					activity.author = req.user;
+					activity.type = "UPVOTE";
+					activity.save(function(err){
+						if(err) console.error(err);
+						res.json({status: "success"});
+					});
 				}
 			});
 		}
@@ -132,9 +156,24 @@ exports.downvote = function(req,res){
 					res.json({status : "fail"});
 				}
 				else{
-					res.json({status: "success"});
+					var activity = new Activity();
+					activity.post = post;
+					activity.author = req.user;
+					activity.type = "DOWNVOTE";
+					activity.save(function(err){
+						if(err) console.error(err);
+						res.json({status: "success"});
+					});
 				}
 			});
 		}
+	});
+};
+
+// GET activities
+exports.activities = function(req,res){
+	Activity.find({},{},{sort : {'createdAt' : '-1'}}).populate([{path:'author',select:'username'},{path:'post',select:'title'}]).exec(function(err, activities){
+		if(err) console.error(err);
+		res.json(activities);
 	});
 };

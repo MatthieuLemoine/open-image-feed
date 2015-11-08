@@ -24,6 +24,7 @@ mongoose.connect(dbConfig.url);
 require('./models/Posts');
 require('./models/Users');
 require('./models/Comments');
+require('./models/Activities');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/uploads/')
@@ -110,6 +111,7 @@ app.get('/partials/login', routes.loginPartial);
 // JSON API
 app.get('/api/feed', api.feed);
 app.get('/api/comments/:post',api.comments);
+app.get('/api/activities',api.activities);
 app.post('/api/comment',isAuthenticated,api.comment);
 app.post('/api/upvote',isAuthenticated,api.upvote);
 app.post('/api/downvote',isAuthenticated,api.downvote);

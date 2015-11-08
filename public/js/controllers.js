@@ -101,6 +101,7 @@ angular.module('openImageFeed.controllers', [])
                             else {
                                 $scope.post.upvotes.push($scope.currentUser.id);
                                 $rootScope.$broadcast('showToast', 'Post upvoted !');
+                                $rootScope.$broadcast('updateActivity');
                             }
                         }, function errorCallback(response) {
                             // TODO Show error
@@ -127,6 +128,7 @@ angular.module('openImageFeed.controllers', [])
                             else {
                                 $scope.post.downvotes.push($scope.currentUser.id);
                                 $rootScope.$broadcast('showToast', 'Post downvoted !');
+                                $rootScope.$broadcast('updateActivity');
                             }
                         }, function errorCallback(response) {
                             // TODO Show error
@@ -152,6 +154,7 @@ angular.module('openImageFeed.controllers', [])
             else{
                 if($scope.isCommentsLoading){
                     $rootScope.$broadcast('showToast','Sending...');
+                    $rootScope.$broadcast('updateActivity');
                 }
                 else if(!isValid){
                     $rootScope.$broadcast('showToast','Invalid comment');
@@ -167,6 +170,7 @@ angular.module('openImageFeed.controllers', [])
                     $scope.newComment = {};
                     $scope.showAddComment = false;
                     $rootScope.$broadcast('showToast','Comment added !');
+                    $rootScope.$broadcast('updateActivity');
                     $scope.getComments($scope.post)
                 }, function errorCallback(response) {
                     $scope.isCommentsLoading = false;
@@ -204,6 +208,7 @@ angular.module('openImageFeed.controllers', [])
                 })
                     .then(function (answer) {
                         $rootScope.$broadcast('showToast','Post added !');
+                        $rootScope.$broadcast('updateActivity');
                         $scope.updateFeed();
                     }, function () {
                         // Cancel
@@ -213,8 +218,23 @@ angular.module('openImageFeed.controllers', [])
         $scope.updateFeed = function(){
             $rootScope.$broadcast('updateFeed');
         }
+    }])
+    .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope','$document','AuthService','AUTH_EVENTS',function($scope,$http,$interval, $mdDialog, $rootScope,$document,AuthService,AUTH_EVENTS){
+        $scope.activities = [];
+        $scope.updateActivities = function() {
+            $http.get('/api/activities')
+                .then(function successCallback(response) {
+                    $scope.activities = response.data;
+                    console.log(JSON.stringify($scope.activities));
+                }, function errorCallback(response) {
+                });
+        };
+        $scope.updateActivities();
+        $interval(function(){$scope.updateActivities(); },10000,true);
+        $scope.$on('updateActivities',function(){
+            $scope.updateActivities();
+        });
     }]);
-
 // Add post dialog
 function DialogController($scope, $mdDialog, Upload, $mdToast, $document) {
     $scope.obj = {};
