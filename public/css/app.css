@@ -45,6 +45,7 @@ md-icon svg {
 }
 #feed-container{
     margin-top : 60px;
+    margin-left: 300px;
 }
 .fixed{
     position : fixed;
@@ -69,4 +70,84 @@ md-fab-speed-dial .md-button.md-fab md-icon{
     position: fixed;
     top:80px;
     z-index: 2;
+}
+#activity-feed-virtual-container{
+    width: 97%;
+    bottom: 0;
+    top: 64px;
+    position: fixed;
+}
+md-virtual-repeat-container h3{
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 0.01em;
+    margin: 0;
+    line-height: 1.2em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+md-virtual-repeat-container p{
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    margin: 0;
+    line-height: 1.6em;
+}
+.activity-virtual-repeat{
+    padding: 16px;
+    height: 85px;
+}
+
+@media screen and (max-width: 1100px) {
+    .addCommentInput{
+        min-width: 560px;
+    }
+    .card-container{
+        width : 700px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .addCommentInput{
+        min-width: 460px;
+    }
+    .card-container{
+        width : 600px;
+    }
+}
+
+@media screen and (max-width: 959px) {
+    #feed-container{
+        margin-left : 0;
+    }
+    #toast-parent{
+        left:0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .addCommentInput{
+        min-width: 360px;
+    }
+    .card-container{
+        width : 500px;
+    }
+    #toast-parent{
+        width: 300px;
+    }
+    .addPostInput, .signinInput{
+        min-width: 300px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .addCommentInput{
+        min-width: 260px;
+    }
+    .card-container{
+        width : 400px;
+    }
 }

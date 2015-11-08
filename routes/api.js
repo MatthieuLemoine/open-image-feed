@@ -172,8 +172,16 @@ exports.downvote = function(req,res){
 
 // GET activities
 exports.activities = function(req,res){
-	Activity.find({},{},{sort : {'createdAt' : '-1'}}).populate([{path:'author',select:'username'},{path:'post',select:'title'}]).exec(function(err, activities){
+	Activity.find({},{},{sort : {'createdAt' : '-1'}}).skip(req.query.offset).limit(req.query.number).populate([{path:'author',select:'username -_id'},{path:'post',select:'title -_id'}]).exec(function(err, activities){
 		if(err) console.error(err);
 		res.json(activities);
+	});
+};
+
+// GET activities count
+exports.activitiesCount = function(req,res){
+	Activity.count({},function(err,count){
+		if(err) console.error(err);
+		res.json({count:count});
 	});
 };

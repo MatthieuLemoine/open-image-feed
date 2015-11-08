@@ -112,6 +112,7 @@ app.get('/partials/login', routes.loginPartial);
 app.get('/api/feed', api.feed);
 app.get('/api/comments/:post',api.comments);
 app.get('/api/activities',api.activities);
+app.get('/api/activities/count',api.activitiesCount);
 app.post('/api/comment',isAuthenticated,api.comment);
 app.post('/api/upvote',isAuthenticated,api.upvote);
 app.post('/api/downvote',isAuthenticated,api.downvote);

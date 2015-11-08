@@ -234,24 +234,81 @@ angular.module('openImageFeed.controllers', [])
         }
     }])
     .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope',function($scope,$http,$interval, $mdDialog, $rootScope){
-        $scope.activities = [];
+
+        var ActivityItems = function() {
+            /**
+             * @type {!Object<?Array>} Data pages, keyed by page number (0-index).
+             */
+            this.loadedPages = {};
+            /** @type {number} Total number of items. */
+            this.numItems = 0;
+            /** @const {number} Number of items to fetch per request. */
+            this.PAGE_SIZE = 20;
+            this.fetchNumItems_();
+        };
+        // Required.
+        ActivityItems.prototype.getItemAtIndex = function(index) {
+            if(index>this.numItems-1){
+                return false;
+            }
+            var pageNumber = Math.floor(index / this.PAGE_SIZE);
+            var page = this.loadedPages[pageNumber];
+            if (page) {
+                return page[index % this.PAGE_SIZE];
+            } else if (page !== null) {
+                this.fetchPage_(pageNumber);
+            }
+        };
+        // Required.
+        ActivityItems.prototype.getLength = function() {
+            return this.numItems;
+        };
+        ActivityItems.prototype.fetchPage_ = function(pageNumber) {
+            // Set the page to null so we know it is already being fetched.
+            this.loadedPages[pageNumber] = null;
+            // For demo purposes, we simulate loading more items with a timed
+            // promise. In real code, this function would likely contain an
+            // $http request.
+            var offset = pageNumber * this.PAGE_SIZE;
+            $http.get('/api/activities',{
+                params: {
+                    offset:offset,
+                    number:this.PAGE_SIZE
+                }
+            })
+                .then(angular.bind(this, function (response) {
+                    var array_activities = response.data;
+                    this.loadedPages[pageNumber]=[];
+                    array_activities.forEach(function(activity) {
+                        this.loadedPages[pageNumber].push(activity);
+                    },this);
+                }));
+        };
+        ActivityItems.prototype.fetchNumItems_ = function() {
+            $http.get('/api/activities/count')
+                .then(angular.bind(this, function (response) {
+                    this.numItems = response.data.count;
+                }));
+        };
+
+        $scope.activities = new ActivityItems();
+
         $scope.updateActivities = function() {
-            console.log("updateActivities");
-            $http.get('/api/activities')
-                .then(function successCallback(response) {
-                    $scope.activities = response.data;
-                }, function errorCallback(response) {
-                    $rootScope.$broadcast('showToast','An error occured');
-                });
+            $http.get('/api/activities/count')
+                .then(angular.bind(this, function (response) {
+                    if($scope.activities.getLength() != response.data.count){
+                        $scope.activities = new ActivityItems();
+                    }
+                }));
         };
         $scope.updateActivities();
         $interval(function(){
-            console.log("updateActivities Interval");
             $rootScope.$broadcast('updateActivities');
         },20000);
         $scope.$on('updateActivities',function(){
             $scope.updateActivities();
         });
+
     }]);
 // Add post dialog
 function DialogController($scope, $mdDialog, Upload, $rootScope) {
