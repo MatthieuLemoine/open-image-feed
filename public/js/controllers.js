@@ -62,23 +62,53 @@ angular.module('openImageFeed.controllers', [])
         $scope.$on('showToast',$scope.showSimpleToast);
 
     }])
-    .controller('FeedCtrl',['$scope','$http',function($scope,$http){
+    .controller('FeedCtrl',['$scope','$http','$rootScope',function($scope,$http,$rootScope){
         $scope.showLoading = true;
-        $scope.updateFeed = function() {
-            $scope.showLoading = true;
-            $http.get('/api/feed')
-                .then(function successCallback(response) {
-                    $scope.feed = response.data;
+
+        $scope.$on('updateFeed',function(){
+            $scope.posts = [];
+            $scope.offset = 0;
+            $scope.getCount();
+        });
+        $scope.posts = [];
+        $scope.number = 5;
+        $scope.offset = 0;
+        $scope.numItems = 0;
+        $scope.isAlreadyLoading = false;
+
+        $scope.getCount = function(){
+            $http.get('/api/posts/count')
+                .then(angular.bind(this, function (response) {
+                    $scope.numItems = response.data.count;
+                    $scope.loadMore();
+                }));
+        };
+        $scope.getCount();
+
+        $scope.loadMore = function(){
+            if( $scope.offset >= $scope.numItems || $scope.isAlreadyLoading){
+                return;
+            }
+            $scope.isAlreadyLoading = true;
+            $http.get('/api/posts',{
+                params: {
+                    offset: $scope.offset,
+                    number: $scope.number
+                }
+            })
+                .then(function successCallback (response) {
                     $scope.showLoading = false;
-                }, function errorCallback(response) {
+                    var array_posts = response.data;
+                    $scope.offset += array_posts.length;
+                        array_posts.forEach(function(post) {
+                        $scope.posts.push(post);
+                    });
+                    $scope.isAlreadyLoading = false;
+                }, function errorCallback(response){
                     $scope.showLoading = false;
-                    // TODO Show error
+                    $rootScope.$broadcast('showToast','Error getting posts');
                 });
         };
-        $scope.updateFeed();
-        $scope.$on('updateFeed',function(){
-            $scope.updateFeed();
-        });
     }])
     .controller('PostCtrl',['$scope','$http','AuthService','$rootScope','AUTH_EVENTS',function($scope,$http,AuthService,$rootScope,AUTH_EVENTS){
         $scope.showComments = false;
@@ -228,6 +258,7 @@ angular.module('openImageFeed.controllers', [])
         };
         $scope.updateFeed = function(){
             $rootScope.$broadcast('updateFeed');
+            $rootScope.$broadcast('updatePostCount');
             $rootScope.$broadcast('feed_refresh');
         }
     }])

@@ -11,7 +11,8 @@ angular.module('openImageFeed', [
   'ngMaterial',
   'ngFileUpload',
   'ngMessages',
-  'validation.match'
+  'validation.match',
+  'infinite-scroll'
 ]).
 config(function ($routeProvider, $locationProvider) {
   $routeProvider.

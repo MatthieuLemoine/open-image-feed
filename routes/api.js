@@ -185,3 +185,19 @@ exports.activitiesCount = function(req,res){
 		res.json({count:count});
 	});
 };
+
+// GET posts
+exports.posts = function(req,res){
+	Post.find({},{},{sort : {'createdAt' : '-1'}}).skip(req.query.offset).limit(req.query.number).populate({path:'author',select:'username'}).exec(function(err, posts){
+		if(err) console.error(err);
+		res.json(posts);
+	});
+};
+
+// GET posts count
+exports.postsCount = function(req,res){
+	Post.count({},function(err,count){
+		if(err) console.error(err);
+		res.json({count:count});
+	});
+};
