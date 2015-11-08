@@ -3,9 +3,20 @@
 /* Controllers */
 
 angular.module('openImageFeed.controllers', [])
-    .controller('HomeCtrl', ['$scope','AUTH_EVENTS','AuthService','$mdDialog','$mdToast','$document', function ($scope,AUTH_EVENTS,AuthService,$mdDialog,$mdToast,$document){
+    .controller('HomeCtrl', ['$scope','AUTH_EVENTS','AuthService','$mdDialog','$mdToast','$document','$rootScope', function ($scope,AUTH_EVENTS,AuthService,$mdDialog,$mdToast,$document,$rootScope){
         $scope.currentUser = null;
         $scope.isAuthenticated = AuthService.isAuthenticated;
+
+        $scope.getProfile = function(){
+            AuthService.profile().then(function(user){
+                $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+                $rootScope.$broadcast(AUTH_EVENTS.currentUser,user);
+            },function(){
+                console.log("Not authenticated");
+            });
+        };
+
+        $scope.getProfile();
 
         $scope.setCurrentUser = function (ev,user) {
             $scope.currentUser = user;
@@ -33,7 +44,6 @@ angular.module('openImageFeed.controllers', [])
                 .join(' ');
         };
         $scope.showSimpleToast = function(ev,message) {
-            console.log('showSimpleToast');
             $mdToast.show(
                 $mdToast.simple()
                     .content(message)
@@ -55,7 +65,6 @@ angular.module('openImageFeed.controllers', [])
             $http.get('/api/feed')
                 .then(function successCallback(response) {
                     $scope.feed = response.data;
-                    console.log(JSON.stringify($scope.feed));
                     $scope.showLoading = false;
                 }, function errorCallback(response) {
                     $scope.showLoading = false;
@@ -101,7 +110,7 @@ angular.module('openImageFeed.controllers', [])
                             else {
                                 $scope.post.upvotes.push($scope.currentUser.id);
                                 $rootScope.$broadcast('showToast', 'Post upvoted !');
-                                $rootScope.$broadcast('updateActivity');
+                                $rootScope.$broadcast('updateActivities');
                             }
                         }, function errorCallback(response) {
                             // TODO Show error
@@ -128,7 +137,7 @@ angular.module('openImageFeed.controllers', [])
                             else {
                                 $scope.post.downvotes.push($scope.currentUser.id);
                                 $rootScope.$broadcast('showToast', 'Post downvoted !');
-                                $rootScope.$broadcast('updateActivity');
+                                $rootScope.$broadcast('updateActivities');
                             }
                         }, function errorCallback(response) {
                             // TODO Show error
@@ -154,7 +163,7 @@ angular.module('openImageFeed.controllers', [])
             else{
                 if($scope.isCommentsLoading){
                     $rootScope.$broadcast('showToast','Sending...');
-                    $rootScope.$broadcast('updateActivity');
+                    $rootScope.$broadcast('updateActivities');
                 }
                 else if(!isValid){
                     $rootScope.$broadcast('showToast','Invalid comment');
@@ -170,7 +179,7 @@ angular.module('openImageFeed.controllers', [])
                     $scope.newComment = {};
                     $scope.showAddComment = false;
                     $rootScope.$broadcast('showToast','Comment added !');
-                    $rootScope.$broadcast('updateActivity');
+                    $rootScope.$broadcast('updateActivities');
                     $scope.getComments($scope.post)
                 }, function errorCallback(response) {
                     $scope.isCommentsLoading = false;
@@ -208,7 +217,7 @@ angular.module('openImageFeed.controllers', [])
                 })
                     .then(function (answer) {
                         $rootScope.$broadcast('showToast','Post added !');
-                        $rootScope.$broadcast('updateActivity');
+                        $rootScope.$broadcast('updateActivities');
                         $scope.updateFeed();
                     }, function () {
                         // Cancel
@@ -225,7 +234,6 @@ angular.module('openImageFeed.controllers', [])
             $http.get('/api/activities')
                 .then(function successCallback(response) {
                     $scope.activities = response.data;
-                    console.log(JSON.stringify($scope.activities));
                 }, function errorCallback(response) {
                 });
         };
@@ -340,7 +348,6 @@ function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog,
     };
     $scope.validSignup = function(isValid) {
         if (isValid && !$scope.showLoading) {
-            console.log(JSON.stringify($scope.credentials));
             $scope.signup($scope.credentials);
         }
         else{

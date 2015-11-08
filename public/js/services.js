@@ -28,6 +28,15 @@ angular.module('openImageFeed.services', []).
                 });
         };
 
+        authService.profile = function(){
+            return $http
+                .get('/profile')
+                .then(function (res) {
+                    Session.create(res.data.sessionID, res.data.user.id);
+                    return res.data.user;
+                });
+        };
+
         authService.isAuthenticated = function () {
             return !!Session.userId;
         };
