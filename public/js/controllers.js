@@ -183,7 +183,7 @@ angular.module('openImageFeed.controllers', [])
                     $scope.getComments($scope.post)
                 }, function errorCallback(response) {
                     $scope.isCommentsLoading = false;
-                    // TODO Show error
+                    $rootScope.$broadcast('showToast','An error occured');
                 });
         };
 
@@ -195,7 +195,7 @@ angular.module('openImageFeed.controllers', [])
                     $scope.isCommentsLoading = false;
                 }, function errorCallback(response) {
                     $scope.isCommentsLoading = false;
-                    // TODO Show error
+                    $rootScope.$broadcast('showToast','An error occured');
                 });
         }
 
@@ -228,13 +228,14 @@ angular.module('openImageFeed.controllers', [])
             $rootScope.$broadcast('updateFeed');
         }
     }])
-    .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope','$document','AuthService','AUTH_EVENTS',function($scope,$http,$interval, $mdDialog, $rootScope,$document,AuthService,AUTH_EVENTS){
+    .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope',function($scope,$http,$interval, $mdDialog, $rootScope){
         $scope.activities = [];
         $scope.updateActivities = function() {
             $http.get('/api/activities')
                 .then(function successCallback(response) {
                     $scope.activities = response.data;
                 }, function errorCallback(response) {
+                    $rootScope.$broadcast('showToast','An error occured');
                 });
         };
         $scope.updateActivities();
@@ -244,7 +245,7 @@ angular.module('openImageFeed.controllers', [])
         });
     }]);
 // Add post dialog
-function DialogController($scope, $mdDialog, Upload, $mdToast, $document) {
+function DialogController($scope, $mdDialog, Upload, $rootScope) {
     $scope.obj = {};
     $scope.hide = function () {
         $mdDialog.hide();
@@ -258,13 +259,13 @@ function DialogController($scope, $mdDialog, Upload, $mdToast, $document) {
         }
         else{
             if(!$scope.file){
-                $scope.showSimpleToast('An image is required');
+                $rootScope.$broadcast('showToast','An image is required');
             }
             else if($scope.showLoading){
-                $scope.showSimpleToast('Your post is already uploading');
+                $rootScope.$broadcast('showToast','Your post is already uploading');
             }
             else if(!isValid){
-                $scope.showSimpleToast('Form invalid');
+                $rootScope.$broadcast('showToast','Form invalid');
             }
         }
     };
@@ -278,37 +279,16 @@ function DialogController($scope, $mdDialog, Upload, $mdToast, $document) {
             $mdDialog.hide(true);
         }, function (resp) {
             $scope.showLoading = false;
-            // TODO Show error
+            $rootScope.$broadcast('showToast','An error occured, image may be to large');
         }, function (evt) {
             var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
             console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
         });
     };
-
-    $scope.toastPosition = {
-        bottom : false,
-        top : true,
-        left : false,
-        right : true
-    };
-    $scope.getToastPosition = function() {
-        return Object.keys($scope.toastPosition)
-            .filter(function(pos) { return $scope.toastPosition[pos]; })
-            .join(' ');
-    };
-    $scope.showSimpleToast = function(message) {
-        $mdToast.show(
-            $mdToast.simple()
-                .content(message)
-                .position($scope.getToastPosition())
-                .hideDelay(3000)
-                .parent($document[0].querySelector('#dialog_parent'))
-        );
-    };
 }
 
 // Authenticate dialog
-function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog, $mdToast, $document) {
+function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog) {
     $scope.credentials = {
         username: '',
         password: '',
@@ -326,10 +306,10 @@ function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog,
         }
         else{
             if($scope.showLoading){
-                $scope.showSimpleToast('Connecting...');
+                $rootScope.$broadcast('showToast','Connecting...');
             }
             else if(!isValid){
-                $scope.showSimpleToast('Form invalid');
+                $rootScope.$broadcast('showToast','Form invalid');
             }
         }
     };
@@ -344,6 +324,7 @@ function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog,
         },function(){
             $scope.showLoading = false;
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
+            $rootScope.$broadcast('showToast','Bad credentials');
         })
     };
     $scope.validSignup = function(isValid) {
@@ -352,10 +333,10 @@ function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog,
         }
         else{
             if($scope.showLoading){
-                $scope.showSimpleToast('Connecting...');
+                $rootScope.$broadcast('showToast','Connecting...');
             }
             else if(!isValid){
-                $scope.showSimpleToast('Form invalid');
+                $rootScope.$broadcast('showToast','Form invalid');
             }
         }
     };
@@ -370,26 +351,7 @@ function LoginController($scope,$rootScope, AUTH_EVENTS, AuthService, $mdDialog,
         },function(){
             $rootScope.$broadcast(AUTH_EVENTS.loginFailed);
             $scope.showLoading = false;
+            $rootScope.$broadcast('showToast','Username already taken');
         })
-    };
-    $scope.toastPosition = {
-        bottom : false,
-        top : true,
-        left : false,
-        right : true
-    };
-    $scope.getToastPosition = function() {
-        return Object.keys($scope.toastPosition)
-            .filter(function(pos) { return $scope.toastPosition[pos]; })
-            .join(' ');
-    };
-    $scope.showSimpleToast = function(message) {
-        $mdToast.show(
-            $mdToast.simple()
-                .content(message)
-                .position($scope.getToastPosition())
-                .hideDelay(3000)
-                .parent($document[0].querySelector('#signin_parent'))
-        );
     };
 }
