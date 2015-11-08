@@ -1,3 +1,6 @@
+html,body{
+    height: 100%;
+}
 .light-grey-background{
     background-color: #f2f2f2 !important;
 }
@@ -72,10 +75,15 @@ md-fab-speed-dial .md-button.md-fab md-icon{
     z-index: 2;
 }
 #activity-feed-virtual-container{
-    width: 97%;
+    width: 296px;
     bottom: 0;
     top: 64px;
     position: fixed;
+}
+@-moz-document url-prefix() {
+    #activity-feed-virtual-container{
+        top:-39px;
+    }
 }
 md-virtual-repeat-container h3{
     color: rgba(0, 0, 0, 0.87);
@@ -97,8 +105,16 @@ md-virtual-repeat-container p{
     line-height: 1.6em;
 }
 .activity-virtual-repeat{
-    padding: 16px;
+    padding-top:16px;
+    padding-left: 16px;
+    padding-right: 16px;
     height: 85px;
+}
+.md-virtual-repeat-offsetter{
+    margin-top:16px;
+}
+.activity-virtual-repeat md-divider{
+    margin-top: 16px;
 }
 
 @media screen and (max-width: 1100px) {

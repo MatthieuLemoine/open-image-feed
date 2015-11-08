@@ -97,7 +97,6 @@ angular.module('openImageFeed.controllers', [])
         };
         $scope.upvote = function(post){
             if (!AuthService.isAuthenticated()) {
-                event.preventDefault();
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }
             else {
@@ -124,7 +123,6 @@ angular.module('openImageFeed.controllers', [])
         };
         $scope.downvote = function(post){
             if (!AuthService.isAuthenticated()) {
-                event.preventDefault();
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             }
             else {
@@ -233,7 +231,7 @@ angular.module('openImageFeed.controllers', [])
             $rootScope.$broadcast('feed_refresh');
         }
     }])
-    .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope',function($scope,$http,$interval, $mdDialog, $rootScope){
+    .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope','$document','$timeout',function($scope,$http,$interval, $mdDialog, $rootScope,$document,$timeout){
 
         var ActivityItems = function() {
             /**
