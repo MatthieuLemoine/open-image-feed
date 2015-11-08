@@ -52,6 +52,10 @@ angular.module('openImageFeed.controllers', [])
                     .parent($document[0].querySelector('#toast-parent'))
             );
         };
+
+        $scope.updateActivities = function(){
+            $rootScope.$broadcast('updateActivities');
+        };
         $scope.$on(AUTH_EVENTS.notAuthenticated,$scope.showLoginDialog);
         $scope.$on(AUTH_EVENTS.sessionTimeout, $scope.showLoginDialog);
         $scope.$on(AUTH_EVENTS.notAuthorized,$scope.showLoginDialog);
@@ -232,6 +236,7 @@ angular.module('openImageFeed.controllers', [])
     .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope',function($scope,$http,$interval, $mdDialog, $rootScope){
         $scope.activities = [];
         $scope.updateActivities = function() {
+            console.log("updateActivities");
             $http.get('/api/activities')
                 .then(function successCallback(response) {
                     $scope.activities = response.data;
@@ -240,7 +245,10 @@ angular.module('openImageFeed.controllers', [])
                 });
         };
         $scope.updateActivities();
-        $interval(function(){$scope.updateActivities(); },10000,true);
+        $interval(function(){
+            console.log("updateActivities Interval");
+            $rootScope.$broadcast('updateActivities');
+        },20000);
         $scope.$on('updateActivities',function(){
             $scope.updateActivities();
         });

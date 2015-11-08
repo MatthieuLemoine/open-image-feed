@@ -20,7 +20,12 @@ div(layout="column", layout-fill)
                     md-tooltip(md-direction="bottom") Add a new post
     md-sidenav(id="activity-sidenav",class="md-sidenav-left md-whiteframe-z2", md-component-id="left", md-is-locked-open="$mdMedia('gt-md')")
         md-toolbar(class="md-theme-indigo")
-            h1(class="md-toolbar-tools") Activity Feed
+            div.md-toolbar-tools
+                h2(class="md-toolbar-tools") Activity Feed
+                span(flex)
+                md-button.md-icon-button(aria-label="Refresh",ng-click="updateActivities()")
+                    md-icon(md-svg-icon="/img/icons/ic_refresh_white_48px.svg")
+                    md-tooltip(md-direction="bottom") Refresh Activity Feed
         md-content(layout-padding, ng-controller="ActivityCtrl")
             md-list
                 md-list-item(class="md-3-line", ng-repeat="activity in activities")
