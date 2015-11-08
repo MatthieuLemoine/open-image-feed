@@ -7,6 +7,15 @@ angular.module('openImageFeed.directives', []).
     return function(scope, elm, attrs) {
       elm.text(version);
     };
-  });
-
-
+  })
+  .directive("scrollToTopWhen",['$timeout',function ($timeout) {
+      return{
+        link:function(scope, element, attrs){
+          scope.$on(attrs.scrollToTopWhen, function () {
+            $timeout(function () {
+              angular.element(element)[0].scrollTop = 0;
+            });
+          });
+        }
+      };
+    }]);

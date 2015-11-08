@@ -226,6 +226,7 @@ angular.module('openImageFeed.controllers', [])
         };
         $scope.updateFeed = function(){
             $rootScope.$broadcast('updateFeed');
+            $rootScope.$broadcast('feed_refresh');
         }
     }])
     .controller('ActivityCtrl',['$scope','$http','$interval','$mdDialog','$rootScope',function($scope,$http,$interval, $mdDialog, $rootScope){

@@ -32,8 +32,11 @@ angular.module('openImageFeed.services', []).
             return $http
                 .get('/profile')
                 .then(function (res) {
-                    Session.create(res.data.sessionID, res.data.user.id);
-                    return res.data.user;
+                    if(res.data.user != null) {
+                        Session.create(res.data.sessionID, res.data.user.id);
+                        return res.data.user;
+                    }
+                    return null;
                 });
         };
 
