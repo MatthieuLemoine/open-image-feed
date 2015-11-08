@@ -83,6 +83,7 @@ md-fab-speed-dial .md-button.md-fab md-icon{
 @-moz-document url-prefix() {
     #activity-feed-virtual-container{
         top:-39px;
+        height: 85%;
     }
 }
 md-virtual-repeat-container h3{
