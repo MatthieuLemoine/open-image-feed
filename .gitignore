@@ -5,3 +5,4 @@ public/bower_components/
 db.js
 public/uploads/*
 public/.bowerrc
+public/build/*

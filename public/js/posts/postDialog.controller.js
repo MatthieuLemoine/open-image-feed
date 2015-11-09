@@ -3,11 +3,11 @@
 
     angular
         .module('openImageFeed.posts')
-        .controller(DialogController);
+        .controller(PostDialogController);
 
-    DialogController.$inject = ['$scope','$mdDialog','Upload'];
+    PostDialogController.$inject = ['$scope','$mdDialog','Upload'];
 
-    function DialogController($scope, $mdDialog, Upload) {
+    function PostDialogController($scope, $mdDialog, Upload) {
         var vm = this;
         vm.showLoading = false;
         vm.obj = {};
@@ -45,10 +45,10 @@
             Upload.upload({
                 url: '/api/post',
                 data: {file: file, title: vm.post.title}
-            }).then(function (resp) {
+            }).then(function () {
                 vm.showLoading = false;
                 $mdDialog.hide(true);
-            }, function (resp) {
+            }, function () {
                 vm.showLoading = false;
                 vm.showSimpleToast('An error occured, image may be to large');
             });

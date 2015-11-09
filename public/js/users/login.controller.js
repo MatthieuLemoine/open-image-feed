@@ -5,9 +5,9 @@
         .module('openImageFeed.users')
         .controller(LoginController);
 
-    LoginController.$inject = ['$scope','AUTH_EVENTS', 'AuthService', '$mdDialog'];
+    LoginController.$inject = ['$scope','AuthService', '$mdDialog'];
 
-    function LoginController($scope,AUTH_EVENTS, AuthService, $mdDialog) {
+    function LoginController($scope,AuthService, $mdDialog) {
         var vm = this;
 
         vm.credentials = {

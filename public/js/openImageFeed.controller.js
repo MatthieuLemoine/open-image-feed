@@ -1,7 +1,8 @@
 (function(){
     'use strict';
 
-    angular.module('openImageFeed')
+    angular
+        .module('openImageFeed')
         .controller(HomeController);
 
     HomeController.$inject = ['$scope','AuthService','$mdDialog','$mdToast','$document','LoginController','ActivitiesFactory'];

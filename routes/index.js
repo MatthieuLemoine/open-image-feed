@@ -9,10 +9,10 @@ exports.partials = function (req, res) {
 };
 
 exports.dialog = function (req, res) {
-    res.render('partials/dialog');
+    res.render('partials/posts/dialog');
 };
 
 exports.loginPartial = function (req, res) {
-    res.render('partials/login');
+    res.render('partials/users/login');
 };
 
