@@ -5,7 +5,7 @@ div(layout="column", layout-fill)
             span(flex)
             div(ng-if="currentUser") Hello {{ currentUser.username }}
     div(id="toast-parent")
-    div(ng-controller="AddPostCtrl")
+    div(ng-controller="AddPostController")
         md-fab-speed-dial(id="custom-fab-speed",md-direction="down",class="md-hover-full md-scale md-fab-top-right",ng-mouseenter="speedDial.isOpen = true",ng-mouseleave="speedDial.isOpen = false")
             md-fab-trigger
                 md-button(aria-label="menu", class="md-fab md-warn")
@@ -26,7 +26,7 @@ div(layout="column", layout-fill)
                 md-button.md-icon-button(aria-label="Refresh",ng-click="updateActivities()")
                     md-icon(md-svg-icon="/img/icons/ic_refresh_white_48px.svg")
                     md-tooltip(md-direction="bottom") Refresh Activity Feed
-        md-content(layout-padding, ng-controller="ActivityCtrl",ng-cloak)
+        md-content(layout-padding, ng-controller="ActivityController",ng-cloak)
             md-virtual-repeat-container(id="activity-feed-virtual-container")
                 div(md-virtual-repeat="activity in activities",md-on-demand,class="md-3-line activity-virtual-repeat", flex)
                     div(class="md-list-item-text", ng-switch on="activity.type")
@@ -51,12 +51,12 @@ div(layout="column", layout-fill)
             md-button(ng-click="close()", class="md-primary", hide-gt-md)
                 |Close Activity Feed
     div(id="feed-container")
-        div(ng-controller="FeedCtrl")
+        div(ng-controller="FeedController")
             md-content.md-padding.light-grey-background.card-container
                 div(ng-show="showLoading", layout="row", layout-sm="column", layout-align="center center")
                     md-progress-circular(md-mode="indeterminate")
                 div(infinite-scroll='loadMore()', infinite-scroll-distance='1')
-                    md-card(ng-repeat="post in posts", ng-controller="PostCtrl")
+                    md-card(ng-repeat="post in posts", ng-controller="PostController")
                         img(ng-src="{{ post.image }}", class="md-card-image", alt="{{ post.title }}")
                         md-card-content
                             h2.md-title {{ post.title }}
