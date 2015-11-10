@@ -3,7 +3,7 @@
 
     angular
         .module('openImageFeed.posts')
-        .controller(AddPostController);
+        .controller('AddPostController',AddPostController);
 
     AddPostController.$inject = ['$scope','$mdDialog','ActivitiesFactory','AuthService','PostsFactory'];
 
@@ -30,12 +30,12 @@
                     })
                     .then(function addPostDialogConfirm() {
                         $scope.showSimpleToast('Post added !');
-                        updateView();
+                        updateFeed();
                     });
             }
         }
 
-        function updateView(){
+        function updateFeed(){
             ActivitiesFactory.updateFeed();
             PostsFactory.updateCount();
             PostsFactory.updateFeed();

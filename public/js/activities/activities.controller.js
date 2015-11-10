@@ -3,11 +3,11 @@
 
     angular
         .module('openImageFeed.activities')
-        .controller(ActivityCtrl);
+        .controller('ActivityController',ActivityController);
 
-    ActivityCtrl.$inject = ['$scope','$interval','ActivitiesFactory'];
+    ActivityController.$inject = ['$scope','$interval','ActivitiesFactory'];
 
-    function ActivityCtrl($scope,$interval,ActivitiesFactory){
+    function ActivityController($scope,$interval,ActivitiesFactory){
         var vm = this;
         vm.showLoading = true;
         vm.posts = ActivitiesFactory.activities;

@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('openImageFeed')
-        .factory(AuthService);
+        .factory('AuthService',AuthService);
 
     AuthService.$inject = ['$http','Session'];
 

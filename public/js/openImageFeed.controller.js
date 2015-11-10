@@ -3,11 +3,11 @@
 
     angular
         .module('openImageFeed')
-        .controller(HomeController);
+        .controller('HomeController',HomeController);
 
-    HomeController.$inject = ['$scope','AuthService','$mdDialog','$mdToast','$document','LoginController','ActivitiesFactory'];
+    HomeController.$inject = ['$scope','AuthService','$mdDialog','$mdToast','$document','ActivitiesFactory'];
 
-    function HomeController($scope,AuthService,$mdDialog,$mdToast,$document,LoginController,ActivitiesFactory){
+    function HomeController($scope,AuthService,$mdDialog,$mdToast,$document,ActivitiesFactory){
         var vm =this;
         vm.toastPosition = {
             bottom : false,

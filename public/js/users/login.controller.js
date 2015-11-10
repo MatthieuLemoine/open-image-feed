@@ -3,7 +3,7 @@
 
     angular
         .module('openImageFeed.users')
-        .controller(LoginController);
+        .controller('LoginController',LoginController);
 
     LoginController.$inject = ['$scope','AuthService', '$mdDialog'];
 

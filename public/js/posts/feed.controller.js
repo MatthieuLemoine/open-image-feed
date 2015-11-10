@@ -3,7 +3,7 @@
 
     angular
         .module('openImageFeed.posts')
-        .controller(FeedController);
+        .controller('FeedController',FeedController);
 
     FeedController.$inject = ['$scope','PostsFactory'];
 

@@ -2,7 +2,7 @@
     'use strict';
     angular
         .module('openImageFeed.posts')
-        .factory(PostsFactory);
+        .factory('PostsFactory',PostsFactory);
 
     PostsFactory.$inject = ['$http'];
 

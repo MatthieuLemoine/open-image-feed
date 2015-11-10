@@ -1,6 +1,6 @@
 md-content(layout-padding, ng-controller="ActivityController",ng-cloak)
-   md-virtual-repeat-container(id="activity-feed-virtual-container")
-      div(md-virtual-repeat="activity in activities",md-on-demand,class="md-3-line activity-virtual-repeat", flex)
+   md-list
+      md-list-item(class="md-3-line")
          div(class="md-list-item-text", ng-switch on="activity.type")
             h3 {{ activity.author.username }}
             p(ng-switch-when="POST")

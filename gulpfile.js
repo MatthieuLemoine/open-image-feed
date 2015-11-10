@@ -32,17 +32,7 @@ gulp.task('dev', function() {
         .pipe(concat(config.fatJS))
         .pipe(gulp.dest(config.dest));
 });
-/*
-gulp.task('dev', function() {
-    return streamqueue({ objectMode: true },
-        gulp.src(config.modules)
-            .pipe(changed(config.dest)),
-        gulp.src(config.scripts)
-            .pipe(changed(config.dest)))
-        .pipe(concat(config.fatJS))
-        .pipe(gulp.dest(config.dest));
-});
-*/
+
 gulp.task('watch', function(){
     gulp.watch(config.scripts, ['dev']);
 });

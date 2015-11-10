@@ -3,7 +3,7 @@
 
     angular
         .module('openImageFeed.posts')
-        .controller(PostDialogController);
+        .controller('PostDialogController',PostDialogController);
 
     PostDialogController.$inject = ['$scope','$mdDialog','Upload'];
 

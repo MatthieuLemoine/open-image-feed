@@ -3,7 +3,7 @@
 
     angular
         .module('openImageFeed')
-        .service(Session);
+        .service('Session',Session);
 
     function Session(){
         this.create = function (sessionId, userId) {

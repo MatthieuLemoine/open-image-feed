@@ -3,11 +3,11 @@
 
     angular
         .module('openImageFeed.posts')
-        .controller(PostCtrl);
+        .controller('PostController',PostController);
 
-    PostCtrl.$inject = ['$scope','AuthService','ActiviesFactory','PostsFactory','CommentsFactory'];
+    PostController.$inject = ['$scope','AuthService','ActiviesFactory','PostsFactory','CommentsFactory'];
 
-    function PostCtrl($scope,AuthService,ActiviesFactory,PostsFactory,CommentsFactory){
+    function PostController($scope,AuthService,ActiviesFactory,PostsFactory,CommentsFactory){
         var vm = this;
         vm.showComments = false;
         vm.isCommentsLoading = false;
