@@ -4,21 +4,16 @@
         .module('openImageFeed.posts')
         .factory('PostsFactory',PostsFactory);
 
-    PostsFactory.$inject = ['$http'];
+    PostsFactory.$inject = ['$http','PostsModel'];
 
-    function PostsFactory($http){
-        var posts = [];
-        var offset = 0;
+    function PostsFactory($http,PostsModel){
         var number = 5;
-        var count = 0;
         return {
-            updateCount: updateCount,
             getPosts: getPosts,
-            posts: posts,
-            offset: offset,
-            count: count,
             upvote: upvote,
-            downvote: downvote
+            downvote: downvote,
+            updateFeed: updateFeed,
+            updateCount: updateCount
         };
 
         //////////
@@ -36,31 +31,29 @@
         function getPosts(){
             return $http.get('/api/posts',{
                         params: {
-                            offset: offset,
+                            offset: PostsModel.offset,
                             number: number
                         }
                     })
                     .then(function successGetPosts (response) {
-                        posts = posts.concat(response.data);
-                        offset += posts.length;
+                        PostsModel.posts = PostsModel.posts.concat(response.data);
+                        PostsModel.offset += PostsModel.posts.length;
+                        return PostsModel.posts;
                     });
-        }
-
-        function setNumber(numItems){
-            number = numItems;
         }
 
         function updateCount(){
             return $http.get('/api/posts/count')
                 .then(function successPostCount (response) {
-                    count = response.data.count;
+                    PostsModel.count = response.data.count;
+                    return PostsModel.count;
                 });
         }
 
         function updateFeed(){
-            posts = [];
-            offset = 0;
-            getPosts()
+            PostsModel.posts = [];
+            PostsModel.offset = 0;
+            getPosts();
         }
 
         function upvote(post){

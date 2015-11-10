@@ -1,9 +1,9 @@
-form(name="form_signup",ng-submit="validSignup(form_signup.$valid)", novalidate)
+form(name="form_signup",ng-submit="LoginVM.validSignup(form_signup.$valid)", novalidate)
     md-content(layout-padding)
         div(layout, layout-sm="row")
             md-input-container(ng-class="{ 'has-error' : form_signup.username.$invalid && !form_signup.username.$pristine && form_signup.username.$touched }")
                 label Username
-                input.signinInput(ng-model="credentials.username", type="text", name="username", ng-required="true", ng-minlength="3", ng-maxlength="30")
+                input.signinInput(ng-model="LoginVM.credentials.username", type="text", name="username", ng-required="true", ng-minlength="3", ng-maxlength="30")
                 div(ng-messages="form_signup.username.$error",ng-show="form_signup.username.$touched")
                     p(ng-message="required", class="help-block")
                         | Username is required
@@ -14,7 +14,7 @@ form(name="form_signup",ng-submit="validSignup(form_signup.$valid)", novalidate)
         div(layout, layout-sm="row")
             md-input-container(layout-sm="row",ng-class="{ 'has-error' : form_signup.password.$invalid && !form_signup.password.$pristine && form_signup.password.$touched }")
                 label Password
-                input.signinInput(ng-model="credentials.password", type="password", name="password", ng-required="true", ng-minlength="5", ng-maxlength="30")
+                input.signinInput(ng-model="LoginVM.credentials.password", type="password", name="password", ng-required="true", ng-minlength="5", ng-maxlength="30")
                 div(ng-messages="form_signup.password.$error",ng-show="form_signup.password.$touched")
                     p(ng-message="required", class="help-block")
                         | Password is required
@@ -25,7 +25,7 @@ form(name="form_signup",ng-submit="validSignup(form_signup.$valid)", novalidate)
         div(layout, layout-sm="row")
             md-input-container(layout-sm="row",ng-class="{ 'has-error' : form_signup.password_confirm.$invalid && !form_signup.password_confirm.$pristine && form_signup.password_confirm.$touched }")
                 label Password confirm
-                input.signinInput(match="credentials.password",ng-model="credentials.password_confirm", type="password", name="password_confirm", ng-required="true", ng-minlength="5", ng-maxlength="30")
+                input.signinInput(match="LoginVM.credentials.password",ng-model="LoginVM.credentials.password_confirm", type="password", name="password_confirm", ng-required="true", ng-minlength="5", ng-maxlength="30")
                 div(ng-messages="form_signup.password_confirm.$error",ng-show="form_signup.password_confirm.$touched")
                     p(ng-message="required", class="help-block")
                         | Password is required

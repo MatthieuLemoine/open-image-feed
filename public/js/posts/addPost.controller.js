@@ -21,7 +21,7 @@
             }
             else {
                 $mdDialog.show({
-                        controller: PostDialogController,
+                        controller: 'PostDialogController',
                         templateUrl: 'partials/dialog',
                         parent: angular.element(document.body),
                         targetEvent: ev,
@@ -37,7 +37,6 @@
 
         function updateFeed(){
             ActivitiesFactory.updateFeed();
-            PostsFactory.updateCount();
             PostsFactory.updateFeed();
         }
     }

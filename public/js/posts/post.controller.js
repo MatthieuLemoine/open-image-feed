@@ -5,10 +5,11 @@
         .module('openImageFeed.posts')
         .controller('PostController',PostController);
 
-    PostController.$inject = ['$scope','AuthService','ActiviesFactory','PostsFactory','CommentsFactory'];
+    PostController.$inject = ['$scope','AuthService','ActivitiesFactory','PostsFactory','CommentsFactory'];
 
-    function PostController($scope,AuthService,ActiviesFactory,PostsFactory,CommentsFactory){
+    function PostController($scope,AuthService,ActivitiesFactory,PostsFactory,CommentsFactory){
         var vm = this;
+        vm.post = $scope.post;
         vm.showComments = false;
         vm.isCommentsLoading = false;
         vm.showAddComment = false;
@@ -40,8 +41,8 @@
                 $scope.showLoginDialog();
             }
             else {
-                if(post.upvotes.indexOf(AuthService.currentUser.id) > -1) {
-                    $scope.showSimpleToast('Post already upvoted !');
+                if(post.downvotes.indexOf(AuthService.currentUser.id) > -1) {
+                    $scope.showSimpleToast('Post already downvoted !');
                 }
                 else{
                     PostsFactory.downvote(post)
@@ -52,7 +53,7 @@
                             else {
                                 vm.post.downvotes.push(AuthService.currentUser.id);
                                 $scope.showSimpleToast('Post downvoted !');
-                                ActiviesFactory.updateFeed();
+                                ActivitiesFactory.updateFeed();
                             }
                         }, function errorDownvoteCallback() {
                             $scope.showSimpleToast('Error during downvote');
@@ -65,6 +66,7 @@
             vm.isCommentsLoading = true;
             CommentsFactory.getComments(post)
                 .then(function successGetComments(response) {
+                    console.log("getCommentsSuccess");
                     vm.post.comments = response;
                     vm.isCommentsLoading = false;
                 }, function errorGetComments() {
@@ -84,7 +86,9 @@
 
         function toggleComments(post){
             vm.showComments = ! vm.showComments;
+            console.log(vm.showComments);
             if(vm.showComments){
+                console.log("getComments");
                 getComments(post);
             }
             else{
@@ -100,8 +104,8 @@
                     vm.newComment = {};
                     vm.showAddComment = false;
                     $scope.showSimpleToast('Comment added !');
-                    ActiviesFactory.updateFeed();
-                    CommentsFactory.getComments(vm.post)
+                    ActivitiesFactory.updateFeed();
+                    getComments(vm.post)
                 }, function errorUploadComment() {
                     vm.isCommentsLoading = false;
                     $scope.showSimpleToast('An error occured');
@@ -125,7 +129,7 @@
                             else {
                                 vm.post.upvotes.push(AuthService.currentUser.id);
                                 $scope.showSimpleToast('Post upvoted !');
-                                ActiviesFactory.updateFeed();
+                                ActivitiesFactory.updateFeed();
                             }
                         }, function errorUpvoteCallback() {
                             $scope.showSimpleToast('Error during upvote');

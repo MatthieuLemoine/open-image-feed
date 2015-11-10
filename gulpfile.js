@@ -7,11 +7,7 @@ var streamqueue = require('streamqueue');
 var config ={
     scripts : [
         './public/js/**/*.module.js',
-        './public/js/**/*.service.js',
-        './public/js/**/*.factory.js',
-        './public/js/**/*.constant.js',
-        './public/js/**/*.controller.js',
-        './public/js/**/*.config.js'
+        './public/js/**/*.js'
     ],
     dest: './public/build/',
     minJs: 'app.min.js',

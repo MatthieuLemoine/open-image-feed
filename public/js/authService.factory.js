@@ -50,6 +50,7 @@
         }
 
         function isAuthenticated() {
+            console.log("isAuth : "+!!Session.userId);
             return !!Session.userId;
         }
     }

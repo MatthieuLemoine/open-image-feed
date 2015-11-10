@@ -1,13 +1,13 @@
-div(ng-controller="AddPostController")
-   md-fab-speed-dial(id="custom-fab-speed",md-direction="down",class="md-hover-full md-scale md-fab-top-right",ng-mouseenter="speedDial.isOpen = true",ng-mouseleave="speedDial.isOpen = false")
+div(ng-controller="AddPostController as AddPostVM")
+   md-fab-speed-dial(id="custom-fab-speed",md-direction="down",class="md-hover-full md-scale md-fab-top-right",ng-mouseenter="AddPostVM.speedDial.isOpen = true",ng-mouseleave="AddPostVM.speedDial.isOpen = false")
       md-fab-trigger
          md-button(aria-label="menu", class="md-fab md-warn")
             md-icon(md-svg-src="/img/icons/ic_menu_white_48px.svg")
       md-fab-actions
-         md-button(class="md-fab md-raised md-mini", aria-label="Refresh", ng-click="updateFeed()")
+         md-button(class="md-fab md-raised md-mini", aria-label="Refresh", ng-click="AddPostVM.updateFeed()")
             md-icon(md-svg-src="/img/icons/ic_refresh_black_48px.svg")
             md-tooltip(md-direction="bottom") Refresh feed
          span(flex)
-         md-button(class="md-fab md-raised md-mini", aria-label="Add post", ng-click="showAddDialog($event)")
+         md-button(class="md-fab md-raised md-mini", aria-label="Add post", ng-click="AddPostVM.showAddDialog($event)")
             md-icon(md-svg-src="/img/icons/ic_add_black_48px.svg")
             md-tooltip(md-direction="bottom") Add a new post

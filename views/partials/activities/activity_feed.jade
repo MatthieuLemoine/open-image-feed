@@ -1,6 +1,6 @@
-md-content(layout-padding, ng-controller="ActivityController",ng-cloak)
+md-content(layout-padding, ng-controller="ActivityController as ActivityVM",ng-cloak)
    md-list
-      md-list-item(class="md-3-line")
+      md-list-item(ng-repeat="activity in ActivityVM.model.activities",class="md-3-line")
          div(class="md-list-item-text", ng-switch on="activity.type")
             h3 {{ activity.author.username }}
             p(ng-switch-when="POST")

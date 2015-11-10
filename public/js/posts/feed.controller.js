@@ -5,31 +5,28 @@
         .module('openImageFeed.posts')
         .controller('FeedController',FeedController);
 
-    FeedController.$inject = ['$scope','PostsFactory'];
+    FeedController.$inject = ['$scope','PostsFactory','PostsModel','$interval'];
 
-    function FeedController($scope,PostsFactory){
+    function FeedController($scope,PostsFactory,PostsModel,$interval){
         var vm = this;
         vm.showLoading = true;
-        vm.posts = PostsFactory.posts;
-        vm.number = 5;
-        vm.offset = PostsFactory.offset;
-        vm.numItems = PostsFactory.count;
+        vm.model = PostsModel;
         vm.isAlreadyLoading = false;
         vm.loadMore = loadMore;
 
+        $interval(PostsFactory.updateCount,20000);
         updateCount();
 
         //////////
 
         function loadMore(){
-            if( vm.offset >= vm.numItems || vm.isAlreadyLoading){
+            if( vm.model.offset >= vm.model.count || vm.isAlreadyLoading){
                 return;
             }
             vm.isAlreadyLoading = true;
             PostsFactory.getPosts()
                 .then(function successLoadMore(){
                     vm.showLoading = false;
-                    vm.offset = response.offset;
                     vm.isAlreadyLoading = false;
                 },function errorLoadMore(){
                     vm.showLoading = false;

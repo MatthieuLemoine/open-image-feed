@@ -1,9 +1,9 @@
-div(ng-controller="HomeController",layout="column", layout-fill)
+div(ng-controller="HomeController as HomeVM",layout="column", layout-fill)
     md-toolbar.md-primary.fixed
         div(class="md-toolbar-tools")
             h1 Open Image Feed
             span(flex)
-            div(ng-if="currentUser") Hello {{ currentUser.username }}
+            div(ng-if="HomeVM.auth.currentUser") Hello {{ HomeVM.auth}}
     div(id="toast-parent")
     include ./menu
     md-sidenav(id="activity-sidenav",class="md-sidenav-left md-whiteframe-z2", md-component-id="left", md-is-locked-open="$mdMedia('gt-md')")
@@ -11,7 +11,7 @@ div(ng-controller="HomeController",layout="column", layout-fill)
             div.md-toolbar-tools
                 h2(class="md-toolbar-tools") Activity Feed
                 span(flex)
-                md-button.md-icon-button(aria-label="Refresh",ng-click="updateActivities()")
+                md-button.md-icon-button(aria-label="Refresh",ng-click="HomeVM.updateActivities()")
                     md-icon(md-svg-icon="/img/icons/ic_refresh_white_48px.svg")
                     md-tooltip(md-direction="bottom") Refresh Activity Feed
         include activities/activity_feed

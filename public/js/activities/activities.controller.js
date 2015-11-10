@@ -5,15 +5,12 @@
         .module('openImageFeed.activities')
         .controller('ActivityController',ActivityController);
 
-    ActivityController.$inject = ['$scope','$interval','ActivitiesFactory'];
+    ActivityController.$inject = ['$scope','$interval','ActivitiesFactory','ActivitiesModel'];
 
-    function ActivityController($scope,$interval,ActivitiesFactory){
+    function ActivityController($scope,$interval,ActivitiesFactory,ActivitiesModel){
         var vm = this;
         vm.showLoading = true;
-        vm.posts = ActivitiesFactory.activities;
-        vm.number = 5;
-        vm.offset = ActivitiesFactory.offset;
-        vm.numItems = ActivitiesFactory.count;
+        vm.model = ActivitiesModel;
         vm.isAlreadyLoading = false;
         vm.loadMore = loadMore;
 
@@ -23,14 +20,13 @@
         //////////
 
         function loadMore(){
-            if( vm.offset >= vm.numItems || vm.isAlreadyLoading){
+            if( vm.model.offset >= vm.model.count || vm.isAlreadyLoading){
                 return;
             }
             vm.isAlreadyLoading = true;
             ActivitiesFactory.getActivities()
                 .then(function successLoadMore(){
                     vm.showLoading = false;
-                    vm.offset = response.offset;
                     vm.isAlreadyLoading = false;
                 },function errorLoadMore(){
                     vm.showLoading = false;

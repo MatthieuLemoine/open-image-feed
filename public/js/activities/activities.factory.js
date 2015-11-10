@@ -4,20 +4,14 @@
         .module('openImageFeed.activities')
         .factory('ActivitiesFactory',ActivitiesFactory);
 
-    ActivitiesFactory.$inject = ['$http'];
+    ActivitiesFactory.$inject = ['$http','ActivitiesModel'];
 
-    function ActivitiesFactory($http){
-        var activities = [];
-        var offset = 0;
-        var number = 5;
-        var count = 0;
+    function ActivitiesFactory($http,ActivitiesModel){
+        var number = 15;
         return {
-            updateCount: updateCount,
             getActivities: getActivities,
-            activities: activities,
-            offset: offset,
-            count: count,
-            updateFeed: updateFeed
+            updateFeed: updateFeed,
+            updateCount: updateCount
         };
 
         //////////
@@ -25,31 +19,29 @@
         function getActivities(){
             return $http.get('/api/activities',{
                     params: {
-                        offset: offset,
+                        offset: ActivitiesModel.offset,
                         number: number
                     }
                 })
                 .then(function successGetPosts (response) {
-                    activities = activities.concat(response.data);
-                    offset += activities.length;
+                    ActivitiesModel.activities = ActivitiesModel.activities.concat(response.data);
+                    ActivitiesModel.offset += ActivitiesModel.activities.length;
+                    return ActivitiesModel.activities;
                 });
-        }
-
-        function setNumber(numItems){
-            number = numItems;
         }
 
         function updateCount(){
             return $http.get('/api/activities/count')
                 .then(function successPostCount (response) {
-                    count = response.data.count;
+                    ActivitiesModel.count = response.data.count;
+                    return ActivitiesModel.count;
                 });
         }
 
         function updateFeed(){
-            activities = [];
-            offset = 0;
-            getActivities()
+            ActivitiesModel.activities = [];
+            ActivitiesModel.offset = 0;
+            getActivities();
         }
     }
 })();
