@@ -37,7 +37,7 @@
                     })
                     .then(function successGetPosts (response) {
                         PostsModel.posts = PostsModel.posts.concat(response.data);
-                        PostsModel.offset += PostsModel.posts.length;
+                        PostsModel.offset = PostsModel.posts.length;
                         return PostsModel.posts;
                     });
         }
