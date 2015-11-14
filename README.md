@@ -25,14 +25,14 @@ Clone the repository, run `npm install`
 **Create a db.js file**
 
     echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database' }" > db.js
-    
+
 **Install Gulp**
 
     npm install -g gulp
 
 ### Running
 
-Build 
+Build
 
     gulp dev watch
 
@@ -40,49 +40,30 @@ Run
 
     npm start
 
-
 ## Directory Layout
-    
-    server.js           --> app config
-    package.json        --> for npm
-    public/             --> all of the files to be used in on the client side
-      css/              --> css files
-        app.css         --> default stylesheet
-      img/              --> image files
-      js/               --> javascript files
-        app.js          --> declare top-level app module
-        controllers.js  --> application controllers
-        directives.js   --> custom angular directives
-        filters.js      --> custom angular filters
-        services.js     --> custom angular services
+
+    server.js                       --> express server
+    package.json                    --> back dependencies
+    gulpfile.js                     --> build commands
+    .travis.yml                     --> travis config file
+    models/                         --> app models
+    public/                         --> angular app
+      bower.json                    --> front dependencies
+      css/                          --> css files
+        app.css                     --> default stylesheet
+      img/                          --> image files
+      js/                           --> javascript files
+        activities/                 --> activities module
+        posts/                      --> posts module
+        users/                      --> custom angular directives
+        openImageFeed.module.js     --> main module
     routes/
-      api.js            --> route for serving JSON
-      index.js          --> route for serving HTML pages and partials
+      api.js                        --> route for serving JSON
+      index.js                      --> route for serving HTML pages and partials
     views/
-      index.jade        --> main page for app
-      layout.jade       --> doctype, title, head boilerplate
-      partials/         --> angular view partials (partial jade templates)
-        home.jade
-
-
-## Mongo
-**Shell**
-
-    mongo
-
-**Show dbs**
-
-    show dbs
-
-**Choose a db**
-
-    use db_name
-
-**Show collections**
-
-    show collections
-
-**Drop a collection**
-
-    db.collection_name.drop()
-    
+      index.jade                    --> main page for app
+      layout.jade                   --> doctype, title, head boilerplate
+      partials/                     --> angular view partials (partial jade templates)
+        activities/                 --> activities module related view
+        posts/                      --> posts module related view
+        users/                      --> users module related view
