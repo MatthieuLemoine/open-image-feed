@@ -27,7 +27,6 @@
                 .then(function (res) {
                     Session.create(res.data.sessionID, res.data.user.id);
                     UserModel.currentUser = res.data.user;
-                    console.log("login : user ="+currentUser);
                     return UserModel.currentUser;
                 });
         }

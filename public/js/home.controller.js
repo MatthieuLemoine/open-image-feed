@@ -22,8 +22,6 @@
         }
 
         function updateActivities(){
-            console.log("currentUser = "+JSON.stringify(vm.auth));
-            console.log("cuurentUser = "+JSON.stringify(UserModel.currentUser));
             ActivitiesFactory.updateFeed();
         }
     }
