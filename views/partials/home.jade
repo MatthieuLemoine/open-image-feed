@@ -3,7 +3,7 @@ div(ng-controller="HomeController as HomeVM",layout="column", layout-fill)
         div(class="md-toolbar-tools")
             h1 Open Image Feed
             span(flex)
-            div(ng-if="HomeVM.auth.currentUser") Hello {{ HomeVM.auth}}
+            div(ng-if="HomeVM.auth.currentUser") Hello {{ HomeVM.auth.currentUser.username }}
     div(id="toast-parent")
     include ./menu
     md-sidenav(id="activity-sidenav",class="md-sidenav-left md-whiteframe-z2", md-component-id="left", md-is-locked-open="$mdMedia('gt-md')")

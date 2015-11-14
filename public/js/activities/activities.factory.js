@@ -7,7 +7,7 @@
     ActivitiesFactory.$inject = ['$http','ActivitiesModel'];
 
     function ActivitiesFactory($http,ActivitiesModel){
-        var number = 15;
+        var number = 25;
         return {
             getActivities: getActivities,
             updateFeed: updateFeed,

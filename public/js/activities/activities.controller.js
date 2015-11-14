@@ -5,16 +5,16 @@
         .module('openImageFeed.activities')
         .controller('ActivityController',ActivityController);
 
-    ActivityController.$inject = ['$scope','$interval','ActivitiesFactory','ActivitiesModel'];
+    ActivityController.$inject = ['$interval','ActivitiesFactory','ActivitiesModel','ToastFactory'];
 
-    function ActivityController($scope,$interval,ActivitiesFactory,ActivitiesModel){
+    function ActivityController($interval,ActivitiesFactory,ActivitiesModel,ToastFactory){
         var vm = this;
         vm.showLoading = true;
         vm.model = ActivitiesModel;
         vm.isAlreadyLoading = false;
         vm.loadMore = loadMore;
 
-        $interval(updateCount,20000);
+        $interval(ActivitiesFactory.updateCount,20000);
         updateCount();
 
         //////////
@@ -30,7 +30,7 @@
                     vm.isAlreadyLoading = false;
                 },function errorLoadMore(){
                     vm.showLoading = false;
-                    $scope.showSimpleToast('Error getting activities');
+                    ToastFactory.showSimpleToast('Error getting activities');
                 });
         }
 

@@ -5,9 +5,9 @@
         .module('openImageFeed.posts')
         .controller('PostController',PostController);
 
-    PostController.$inject = ['$scope','AuthService','ActivitiesFactory','PostsFactory','CommentsFactory'];
+    PostController.$inject = ['$scope','AuthService','ActivitiesFactory','PostsFactory','CommentsFactory','ToastFactory'];
 
-    function PostController($scope,AuthService,ActivitiesFactory,PostsFactory,CommentsFactory){
+    function PostController($scope,AuthService,ActivitiesFactory,PostsFactory,CommentsFactory,ToastFactory){
         var vm = this;
         vm.post = $scope.post;
         vm.showComments = false;
@@ -28,35 +28,35 @@
             }
             else{
                 if(vm.isCommentsLoading){
-                    $scope.showSimpleToast('Sending...');
+                    ToastFactory.showSimpleToast('Sending...');
                 }
                 else if(!isValid){
-                    $scope.showSimpleToast('Invalid comment');
+                    ToastFactory.showSimpleToast('Invalid comment');
                 }
             }
         }
 
         function downvote(post){
             if (!AuthService.isAuthenticated()) {
-                $scope.showLoginDialog();
+                AuthService.showLoginDialog();
             }
             else {
                 if(post.downvotes.indexOf(AuthService.currentUser.id) > -1) {
-                    $scope.showSimpleToast('Post already downvoted !');
+                    ToastFactory.showSimpleToast('Post already downvoted !');
                 }
                 else{
                     PostsFactory.downvote(post)
                         .then(function successDownvoteCallback(response){
                             if (response.status == "ALREADY_DOWNVOTED") {
-                                $scope.showSimpleToast('Post already downvoted !');
+                                ToastFactory.showSimpleToast('Post already downvoted !');
                             }
                             else {
                                 vm.post.downvotes.push(AuthService.currentUser.id);
-                                $scope.showSimpleToast('Post downvoted !');
+                                ToastFactory.showSimpleToast('Post downvoted !');
                                 ActivitiesFactory.updateFeed();
                             }
                         }, function errorDownvoteCallback() {
-                            $scope.showSimpleToast('Error during downvote');
+                            ToastFactory.showSimpleToast('Error during downvote');
                         });
                 }
             }
@@ -66,18 +66,17 @@
             vm.isCommentsLoading = true;
             CommentsFactory.getComments(post)
                 .then(function successGetComments(response) {
-                    console.log("getCommentsSuccess");
                     vm.post.comments = response;
                     vm.isCommentsLoading = false;
                 }, function errorGetComments() {
                     vm.isCommentsLoading = false;
-                    $scope.showSimpleToast('An error occured');
+                    ToastFactory.showSimpleToast('An error occured');
                 });
         }
 
         function showAddCommentForm(){
             if (!AuthService.isAuthenticated()) {
-                $scope.showLoginDialog();
+                AuthService.showLoginDialog();
             }
             else {
                 vm.showAddComment = true;
@@ -86,9 +85,7 @@
 
         function toggleComments(post){
             vm.showComments = ! vm.showComments;
-            console.log(vm.showComments);
             if(vm.showComments){
-                console.log("getComments");
                 getComments(post);
             }
             else{
@@ -103,36 +100,36 @@
                     vm.isCommentsLoading = false;
                     vm.newComment = {};
                     vm.showAddComment = false;
-                    $scope.showSimpleToast('Comment added !');
+                    ToastFactory.showSimpleToast('Comment added !');
                     ActivitiesFactory.updateFeed();
-                    getComments(vm.post)
+                    getComments(vm.post);
                 }, function errorUploadComment() {
                     vm.isCommentsLoading = false;
-                    $scope.showSimpleToast('An error occured');
+                    ToastFactory.showSimpleToast('An error occured');
                 });
         }
 
         function upvote(post){
             if (!AuthService.isAuthenticated()) {
-                $scope.showLoginDialog();
+                AuthService.showLoginDialog();
             }
             else {
                 if(post.upvotes.indexOf(AuthService.currentUser.id) > -1) {
-                    $scope.showSimpleToast('Post already upvoted !');
+                    ToastFactory.showSimpleToast('Post already upvoted !');
                 }
                 else{
                     PostsFactory.upvote(post)
                         .then(function successUpvoteCallback(response){
                             if (response.status == "ALREADY_UPVOTED") {
-                                $scope.showSimpleToast('Post already upvoted !');
+                                ToastFactory.showSimpleToast('Post already upvoted !');
                             }
                             else {
                                 vm.post.upvotes.push(AuthService.currentUser.id);
-                                $scope.showSimpleToast('Post upvoted !');
+                                ToastFactory.showSimpleToast('Post upvoted !');
                                 ActivitiesFactory.updateFeed();
                             }
                         }, function errorUpvoteCallback() {
-                            $scope.showSimpleToast('Error during upvote');
+                            ToastFactory.showSimpleToast('Error during upvote');
                         });
                 }
             }

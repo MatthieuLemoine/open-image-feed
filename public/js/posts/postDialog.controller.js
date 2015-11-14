@@ -5,9 +5,9 @@
         .module('openImageFeed.posts')
         .controller('PostDialogController',PostDialogController);
 
-    PostDialogController.$inject = ['$scope','$mdDialog','Upload'];
+    PostDialogController.$inject = ['$mdDialog','Upload','ToastFactory'];
 
-    function PostDialogController($scope, $mdDialog, Upload) {
+    function PostDialogController($mdDialog, Upload,ToastFactory) {
         var vm = this;
         vm.showLoading = false;
         vm.obj = {};
@@ -29,13 +29,13 @@
             }
             else{
                 if(!vm.file){
-                    $scope.showSimpleToast('An image is required');
+                    ToastFactory.showSimpleToast('An image is required');
                 }
                 else if(vm.showLoading){
-                    $scope.showSimpleToast('Your post is already uploading');
+                    ToastFactory.showSimpleToast('Your post is already uploading');
                 }
                 else if(!isValid){
-                    $scope.showSimpleToast('Form invalid');
+                    ToastFactory.showSimpleToast('Form invalid');
                 }
             }
         }

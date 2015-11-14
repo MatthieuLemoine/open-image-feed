@@ -14,17 +14,17 @@
 
         //////////
 
+        function addComment(comment){
+            return $http
+                    .post('/api/comment', comment);
+        }
+
         function getComments(post){
             return $http
                     .get('/api/comments/'+post._id)
                     .then(function successCallback(response) {
                         return response.data;
                     });
-        }
-
-        function addComment(comment){
-            return $http
-                    .post('/api/comment', comment);
         }
     }
 })();

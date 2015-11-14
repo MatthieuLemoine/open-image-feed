@@ -5,9 +5,9 @@
         .module('openImageFeed.users')
         .controller('LoginController',LoginController);
 
-    LoginController.$inject = ['$scope','AuthService', '$mdDialog'];
+    LoginController.$inject = ['AuthService', '$mdDialog','ToastFactory'];
 
-    function LoginController($scope,AuthService, $mdDialog) {
+    function LoginController(AuthService, $mdDialog,ToastFactory) {
         var vm = this;
 
         vm.credentials = {
@@ -33,25 +33,25 @@
         function signin(credentials) {
             vm.showLoading = true;
             AuthService.login(credentials).then(function (user) {
-                $scope.showSimpleToast("Hello " + user.username + " !");
+                ToastFactory.showSimpleToast("Hello " + user.username + " !");
                 vm.showLoading = false;
                 hide();
             }, function () {
                 vm.showLoading = false;
-                $scope.showSimpleToast('Bad credentials');
-            })
+                ToastFactory.showSimpleToast('Bad credentials');
+            });
         }
 
         function signup(credentials) {
             vm.showLoading = true;
             AuthService.signup(credentials).then(function (user) {
-                $scope.showSimpleToast("Welcome " + user.username + " !");
+                ToastFactory.showSimpleToast("Welcome " + user.username + " !");
                 vm.showLoading = false;
                 hide();
             }, function () {
                 vm.showLoading = false;
-                $scope.showSimpleToast('Username already taken');
-            })
+                ToastFactory.showSimpleToast('Username already taken');
+            });
         }
 
         function validSignin(isValid) {
@@ -60,10 +60,10 @@
             }
             else {
                 if (vm.showLoading) {
-                    $scope.showSimpleToast('Connecting...');
+                    ToastFactory.showSimpleToast('Connecting...');
                 }
                 else if (!isValid) {
-                    $scope.showSimpleToast('Form invalid');
+                    ToastFactory.showSimpleToast('Form invalid');
                 }
             }
         }
@@ -74,10 +74,10 @@
             }
             else {
                 if (vm.showLoading) {
-                    $scope.showSimpleToast('Connecting...');
+                    ToastFactory.showSimpleToast('Connecting...');
                 }
                 else if (!isValid) {
-                    $scope.showSimpleToast('Form invalid');
+                    ToastFactory.showSimpleToast('Form invalid');
                 }
             }
         }

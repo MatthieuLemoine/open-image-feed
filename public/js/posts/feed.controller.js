@@ -5,9 +5,9 @@
         .module('openImageFeed.posts')
         .controller('FeedController',FeedController);
 
-    FeedController.$inject = ['$scope','PostsFactory','PostsModel','$interval'];
+    FeedController.$inject = ['PostsFactory','PostsModel','$interval','ToastFactory'];
 
-    function FeedController($scope,PostsFactory,PostsModel,$interval){
+    function FeedController(PostsFactory,PostsModel,$interval,ToastFactory){
         var vm = this;
         vm.showLoading = true;
         vm.model = PostsModel;
@@ -30,7 +30,7 @@
                     vm.isAlreadyLoading = false;
                 },function errorLoadMore(){
                     vm.showLoading = false;
-                    $scope.showSimpleToast('Error getting posts');
+                    ToastFactory.showSimpleToast('Error getting posts');
                 });
         }
 

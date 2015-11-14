@@ -5,9 +5,9 @@
         .module('openImageFeed.posts')
         .controller('AddPostController',AddPostController);
 
-    AddPostController.$inject = ['$scope','$mdDialog','ActivitiesFactory','AuthService','PostsFactory'];
+    AddPostController.$inject = ['$mdDialog','ActivitiesFactory','AuthService','PostsFactory','ToastFactory'];
 
-    function AddPostController($scope, $mdDialog, ActivitiesFactory,AuthService,PostsFactory){
+    function AddPostController( $mdDialog, ActivitiesFactory,AuthService,PostsFactory,ToastFactory){
         var vm = this;
         vm.speedDial ={isOpen:false};
         vm.showAddDialog = showAddDialog;
@@ -17,7 +17,7 @@
 
         function showAddDialog(ev) {
             if (!AuthService.isAuthenticated()) {
-                $scope.showLoginDialog();
+                AuthService.showLoginDialog();
             }
             else {
                 $mdDialog.show({
@@ -25,11 +25,10 @@
                         templateUrl: 'partials/dialog',
                         parent: angular.element(document.body),
                         targetEvent: ev,
-                        scope: $scope,
                         clickOutsideToClose: true
                     })
                     .then(function addPostDialogConfirm() {
-                        $scope.showSimpleToast('Post added !');
+                        ToastFactory.showSimpleToast('Post added !');
                         updateFeed();
                     });
             }
