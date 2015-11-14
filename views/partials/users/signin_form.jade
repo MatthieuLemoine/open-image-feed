@@ -1,0 +1,28 @@
+form(name="form_signin",ng-submit="LoginVM.validSignin(form_signin.$valid)", novalidate)
+    md-content(layout-padding)
+        div(layout, layout-sm="row")
+            md-input-container(ng-class="{ 'has-error' : form_signin.username.$invalid && !form_signin.username.$pristine && form_signin.username.$touched }")
+                label Username
+                input.signinInput(ng-model="LoginVM.credentials.username", type="text", name="username", ng-required="true", ng-minlength="3", ng-maxlength="30")
+                div(ng-messages="form_signin.username.$error",ng-show="form_signin.username.$touched")
+                    p(ng-message="required", class="help-block")
+                        | Username is required
+                    p(ng-message="minlength", class="help-block")
+                        | Username is too short
+                    p(ng-message="maxlength", class="help-block")
+                        | Username is too long
+        div(layout, layout-sm="row")
+            md-input-container(layout-sm="row",ng-class="{ 'has-error' : form_signin.password.$invalid && !form_signin.password.$pristine && form_signin.password.$touched }")
+                label Password
+                input.signinInput(ng-model="LoginVM.credentials.password", type="password", name="password", ng-required="true", ng-minlength="5", ng-maxlength="30")
+                div(ng-messages="form_signin.password.$error",ng-show="form_signin.password.$touched")
+                    p(ng-message="required", class="help-block")
+                        | Password is required
+                    p(ng-message="minlength", class="help-block")
+                        | Password is too short
+                    p(ng-message="maxlength", class="help-block")
+                        | Password is too long
+    div(class="md-dialog-actions", layout="row")
+        span(flex)
+        md-button(type="submit", style="margin-right:20px;")
+            | Sign In

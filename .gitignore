@@ -4,3 +4,5 @@ public/bower_components/
 .idea/
 db.js
 public/uploads/*
+public/.bowerrc
+public/build/*

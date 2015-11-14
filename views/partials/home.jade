@@ -1,100 +1,19 @@
-div(layout="column", layout-fill)
+div(ng-controller="HomeController as HomeVM",layout="column", layout-fill)
     md-toolbar.md-primary.fixed
         div(class="md-toolbar-tools")
             h1 Open Image Feed
             span(flex)
-            div(ng-if="currentUser") Hello {{ currentUser.username }}
+            div(ng-if="HomeVM.auth.currentUser") Hello {{ HomeVM.auth.currentUser.username }}
     div(id="toast-parent")
-    div(ng-controller="AddPostCtrl")
-        md-fab-speed-dial(id="custom-fab-speed",md-direction="down",class="md-hover-full md-scale md-fab-top-right",ng-mouseenter="speedDial.isOpen = true",ng-mouseleave="speedDial.isOpen = false")
-            md-fab-trigger
-                md-button(aria-label="menu", class="md-fab md-warn")
-                    md-icon(md-svg-src="/img/icons/ic_menu_white_48px.svg")
-            md-fab-actions
-                md-button(class="md-fab md-raised md-mini", aria-label="Refresh", ng-click="updateFeed()")
-                    md-icon(md-svg-src="/img/icons/ic_refresh_black_48px.svg")
-                    md-tooltip(md-direction="bottom") Refresh feed
-                span(flex)
-                md-button(class="md-fab md-raised md-mini", aria-label="Add post", ng-click="showAddDialog($event)")
-                    md-icon(md-svg-src="/img/icons/ic_add_black_48px.svg")
-                    md-tooltip(md-direction="bottom") Add a new post
+    include ./menu
     md-sidenav(id="activity-sidenav",class="md-sidenav-left md-whiteframe-z2", md-component-id="left", md-is-locked-open="$mdMedia('gt-md')")
         md-toolbar(class="md-theme-indigo")
             div.md-toolbar-tools
                 h2(class="md-toolbar-tools") Activity Feed
                 span(flex)
-                md-button.md-icon-button(aria-label="Refresh",ng-click="updateActivities()")
+                md-button.md-icon-button(aria-label="Refresh",ng-click="HomeVM.updateActivities()")
                     md-icon(md-svg-icon="/img/icons/ic_refresh_white_48px.svg")
                     md-tooltip(md-direction="bottom") Refresh Activity Feed
-        md-content(layout-padding, ng-controller="ActivityCtrl",ng-cloak)
-            md-virtual-repeat-container(id="activity-feed-virtual-container")
-                div(md-virtual-repeat="activity in activities",md-on-demand,class="md-3-line activity-virtual-repeat", flex)
-                    div(class="md-list-item-text", ng-switch on="activity.type")
-                        h3 {{ activity.author.username }}
-                        p(ng-switch-when="POST")
-                            | {{ activity.createdAt | date : 'Le dd/MM à HH:mm' }} -  has posted
-                            br
-                            strong {{activity.post.title}}
-                        p(ng-switch-when="COMMENT")
-                            | {{ activity.createdAt | date : 'Le dd/MM à HH:mm' }} - has commented
-                            br
-                            strong {{activity.post.title}}
-                        p(ng-switch-when="UPVOTE")
-                            | {{ activity.createdAt | date : 'Le dd/MM à HH:mm' }} - has upvoted
-                            br
-                            strong {{activity.post.title}}
-                        p(ng-switch-when="DOWNVOTE")
-                            | {{ activity.createdAt | date : 'Le dd/MM à HH:mm' }} - has downvoted
-                            br
-                            strong {{activity.post.title}}
-                    md-divider
-            md-button(ng-click="close()", class="md-primary", hide-gt-md)
-                |Close Activity Feed
+        include activities/activity_feed
     div(id="feed-container")
-        div(ng-controller="FeedCtrl")
-            md-content.md-padding.light-grey-background.card-container
-                div(ng-show="showLoading", layout="row", layout-sm="column", layout-align="center center")
-                    md-progress-circular(md-mode="indeterminate")
-                div(infinite-scroll='loadMore()', infinite-scroll-distance='1')
-                    md-card(ng-repeat="post in posts", ng-controller="PostCtrl")
-                        img(ng-src="{{ post.image }}", class="md-card-image", alt="{{ post.title }}")
-                        md-card-content
-                            h2.md-title {{ post.title }}
-                            h3.md-subheader {{ post.author.username }}
-                        div.md-actions(layout="row",layout-align="end center")
-                            |{{ post.comments.length }}
-                            md-button(class="md-icon-button", aria-label="Favorite", ng-click="toggleComments(post)")
-                                md-icon(md-svg-icon="/img/icons/ic_mode_comment_white_48px.svg")
-                            |{{ post.upvotes.length }}
-                            md-button(class="md-icon-button md-primary", aria-label="Settings", ng-click="upvote(post)")
-                                md-icon(md-svg-icon="/img/icons/ic_keyboard_arrow_up_white_48px.svg")
-                            |{{ post.downvotes.length }}
-                            md-button(class="md-icon-button md-warn", aria-label="Favorite", ng-click="downvote(post)")
-                               md-icon(md-svg-icon="/img/icons/ic_keyboard_arrow_down_white_48px.svg")
-                        md-list(class="list-comments", ng-class=" {'hidden' : !showComments}")
-                            md-button(class="md-fab md-warn", aria-label="Add post", ng-click="showAddCommentForm()")
-                                md-icon(md-svg-src="/img/icons/ic_add_white_48px.svg")
-                                md-tooltip(md-direction="bottom") Add a comment
-                            div(ng-show="isCommentsLoading", layout="row", layout-sm="column", layout-align="center center")
-                                md-progress-circular(md-mode="indeterminate")
-                            form(name="form_comment",ng-submit="addComment(form_comment.$valid)", novalidate, ng-show="showAddComment")
-                                md-content(layout-padding)
-                                    div(layout, layout-sm="row")
-                                        md-input-container(ng-class="{ 'has-error' : form_comment.content.$invalid && !form_comment.content.$pristine && form_comment.content.$touched }")
-                                            label Comment
-                                            input.addCommentInput(type="text",ng-model="newComment.content", name="content", ng-required="true", ng-minlength="2", ng-maxlength="80",columns="1", md-maxlength="80")
-                                            div(ng-messages="form_comment.content.$error",ng-show="form_comment.content.$touched")
-                                                p(ng-message="required", class="help-block")
-                                                    | Comment is required
-                                                p(ng-message="minlength", class="help-block")
-                                                    | Comment is too short
-                                                p(ng-message="maxlength", class="help-block")
-                                                    | Comment is too long
-                                div(class="md-dialog-actions", layout="row")
-                                    span(flex)
-                                    md-button(type="submit", style="margin-right:20px;")
-                                        |Add comment
-                            md-list-item(class="md-2-line", ng-repeat="comment in post.comments")
-                                div.md-list-item-text
-                                    h3 {{ comment.author.username }}
-                                    p {{ comment.content }}
+        include posts/posts_feed

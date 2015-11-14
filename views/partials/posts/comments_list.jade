@@ -1,0 +1,27 @@
+md-list(class="list-comments", ng-class=" {'hidden' : !PostVm.showComments}")
+    md-button(class="md-fab md-warn", aria-label="Add post", ng-click="PostVm.showAddCommentForm()")
+        md-icon(md-svg-src="/img/icons/ic_add_white_48px.svg")
+        md-tooltip(md-direction="bottom") Add a comment
+    div(ng-show="PostVm.isCommentsLoading", layout="row", layout-sm="column", layout-align="center center")
+        md-progress-circular(md-mode="indeterminate")
+    form(name="form_comment",ng-submit="PostVm.addComment(form_comment.$valid)", novalidate, ng-show="PostVm.showAddComment")
+        md-content(layout-padding)
+            div(layout, layout-sm="row")
+                md-input-container(ng-class="{ 'has-error' : form_comment.content.$invalid && !form_comment.content.$pristine && form_comment.content.$touched }")
+                    label Comment
+                    input.addCommentInput(type="text",ng-model="PostVm.newComment.content", name="content", ng-required="true", ng-minlength="2", ng-maxlength="80",columns="1", md-maxlength="80")
+                    div(ng-messages="form_comment.content.$error",ng-show="form_comment.content.$touched")
+                        p(ng-message="required", class="help-block")
+                            | Comment is required
+                        p(ng-message="minlength", class="help-block")
+                            | Comment is too short
+                        p(ng-message="maxlength", class="help-block")
+                            | Comment is too long
+        div(class="md-dialog-actions", layout="row")
+            span(flex)
+            md-button(type="submit", style="margin-right:20px;")
+                | Add comment
+    md-list-item(class="md-2-line", ng-repeat="comment in post.comments")
+        div.md-list-item-text
+            h3 {{ comment.author.username }}
+            p {{ comment.content }}

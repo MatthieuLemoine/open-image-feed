@@ -27,10 +27,10 @@ require('./models/Comments');
 require('./models/Activities');
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
+    cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now()+"-"+file.originalname)
+    cb(null, Date.now()+"-"+file.originalname);
   }
 });
 var upload = multer({ storage : storage });
@@ -77,7 +77,7 @@ var isAuthenticated = function (req, res, next) {
     return next();
   }
   res.send('Vous devez vous logger');
-}
+};
 /**
  * Routes
  */
