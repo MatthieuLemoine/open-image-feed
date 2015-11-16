@@ -1,6 +1,9 @@
 html,body{
     height: 100%;
 }
+md-toolbar{
+    z-index : 25;
+}
 .light-grey-background{
     background-color: #f2f2f2 !important;
 }
@@ -65,8 +68,8 @@ md-fab-speed-dial .md-button.md-fab md-icon{
     position:fixed;
     top:80px;
     left:304px;
-    height:200px;
-    width: 400px;
+    height: 50px;
+    width: 50px;
     z-index: 85;
 }
 #activity-sidenav{

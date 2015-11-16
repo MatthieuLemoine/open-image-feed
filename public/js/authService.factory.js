@@ -35,7 +35,7 @@
             return $http
                 .get('/profile')
                 .then(function (res) {
-                    if(res.data.user !== null) {
+                    if(res.data.user) {
                         Session.create(res.data.sessionID, res.data.user.id);
                         UserModel.currentUser = res.data.user;
                         return UserModel.currentUser;

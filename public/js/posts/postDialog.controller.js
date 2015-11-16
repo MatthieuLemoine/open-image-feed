@@ -5,9 +5,9 @@
         .module('openImageFeed.posts')
         .controller('PostDialogController',PostDialogController);
 
-    PostDialogController.$inject = ['$mdDialog','Upload','ToastFactory'];
+    PostDialogController.$inject = ['$mdDialog','Upload','ToastFactory','PostsFactory'];
 
-    function PostDialogController($mdDialog, Upload,ToastFactory) {
+    function PostDialogController($mdDialog, Upload,ToastFactory,PostsFactory) {
         var vm = this;
         vm.showLoading = false;
         vm.obj = {};
@@ -50,7 +50,7 @@
                 $mdDialog.hide(true);
             }, function () {
                 vm.showLoading = false;
-                vm.showSimpleToast('An error occured, image may be to large');
+                ToastFactory.showSimpleToast('An error occured, image may be too large');
             });
         }
     }

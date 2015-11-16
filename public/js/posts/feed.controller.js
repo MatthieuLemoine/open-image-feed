@@ -9,7 +9,7 @@
 
     function FeedController(PostsFactory,PostsModel,$interval,ToastFactory){
         var vm = this;
-        vm.showLoading = true;
+        vm.showLoading = false;
         vm.model = PostsModel;
         vm.isAlreadyLoading = false;
         vm.loadMore = loadMore;
@@ -24,6 +24,7 @@
                 return;
             }
             vm.isAlreadyLoading = true;
+            vm.showLoading = true;
             PostsFactory.getPosts()
                 .then(function successLoadMore(){
                     vm.showLoading = false;
@@ -35,8 +36,10 @@
         }
 
         function updateCount(){
+            vm.showLoading = true;
             PostsFactory.updateCount()
                 .then(function successUpdateCount(){
+                    vm.showLoading = false;
                     loadMore();
                 });
         }

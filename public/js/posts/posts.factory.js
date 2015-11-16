@@ -4,10 +4,11 @@
         .module('openImageFeed.posts')
         .factory('PostsFactory',PostsFactory);
 
-    PostsFactory.$inject = ['$http','PostsModel'];
+    PostsFactory.$inject = ['$http','PostsModel','ToastFactory'];
 
-    function PostsFactory($http,PostsModel){
+    function PostsFactory($http,PostsModel,ToastFactory){
         var number = 5;
+        var isLoading = false;
         return {
             getPosts: getPosts,
             upvote: upvote,
@@ -38,6 +39,7 @@
                     .then(function successGetPosts (response) {
                         PostsModel.posts = PostsModel.posts.concat(response.data);
                         PostsModel.offset = PostsModel.posts.length;
+                        isLoading = false ;
                         return PostsModel.posts;
                     });
         }
@@ -45,15 +47,23 @@
         function updateCount(){
             return $http.get('/api/posts/count')
                 .then(function successPostCount (response) {
-                    PostsModel.count = response.data.count;
+                    var count = response.data.count;
+                    if(count != PostsModel.count && PostsModel.count !== 0){
+                        var newPosts = count - PostsModel.count;
+                        ToastFactory.showSimpleToast(newPosts+' new posts');
+                    }
+                    PostsModel.count = count;
                     return PostsModel.count;
                 });
         }
 
         function updateFeed(){
-            PostsModel.posts = [];
-            PostsModel.offset = 0;
-            getPosts();
+            if(!isLoading){
+                isLoading = true ;
+                PostsModel.posts = [];
+                PostsModel.offset = 0;
+                getPosts();
+            }
         }
 
         function upvote(post){

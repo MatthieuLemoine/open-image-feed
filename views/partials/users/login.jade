@@ -7,7 +7,7 @@ md-dialog(aria-label="Sign In Dialog", ng-controller="LoginController as LoginVM
             md-icon(md-svg-src="img/icons/ic_clear_white_24px.svg", aria-label="Close dialog")
    div(ng-show="LoginVM.showLoading", layout="row", layout-sm="column", layout-align="center center")
       md-progress-circular(md-mode="indeterminate")
-   md-dialog-content(style="max-width:800px;max-height:810px; ")
+   md-dialog-content(style="max-width:800px;max-height:810px;")
       div(id="signin_parent",class="md-dialog-content")
          md-tabs(md-dynamic-height, md-border-bottom)
             md-tab(label="Sign In")

@@ -4,8 +4,13 @@ div(ng-controller="HomeController as HomeVM",layout="column", layout-fill)
             h1 Open Image Feed
             span(flex)
             div(ng-if="HomeVM.auth.currentUser") Hello {{ HomeVM.auth.currentUser.username }}
+            md-button(class="md-icon-button", aria-label="Refresh", ng-click="HomeVM.updateFeed()")
+                md-icon(md-svg-src="/img/icons/ic_refresh_black_48px.svg")
+                md-tooltip(md-direction="bottom") Refresh feed
+             md-button(class="md-icon-button", aria-label="Add post", ng-click="HomeVM.showAddDialog($event)")
+                md-icon(md-svg-src="/img/icons/ic_add_black_48px.svg")
+                md-tooltip(md-direction="bottom") Add a new post
     div(id="toast-parent")
-    include ./menu
     md-sidenav(id="activity-sidenav",class="md-sidenav-left md-whiteframe-z2", md-component-id="left", md-is-locked-open="$mdMedia('gt-md')")
         md-toolbar(class="md-theme-indigo")
             div.md-toolbar-tools

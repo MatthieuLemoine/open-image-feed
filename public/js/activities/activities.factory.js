@@ -4,9 +4,9 @@
         .module('openImageFeed.activities')
         .factory('ActivitiesFactory',ActivitiesFactory);
 
-    ActivitiesFactory.$inject = ['$http','ActivitiesModel'];
+    ActivitiesFactory.$inject = ['$http','ActivitiesModel','ToastFactory'];
 
-    function ActivitiesFactory($http,ActivitiesModel){
+    function ActivitiesFactory($http,ActivitiesModel,ToastFactory){
         var number = 25;
         return {
             getActivities: getActivities,
@@ -33,7 +33,8 @@
         function updateCount(){
             return $http.get('/api/activities/count')
                 .then(function successPostCount (response) {
-                    ActivitiesModel.count = response.data.count;
+                    var count = response.data.count;
+                    ActivitiesModel.count = count;
                     return ActivitiesModel.count;
                 });
         }

@@ -5,9 +5,9 @@
         .module('openImageFeed.posts')
         .controller('PostController',PostController);
 
-    PostController.$inject = ['$scope','AuthService','ActivitiesFactory','PostsFactory','CommentsFactory','ToastFactory'];
+    PostController.$inject = ['$scope','AuthService','UserModel','ActivitiesFactory','PostsFactory','CommentsFactory','ToastFactory'];
 
-    function PostController($scope,AuthService,ActivitiesFactory,PostsFactory,CommentsFactory,ToastFactory){
+    function PostController($scope,AuthService,UserModel,ActivitiesFactory,PostsFactory,CommentsFactory,ToastFactory){
         var vm = this;
         vm.post = $scope.post;
         vm.showComments = false;
@@ -41,7 +41,7 @@
                 AuthService.showLoginDialog();
             }
             else {
-                if(post.downvotes.indexOf(AuthService.currentUser.id) > -1) {
+                if(post.downvotes.indexOf(UserModel.currentUser.id) > -1) {
                     ToastFactory.showSimpleToast('Post already downvoted !');
                 }
                 else{
@@ -51,7 +51,7 @@
                                 ToastFactory.showSimpleToast('Post already downvoted !');
                             }
                             else {
-                                vm.post.downvotes.push(AuthService.currentUser.id);
+                                vm.post.downvotes.push(UserModel.currentUser.id);
                                 ToastFactory.showSimpleToast('Post downvoted !');
                                 ActivitiesFactory.updateFeed();
                             }
@@ -114,7 +114,7 @@
                 AuthService.showLoginDialog();
             }
             else {
-                if(post.upvotes.indexOf(AuthService.currentUser.id) > -1) {
+                if(post.upvotes.indexOf(UserModel.currentUser.id) > -1) {
                     ToastFactory.showSimpleToast('Post already upvoted !');
                 }
                 else{
@@ -124,7 +124,7 @@
                                 ToastFactory.showSimpleToast('Post already upvoted !');
                             }
                             else {
-                                vm.post.upvotes.push(AuthService.currentUser.id);
+                                vm.post.upvotes.push(UserModel.currentUser.id);
                                 ToastFactory.showSimpleToast('Post upvoted !');
                                 ActivitiesFactory.updateFeed();
                             }
