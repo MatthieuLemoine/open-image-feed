@@ -5,7 +5,7 @@ md-toolbar{
     z-index : 25;
 }
 .light-grey-background{
-    background-color: #f2f2f2 !important;
+    background-color: #f2f2f2;
 }
 .drop{
     padding: 15px;
@@ -32,7 +32,7 @@ md-toolbar{
 md-card{
     padding: 20px 20px 0 20px;
 }
-#dialog_parent, #add_post_parent{
+.dialog_parent{
     position: relative;
 }
 md-icon svg {
@@ -46,25 +46,14 @@ md-icon svg {
 .list-comments.hidden{
     max-height: 0;
 }
-#header{
-    position : fixed;
-}
-#feed-container{
+.feed-container{
     margin-top : 60px;
     margin-left: 300px;
 }
 .fixed{
     position : fixed;
 }
-#custom-fab-speed{
-    top:80px;
-    position: fixed;
-    z-index: 50;
-}
-md-fab-speed-dial .md-button.md-fab md-icon{
-    color : rgb(88,88,88);
-}
-#toast-parent{
+.toast-parent{
     position:fixed;
     top:80px;
     left:304px;
@@ -97,10 +86,10 @@ md-fab-speed-dial .md-button.md-fab md-icon{
 }
 
 @media screen and (max-width: 959px) {
-    #feed-container{
+    .feed-container{
         margin-left : 0;
     }
-    #toast-parent{
+    .toast-parent{
         left:0;
     }
 }
@@ -111,9 +100,6 @@ md-fab-speed-dial .md-button.md-fab md-icon{
     }
     .card-container{
         width : 500px;
-    }
-    #toast-parent{
-        width: 300px;
     }
     .addPostInput, .signinInput{
         min-width: 300px;

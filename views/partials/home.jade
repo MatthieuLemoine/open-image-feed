@@ -10,7 +10,7 @@ div(ng-controller="HomeController as HomeVM",layout="column", layout-fill)
              md-button(class="md-icon-button", aria-label="Add post", ng-click="HomeVM.showAddDialog($event)")
                 md-icon(md-svg-src="/img/icons/ic_add_black_48px.svg")
                 md-tooltip(md-direction="bottom") Add a new post
-    div(id="toast-parent")
+    div(class="toast-parent")
     md-sidenav(id="activity-sidenav",class="md-sidenav-left md-whiteframe-z2", md-component-id="left", md-is-locked-open="$mdMedia('gt-md')")
         md-toolbar(class="md-theme-indigo")
             div.md-toolbar-tools
@@ -20,5 +20,5 @@ div(ng-controller="HomeController as HomeVM",layout="column", layout-fill)
                     md-icon(md-svg-icon="/img/icons/ic_refresh_white_48px.svg")
                     md-tooltip(md-direction="bottom") Refresh Activity Feed
         include activities/activity_feed
-    div(id="feed-container")
+    div(class="feed-container")
         include posts/posts_feed
