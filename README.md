@@ -25,10 +25,18 @@ Clone the repository, run `npm install`
 **Create a db.js file**
 
     echo "module.exports = { 'url' : 'mongodb://username:password@host:port/database' }" > db.js
+    
+**Install Gulp**
+
+    npm install -g gulp
 
 ### Running
 
-Runs like a typical express app:
+Build 
+
+    gulp dev watch
+
+Run
 
     npm start
 
