@@ -6,9 +6,9 @@
 
     function ActivitiesModel(){
         return {
-            activities: [],
-            offset: 0,
-            count: 0
+            activities : [],
+            offset     : 0,
+            count      : 0
         };
     }
 })();

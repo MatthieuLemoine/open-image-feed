@@ -8,12 +8,12 @@
     PostDialogController.$inject = ['$mdDialog','Upload','ToastFactory','PostsFactory'];
 
     function PostDialogController($mdDialog, Upload,ToastFactory,PostsFactory) {
-        var vm = this;
+        var vm         = this;
         vm.showLoading = false;
-        vm.obj = {};
-        vm.hide = hide;
-        vm.cancel = cancel;
-        vm.valid = valid;
+        vm.obj         = {};
+        vm.hide        = hide;
+        vm.cancel      = cancel;
+        vm.valid       = valid;
 
         ///////////
 
@@ -43,7 +43,7 @@
         function upload(file) {
             vm.showLoading = true;
             Upload.upload({
-                url: '/api/post',
+                url: '/post',
                 data: {file: file, title: vm.post.title}
             }).then(function () {
                 vm.showLoading = false;

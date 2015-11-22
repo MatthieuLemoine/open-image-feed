@@ -8,12 +8,12 @@
     HomeController.$inject = ['AuthService','ActivitiesFactory','UserModel','$mdDialog','PostsFactory','ToastFactory'];
 
     function HomeController(AuthService,ActivitiesFactory,UserModel,$mdDialog,PostsFactory,ToastFactory){
-        var vm =this;
-        vm.auth = UserModel;
-        vm.getProfile = getProfile;
-        vm.showAddDialog = showAddDialog;
+        var vm              = this;
+        vm.auth             = UserModel;
+        vm.getProfile       = getProfile;
+        vm.showAddDialog    = showAddDialog;
         vm.updateActivities = updateActivities;
-        vm.updateFeed = updateFeed;
+        vm.updateFeed       = updateFeed;
 
         getProfile();
 
@@ -29,11 +29,11 @@
             }
             else {
                 $mdDialog.show({
-                        controller: 'PostDialogController',
-                        templateUrl: 'partials/dialog',
-                        parent: angular.element(document.body),
-                        targetEvent: ev,
-                        clickOutsideToClose: true
+                        controller          : 'PostDialogController',
+                        templateUrl         : 'partials/dialog',
+                        parent              : angular.element(document.body),
+                        targetEvent         : ev,
+                        clickOutsideToClose : true
                     })
                     .then(function addPostDialogConfirm() {
                         ToastFactory.showSimpleToast('Post added !');

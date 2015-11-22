@@ -1,7 +1,8 @@
 var LocalStrategy = require('passport-local').Strategy;
-var bCrypt = require('bcrypt-nodejs');
-var mongoose = require('mongoose');
-var User = mongoose.model('Users');
+var bCrypt        = require('bcrypt-nodejs');
+var mongoose      = require('mongoose');
+var User          = mongoose.model('Users');
+
 module.exports = function(passport){
   passport.use('login', new LocalStrategy({
       passReqToCallback : true

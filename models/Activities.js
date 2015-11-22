@@ -1,4 +1,4 @@
-var mongoose = require('mongoose');
+var mongoose   = require('mongoose');
 var timestamps = require('mongoose-timestamp');
 
 var ActivitiesSchema = new mongoose.Schema({

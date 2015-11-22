@@ -8,11 +8,11 @@
     ActivityController.$inject = ['$interval','ActivitiesFactory','ActivitiesModel','ToastFactory'];
 
     function ActivityController($interval,ActivitiesFactory,ActivitiesModel,ToastFactory){
-        var vm = this;
-        vm.showLoading = true;
-        vm.model = ActivitiesModel;
+        var vm              = this;
+        vm.showLoading      = true;
+        vm.model            = ActivitiesModel;
         vm.isAlreadyLoading = false;
-        vm.loadMore = loadMore;
+        vm.loadMore         = loadMore;
 
         $interval(ActivitiesFactory.updateCount,20000);
         updateCount();
@@ -26,7 +26,7 @@
             vm.isAlreadyLoading = true;
             ActivitiesFactory.getActivities()
                 .then(function successLoadMore(){
-                    vm.showLoading = false;
+                    vm.showLoading      = false;
                     vm.isAlreadyLoading = false;
                 },function errorLoadMore(){
                     vm.showLoading = false;

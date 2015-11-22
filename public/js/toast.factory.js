@@ -9,13 +9,13 @@
     function ToastFactory($mdToast,$document){
         var toastPosition = {
                 bottom : false,
-                top : true,
-                left : true,
-                right : false
+                top    : true,
+                left   : true,
+                right  : false
         };
 
         return {
-            showSimpleToast: showSimpleToast
+            showSimpleToast : showSimpleToast
         };
 
         ////////////
@@ -32,7 +32,7 @@
                     .content(message)
                     .position(getToastPosition())
                     .hideDelay(3000)
-                    .parent($document[0].querySelector('#toast-parent'))
+                    .parent($document[0].querySelector('.toast-parent'))
             );
         }
     }

@@ -6,9 +6,9 @@
 
     function PostsModel(){
         return {
-            posts: [],
-            offset: 0,
-            count: 0
+            posts  : [],
+            offset : 0,
+            count  : 0
         };
     }
 })();

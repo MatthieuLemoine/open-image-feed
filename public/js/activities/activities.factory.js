@@ -9,18 +9,18 @@
     function ActivitiesFactory($http,ActivitiesModel,ToastFactory){
         var number = 25;
         return {
-            getActivities: getActivities,
-            updateFeed: updateFeed,
-            updateCount: updateCount
+            getActivities : getActivities,
+            updateFeed    : updateFeed,
+            updateCount   : updateCount
         };
 
         //////////
 
         function getActivities(){
-            return $http.get('/api/activities',{
-                    params: {
-                        offset: ActivitiesModel.offset,
-                        number: number
+            return $http.get('/activity',{
+                    params : {
+                        offset : ActivitiesModel.offset,
+                        number : number
                     }
                 })
                 .then(function successGetPosts (response) {
@@ -31,7 +31,7 @@
         }
 
         function updateCount(){
-            return $http.get('/api/activities/count')
+            return $http.get('/activity/count')
                 .then(function successPostCount (response) {
                     var count = response.data.count;
                     ActivitiesModel.count = count;

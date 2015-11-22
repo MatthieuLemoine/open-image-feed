@@ -1,10 +1,10 @@
-var gulp = require('gulp');
-var uglify = require('gulp-uglify');
-var concat = require('gulp-concat');
-var changed = require('gulp-changed');
+var gulp        = require('gulp');
+var uglify      = require('gulp-uglify');
+var concat      = require('gulp-concat');
+var changed     = require('gulp-changed');
 var streamqueue = require('streamqueue');
 
-var config ={
+var config = {
     scripts : [
         './public/js/**/*.module.js',
         './public/js/**/*.js'
