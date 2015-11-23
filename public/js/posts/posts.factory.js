@@ -10,18 +10,18 @@
         var number = 5;
         var isLoading = false;
         return {
-            getPosts: getPosts,
-            upvote: upvote,
-            downvote: downvote,
-            updateFeed: updateFeed,
-            updateCount: updateCount
+            getPosts    : getPosts,
+            upvote      : upvote,
+            downvote    : downvote,
+            updateFeed  : updateFeed,
+            updateCount : updateCount
         };
 
         //////////
 
         function downvote(post){
             return $http
-                .post('/api/downvote', {post: post._id})
+                .post('/post/downvote', {post: post._id})
                 .then(function successDownvoteCallback(response) {
                     return {
                         status: response.data.status
@@ -30,22 +30,22 @@
         }
 
         function getPosts(){
-            return $http.get('/api/posts',{
+            return $http.get('/post',{
                         params: {
-                            offset: PostsModel.offset,
-                            number: number
+                            offset : PostsModel.offset,
+                            number : number
                         }
                     })
                     .then(function successGetPosts (response) {
-                        PostsModel.posts = PostsModel.posts.concat(response.data);
+                        PostsModel.posts  = PostsModel.posts.concat(response.data);
                         PostsModel.offset = PostsModel.posts.length;
-                        isLoading = false ;
+                        isLoading         = false ;
                         return PostsModel.posts;
                     });
         }
 
         function updateCount(){
-            return $http.get('/api/posts/count')
+            return $http.get('/post/count')
                 .then(function successPostCount (response) {
                     var count = response.data.count;
                     if(count != PostsModel.count && PostsModel.count !== 0){
@@ -59,8 +59,8 @@
 
         function updateFeed(){
             if(!isLoading){
-                isLoading = true ;
-                PostsModel.posts = [];
+                isLoading         = true ;
+                PostsModel.posts  = [];
                 PostsModel.offset = 0;
                 getPosts();
             }
@@ -68,10 +68,10 @@
 
         function upvote(post){
             return $http
-                    .post('/api/upvote', {post: post._id})
+                    .post('/post/upvote', {post: post._id})
                     .then(function successUpvoteCallback(response) {
                         return {
-                            status: response.data.status
+                            status : response.data.status
                         };
                     });
         }

@@ -6,7 +6,7 @@
 
     function UserModel(){
         return {
-            currentUser: {}
+            currentUser : {}
         };
     }
 })();

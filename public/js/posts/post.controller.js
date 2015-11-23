@@ -8,17 +8,17 @@
     PostController.$inject = ['$scope','AuthService','UserModel','ActivitiesFactory','PostsFactory','CommentsFactory','ToastFactory'];
 
     function PostController($scope,AuthService,UserModel,ActivitiesFactory,PostsFactory,CommentsFactory,ToastFactory){
-        var vm = this;
-        vm.post = $scope.post;
-        vm.showComments = false;
-        vm.isCommentsLoading = false;
-        vm.showAddComment = false;
-        vm.newComment = {};
-        vm.toggleComments = toggleComments;
-        vm.upvote = upvote;
-        vm.downvote = downvote;
+        var vm                = this;
+        vm.post               = $scope.post;
+        vm.showComments       = false;
+        vm.isCommentsLoading  = false;
+        vm.showAddComment     = false;
+        vm.newComment         = {};
+        vm.toggleComments     = toggleComments;
+        vm.upvote             = upvote;
+        vm.downvote           = downvote;
         vm.showAddCommentForm = showAddCommentForm;
-        vm.addComment = addComment;
+        vm.addComment         = addComment;
 
         ////////////
 
@@ -66,7 +66,7 @@
             vm.isCommentsLoading = true;
             CommentsFactory.getComments(post)
                 .then(function successGetComments(response) {
-                    vm.post.comments = response;
+                    vm.post.comments     = response;
                     vm.isCommentsLoading = false;
                 }, function errorGetComments() {
                     vm.isCommentsLoading = false;
@@ -98,8 +98,8 @@
             CommentsFactory.addComment(comment)
                 .then(function successUploadComment(){
                     vm.isCommentsLoading = false;
-                    vm.newComment = {};
-                    vm.showAddComment = false;
+                    vm.newComment        = {};
+                    vm.showAddComment    = false;
                     ToastFactory.showSimpleToast('Comment added !');
                     ActivitiesFactory.updateFeed();
                     getComments(vm.post);

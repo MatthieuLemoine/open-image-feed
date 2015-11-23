@@ -1,45 +1,38 @@
-
 /**
  * Module dependencies
  */
-
-var express = require('express'),
-  bodyParser = require('body-parser'),
-  expressSession = require('express-session'),
-  methodOverride = require('method-override'),
-  errorHandler = require('express-error-handler'),
-  morgan = require('morgan'),
-  routes = require('./routes'),
-  api = require('./routes/api'),
-  http = require('http'),
-  path = require('path'),
-  multer  = require('multer'),
-  passport = require('passport'),
-  flash = require('connect-flash');
-
-var app = module.exports = express();
-var dbConfig = require('./db.js');
-var mongoose = require('mongoose');
-mongoose.connect(dbConfig.url);
 require('./models/Posts');
 require('./models/Users');
 require('./models/Comments');
 require('./models/Activities');
-var storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now()+"-"+file.originalname);
-  }
-});
-var upload = multer({ storage : storage });
+var express = require('express');
+var bodyParser = require('body-parser');
+var expressSession = require('express-session');
+var methodOverride = require('method-override');
+var errorHandler = require('express-error-handler');
+var morgan = require('morgan');
+var http = require('http');
+var path = require('path');
+var passport = require('passport');
+var flash = require('connect-flash');
+var dbConfig = require('./config/db');
+var mongoose = require('mongoose');
+var initPassport = require('./passport/init');
+// Initialize Passport
+initPassport(passport);
+// Routes
+var activity = require('./routes/activity');
+var comment = require('./routes/comment');
+var index = require('./routes/index');
+var partials = require('./routes/partials');
+var post = require('./routes/post');
+var user = require('./routes/user');
 
-/**
- * Configuration
- */
+var app = module.exports = express();
+mongoose.connect(dbConfig.url);
 
-// all environments
+// Express config
+
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -55,9 +48,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-// Initialize Passport
-var initPassport = require('./passport/init');
-initPassport(passport);
+// Routing
+app.use('/activity',activity);
+app.use('/comment',comment);
+app.use('/',index);
+app.use('/partials',partials);
+app.use('/post',post);
+app.use('/user',user);
 
 
 var env = process.env.NODE_ENV || 'development';
@@ -72,62 +69,7 @@ if (env === 'production') {
   // TODO
 }
 
-var isAuthenticated = function (req, res, next) {
-  if (req.isAuthenticated()){
-    return next();
-  }
-  res.send('Vous devez vous logger');
-};
-/**
- * Routes
- */
-
-// serve index and view partials
-app.get('/', routes.index);
-// Auth
-app.post('/login',passport.authenticate('login',{
-  successRedirect:'/profile'
-}));
-app.post('/signup',passport.authenticate('signup',{
-  successRedirect:'/profile'
-}));
-app.get('/profile',isAuthenticated,function(req,res){
-  res.json({
-    user : {
-      id: req.user._id,
-      username: req.user.username
-    },
-    sessionID:req.sessionID
-  });
-});
-app.get('/signout',function(req,res){
-  req.logout();
-  return res.json({status : true});
-});
-app.get('/partials/home', routes.partials);
-app.get('/partials/dialog', routes.dialog);
-app.get('/partials/login', routes.loginPartial);
-
-// JSON API
-app.get('/api/feed', api.feed);
-app.get('/api/comments/:post',api.comments);
-app.get('/api/activities',api.activities);
-app.get('/api/activities/count',api.activitiesCount);
-app.get('/api/posts',api.posts);
-app.get('/api/posts/count',api.postsCount);
-app.post('/api/comment',isAuthenticated,api.comment);
-app.post('/api/upvote',isAuthenticated,api.upvote);
-app.post('/api/downvote',isAuthenticated,api.downvote);
-app.post('/api/post',isAuthenticated,upload.single('file'),api.addPost);
-
-// redirect all others to the index (HTML5 history)
-//app.get('*', routes.index);
-
-
-/**
- * Start Server
- */
-
+// Start Server
 http.createServer(app).listen(app.get('port'), function () {
   console.log('Express server listening on port ' + app.get('port'));
 });

@@ -46,6 +46,7 @@ Run
     package.json                    --> back dependencies
     gulpfile.js                     --> build commands
     .travis.yml                     --> travis config file
+    config/                         --> config files
     models/                         --> app models
     public/                         --> angular app
       bower.json                    --> front dependencies
@@ -57,9 +58,7 @@ Run
         posts/                      --> posts module
         users/                      --> custom angular directives
         openImageFeed.module.js     --> main module
-    routes/
-      api.js                        --> route for serving JSON
-      index.js                      --> route for serving HTML pages and partials
+    routes/                         --> routes
     views/
       index.jade                    --> main page for app
       layout.jade                   --> doctype, title, head boilerplate

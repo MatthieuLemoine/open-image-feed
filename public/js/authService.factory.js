@@ -8,11 +8,11 @@
 
     function AuthService($http, Session,$mdDialog,UserModel) {
         return {
-            login: login,
-            signup: signup,
-            profile: profile,
-            isAuthenticated: isAuthenticated,
-            showLoginDialog: showLoginDialog
+            login           : login,
+            signup          : signup,
+            profile         : profile,
+            isAuthenticated : isAuthenticated,
+            showLoginDialog : showLoginDialog
         };
 
         /////////
@@ -23,7 +23,7 @@
 
         function login(credentials) {
             return $http
-                .post('/login', credentials)
+                .post('/user/login', credentials)
                 .then(function (res) {
                     Session.create(res.data.sessionID, res.data.user.id);
                     UserModel.currentUser = res.data.user;
@@ -33,7 +33,7 @@
 
         function profile(){
             return $http
-                .get('/profile')
+                .get('/user/profile')
                 .then(function (res) {
                     if(res.data.user) {
                         Session.create(res.data.sessionID, res.data.user.id);
@@ -46,16 +46,16 @@
 
         function showLoginDialog() {
             $mdDialog.show({
-                controller: 'LoginController',
-                templateUrl: 'partials/login',
-                parent: angular.element(document.body),
-                clickOutsideToClose:true
+                controller          : 'LoginController',
+                templateUrl         : 'partials/login',
+                parent              : angular.element(document.body),
+                clickOutsideToClose :true
             });
         }
 
         function signup(credentials) {
             return $http
-                .post('/signup', credentials)
+                .post('/user/signup', credentials)
                 .then(function (res) {
                     Session.create(res.data.sessionID, res.data.user.id);
                     UserModel.currentUser = res.data.user;

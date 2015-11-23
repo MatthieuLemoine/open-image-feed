@@ -8,11 +8,11 @@
     FeedController.$inject = ['PostsFactory','PostsModel','$interval','ToastFactory'];
 
     function FeedController(PostsFactory,PostsModel,$interval,ToastFactory){
-        var vm = this;
-        vm.showLoading = false;
-        vm.model = PostsModel;
+        var vm              = this;
+        vm.showLoading      = false;
+        vm.model            = PostsModel;
         vm.isAlreadyLoading = false;
-        vm.loadMore = loadMore;
+        vm.loadMore         = loadMore;
 
         $interval(PostsFactory.updateCount,20000);
         updateCount();
@@ -24,10 +24,10 @@
                 return;
             }
             vm.isAlreadyLoading = true;
-            vm.showLoading = true;
+            vm.showLoading      = true;
             PostsFactory.getPosts()
                 .then(function successLoadMore(){
-                    vm.showLoading = false;
+                    vm.showLoading      = false;
                     vm.isAlreadyLoading = false;
                 },function errorLoadMore(){
                     vm.showLoading = false;

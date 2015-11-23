@@ -8,15 +8,14 @@
     LoginController.$inject = ['AuthService', '$mdDialog','ToastFactory'];
 
     function LoginController(AuthService, $mdDialog,ToastFactory) {
-        var vm = this;
-
+        var vm         = this;
         vm.credentials = {
             username: '',
             password: '',
             password_confirm: ''
         };
-        vm.hide = hide;
-        vm.cancel = cancel;
+        vm.hide        = hide;
+        vm.cancel      = cancel;
         vm.validSignin = validSignin;
         vm.validSignup = validSignup;
 
