@@ -6,3 +6,4 @@ db.js
 public/uploads/*
 public/.bowerrc
 public/build/*
+public/build/app.js

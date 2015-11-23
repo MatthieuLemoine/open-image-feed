@@ -1,7 +1,7 @@
-var login    = require('./login');
-var signup   = require('./signup');
-var mongoose = require('mongoose');
-var User     = mongoose.model('Users');
+var login = require('./login');
+var signup = require('./signup');
+var mongoose= require('mongoose');
+var User = mongoose.model('Users');
 
 module.exports = function(passport){
 	// Passport needs to be able to serialize and deserialize users to support persistent login sessions
