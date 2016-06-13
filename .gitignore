@@ -1,9 +1,4 @@
-node_modules/
-npm-debug.log
-public/bower_components/
-.idea/
-db.js
-public/uploads/*
-public/.bowerrc
-public/build/*
-public/build/app.js
+node_modules
+dist
+.hz
+rethinkdb_data
