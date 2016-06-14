@@ -1,7 +1,13 @@
-import HomeContainer from '../containers/HomeContainer.jsx';
+import FeedContainer from '../containers/FeedContainer.jsx';
+import Header from './Header.jsx';
+import Drawer from './Drawer.jsx';
 
 const Application = props =>
-  <HomeContainer onSendNotification={props.onSendNotification} state={props.state} />;
+  <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <Header />
+    <Drawer />
+    <FeedContainer onSendNotification={props.onSendNotification} state={props.state} />
+  </div>;
 
 Application.propTypes = {
   onSendNotification : React.PropTypes.func.isRequired,
