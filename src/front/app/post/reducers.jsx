@@ -1,25 +1,33 @@
 import { combineReducers } from 'redux';
-import { REQUEST_NOTIFICATION, SUCCESS_NOTIFICATION, ERROR_NOTIFICATION } from './actions.jsx';
+import {
+  OPEN_POST_DIALOG, CLOSE_POST_DIALOG, REQUEST_ADD_POST, SUCCESS_ADD_POST, NEW_POST_FETCHED
+} from './actions.jsx';
 
 function notification(state = {
   isFetching    : false
 }, action) {
   switch (action.type) {
-    case REQUEST_NOTIFICATION:
+    case REQUEST_ADD_POST:
       return Object.assign({}, state, {
         isFetching    : true
       });
-    case SUCCESS_NOTIFICATION:
+    case SUCCESS_ADD_POST:
       return Object.assign({}, state, {
         isFetching : false,
-        success    : true,
-        error      : undefined
+        success    : true
       });
-    case ERROR_NOTIFICATION:
+    case NEW_POST_FETCHED:
       return Object.assign({}, state, {
         isFetching : false,
-        success    : false,
-        error      : action.error
+        posts      : action.posts
+      });
+    case OPEN_POST_DIALOG:
+      return Object.assign({}, state, {
+        isFetching : false
+      });
+    case CLOSE_POST_DIALOG:
+      return Object.assign({}, state, {
+        isFetching : false
       });
     default:
       return state;

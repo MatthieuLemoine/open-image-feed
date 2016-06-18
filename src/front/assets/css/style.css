@@ -1,0 +1,12 @@
+.feed-container{
+  width: 800px;
+  margin: 50px auto;
+}
+.card{
+  width: 750px;
+  margin: auto;
+}
+.card .mdl-card__media img{
+  width: 750px;
+  padding: 0 !important;
+}

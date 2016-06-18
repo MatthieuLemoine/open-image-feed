@@ -1,17 +1,23 @@
 import FeedContainer from '../containers/FeedContainer.jsx';
 import Header from './Header.jsx';
 import Drawer from './Drawer.jsx';
+import PostDialog from './PostDialog.jsx';
 
-const Application = props =>
+const Application = (props) =>
   <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <Header />
+    <Header open={props.open} />
     <Drawer />
-    <FeedContainer onSendNotification={props.onSendNotification} state={props.state} />
+    <FeedContainer
+      cards={props.posts}
+    />
+    <PostDialog close={props.close} save={props.addPost} />
   </div>;
 
 Application.propTypes = {
-  onSendNotification : React.PropTypes.func.isRequired,
-  state              : React.PropTypes.object.isRequired
+  open : React.PropTypes.func.isRequired,
+  close : React.PropTypes.func.isRequired,
+  addPost : React.PropTypes.func.isRequired,
+  posts : React.PropTypes.array.isRequired
 };
 
 export default Application;
