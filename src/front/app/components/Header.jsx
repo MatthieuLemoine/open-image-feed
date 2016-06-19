@@ -6,7 +6,7 @@ const Header = (props) =>
       <nav className="mdl-navigation mdl-layout--large-screen-only">
         <button
           className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-          onClick={props.open()}
+          onClick={props.open}
         >
           <i className="material-icons">add</i>
         </button>
@@ -18,7 +18,7 @@ const Header = (props) =>
   </header>;
 
 Header.propTypes = {
-  open : React.PropTypes.objfunc.isRequired
+  open : React.PropTypes.func.isRequired
 };
 
 export default Header;

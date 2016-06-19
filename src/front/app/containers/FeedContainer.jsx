@@ -12,7 +12,7 @@ const FeedContainer = (props) =>
   </main>;
 
 FeedContainer.propTypes = {
-  cards              : React.PropTypes.array.isRequired
+  cards : React.PropTypes.array.isRequired
 };
 
 export default FeedContainer;

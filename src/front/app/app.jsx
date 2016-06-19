@@ -3,15 +3,16 @@ import Application from './components/Application.jsx';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
-import { closePostDialog, openPostDialog, persistPostIfNeeded } from './push/actions.jsx';
-import { fetchUsersIfNeeded } from './users/actions.jsx';
+import {
+  closeDialogIfNeeded, openDialogIfNeeded, persistPostIfNeeded,
+  watchFeedIfNeeded, registerDialogIfNeeded
+} from './post/actions.jsx';
 import rootReducer from './reducers.jsx';
 
 // Require material light
 require('../../../node_modules/material-design-lite/material.min.js');
 require('../assets/css/material.min.css');
 // Dialog polyfill
-require('../../../node_modules/dialog-polyfill/dialog-polyfill.js');
 require('../../../node_modules/dialog-polyfill/dialog-polyfill.css');
 require('../assets/css/style.css');
 
@@ -28,22 +29,26 @@ const store = createStore(
 store.subscribe(renderApplication);
 // Render initial state
 renderApplication();
-store.dispatch(fetchUsersIfNeeded());
+store.dispatch(watchFeedIfNeeded());
 
 // Root node Application rendering
 function renderApplication() {
   render(
     <Application
-      close={(dialog) =>
-        store.dispatch(closePostDialog(dialog))
+      close={() =>
+        store.dispatch(closeDialogIfNeeded())
       }
-      open={(dialog) =>
-        store.dispatch(openPostDialog(dialog))
+      registerDialog={(dialog) => {
+        store.dispatch(registerDialogIfNeeded(dialog));
+      }}
+      open={() => {
+        store.dispatch(openDialogIfNeeded());
       }
-      addPost={(dialog, post) =>
-        store.dispatch(persistPostIfNeeded(dialog, post))
       }
-      posts={store.getState().post.posts}
+      addPost={(post) =>
+        store.dispatch(persistPostIfNeeded(post))
+      }
+      posts={store.getState().postReducer.post.posts}
     />,
     document.getElementById('react-app')
   );
