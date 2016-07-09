@@ -3,7 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack           = require('webpack');
 
 module.exports = {
-  entry  : './src/front/app/app.jsx',
+  entry  : './src/front/app/app.js',
   output : {
     path     : `${__dirname}/dist`,
     filename : 'bundle.js'
@@ -23,7 +23,7 @@ module.exports = {
         exclude : /node_modules/
       },
       {
-        test    : /\.jsx$/,
+        test    : /\.(jsx|js)$/,
         loader  : 'babel-loader',
         query   : {
           presets : [

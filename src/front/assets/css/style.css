@@ -1,4 +1,4 @@
-.feed-container{
+.feed-container, .form-container{
   width: 800px;
   margin: 50px auto;
 }
@@ -9,4 +9,9 @@
 .card .mdl-card__media img{
   width: 750px;
   padding: 0 !important;
+}
+
+.mdl-layout-title a {
+  text-decoration: none;
+  color : white;
 }

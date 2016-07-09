@@ -1,8 +1,10 @@
-const stockImg = require('../../assets/img/stock.jpg');
-const Card = (props) =>
+const stockImg = require('../../../assets/img/stock.jpg');
+const Post = ({
+  post
+}) =>
   <div className="card mdl-card mdl-shadow--2dp">
     <div className="mdl-card__title">
-      <h2 className="mdl-card__title-text">{props.card.title}</h2>
+      <h2 className="mdl-card__title-text">{post.title}</h2>
     </div>
     <div className="mdl-card__media">
       <img
@@ -14,7 +16,7 @@ const Card = (props) =>
       />
     </div>
     <div className="mdl-card__supporting-text">
-      {props.card.author}
+      {post.author}
     </div>
     <div className="mdl-card__actions mdl-card--border">
       <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
@@ -26,8 +28,8 @@ const Card = (props) =>
     </div>
   </div>;
 
-Card.propTypes = {
-  card : React.PropTypes.object.isRequired
+Post.propTypes = {
+  post : React.PropTypes.object.isRequired
 };
 
-export default Card;
+export default Post;
