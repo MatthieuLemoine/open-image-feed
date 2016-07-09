@@ -4,7 +4,7 @@
   "description": "A open source self-hosted image feed.",
   "main": "src/app/app.jsx",
   "scripts": {
-    "start": "hz serve --dev",
+    "start": "hz serve --dev --secure",
     "build": "./node_modules/webpack/bin/webpack.js --progress --colors",
     "watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch"
   },

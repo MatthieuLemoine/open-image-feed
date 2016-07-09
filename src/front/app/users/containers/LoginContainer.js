@@ -5,6 +5,6 @@ import { login } from '../actions/login';
 export default connect(
   null,
   dispatch => ({
-    login : user => dispatch(login(user))
+    login : provider => dispatch(login(provider))
   })
 )(LoginForm);

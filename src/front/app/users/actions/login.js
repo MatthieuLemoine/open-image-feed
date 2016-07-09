@@ -17,12 +17,16 @@ function successLogin(user) {
 }
 
 // FIXME
-function doLogin(user) {
+function doLogin(provider) {
   return dispatch => {
     dispatch(requestLogin());
-    return fetch('/login', user)
-      .then(response => response.json())
-      .then(() => dispatch(successLogin(user)));
+    if (!horizon.hasAuthToken()) {
+      horizon.authEndpoint(provider).subscribe((endpoint) => {
+        window.location.pathname = endpoint;
+      });
+    } else {
+      return Promise.resolve();
+    }
   };
 }
 
@@ -37,10 +41,10 @@ function shouldLogin(state) {
   return true;
 }
 
-export function login(user) {
+export function login(provider) {
   return (dispatch, getState) => {
     if (shouldLogin(getState())) {
-      return dispatch(doLogin(user));
+      return dispatch(doLogin(provider));
     }
     return Promise.resolve();
   };

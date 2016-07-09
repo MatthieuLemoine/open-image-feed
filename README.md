@@ -21,6 +21,14 @@ A open source self-hosted image feed.
     npm run build
     hz init
 
+***SSL certificate***
+
+Create a self-signed certificate for test purpose using :
+
+    hz create-cert
+
+Or add path to your cert.pem and key.pem in your config.tml
+
 ### Run
 
     npm start

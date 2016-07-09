@@ -1,5 +1,4 @@
 import { REQUEST_LOGIN, SUCCESS_LOGIN } from '../actions/login';
-import { REQUEST_SIGNUP, SUCCESS_SIGNUP } from '../actions/signup';
 
 function user(state = {
   isFetching : false,
@@ -11,16 +10,6 @@ function user(state = {
         isFetching    : true
       });
     case SUCCESS_LOGIN:
-      return Object.assign({}, state, {
-        isFetching : false,
-        user       : action.user,
-        isLogged   : true
-      });
-    case REQUEST_SIGNUP:
-      return Object.assign({}, state, {
-        isFetching    : true
-      });
-    case SUCCESS_SIGNUP:
       return Object.assign({}, state, {
         isFetching : false,
         user       : action.user,

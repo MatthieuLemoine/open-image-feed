@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import FeedContainer from '../../posts/containers/FeedContainer';
 import AddPostContainer from '../../posts/containers/AddPostContainer';
 import LoginContainer from '../../users/containers/LoginContainer';
-import SignupContainer from '../../users/containers/SignupContainer';
 
 const Root = ({
     store
@@ -15,7 +14,6 @@ const Root = ({
         <IndexRoute component={FeedContainer} />
         <Route path="/add-post" component={AddPostContainer} />
         <Route path="/login" component={LoginContainer} />
-        <Route path="/signup" component={SignupContainer} />
       </Route>
     </Router>
   </Provider>;
