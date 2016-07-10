@@ -1,7 +1,11 @@
 import { render } from 'react-dom';
 import configureStore from './utils/configureStore';
 import Root from './app/components/Root.jsx';
-import { watchFeedIfNeeded } from './posts/actions/actions';
+import Horizon from '@horizon/client';
+
+// Horizon
+const horizon = Horizon({ authType: 'token' });
+horizon.connect();
 
 // Require material light
 require('../../../node_modules/material-design-lite/material.min.js');
@@ -16,4 +20,3 @@ render(
   <Root store={store} />,
   document.getElementById('react-app')
 );
-store.dispatch(watchFeedIfNeeded());

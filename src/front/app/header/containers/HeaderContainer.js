@@ -1,8 +1,10 @@
 import Header from '../components/Header.jsx';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import { isLogged } from '../../app/reducers/reducers';
 
-export default connect(
+export default withRouter(connect(
   state => ({
-    isLogged : state.user.isLogged
+    isLogged : isLogged(state)
   })
-)(Header);
+)(Header));

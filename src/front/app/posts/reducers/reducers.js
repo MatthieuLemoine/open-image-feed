@@ -29,3 +29,8 @@ export default function post(state = {
       return state;
   }
 }
+
+// Posts selector
+export function getPosts(state) {
+  return state.posts;
+}

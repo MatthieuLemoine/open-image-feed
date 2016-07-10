@@ -21,3 +21,7 @@ function user(state = {
 }
 
 export default user;
+
+export function isLogged(state) {
+  return state.isLogged;
+}

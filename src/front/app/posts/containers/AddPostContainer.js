@@ -1,10 +1,11 @@
 import AddPost from '../components/AddPost.jsx';
 import { connect } from 'react-redux';
 import { persistPostIfNeeded } from '../actions/actions';
+import { withRouter } from 'react-router';
 
-export default connect(
+export default withRouter(connect(
   null,
-  dispatch => ({
-    add : post => dispatch(persistPostIfNeeded(post))
-  })
-)(AddPost);
+  {
+    add : persistPostIfNeeded
+  }
+)(AddPost));

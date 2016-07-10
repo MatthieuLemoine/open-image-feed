@@ -64,7 +64,8 @@ module.exports = {
       inject   : true
     }),
     new webpack.ProvidePlugin({
-      React : 'react'
+      React : 'react',
+      horizon : '@horizon/client'
     }),
     new ExtractTextPlugin('[name].css')
   ]
