@@ -1,19 +1,15 @@
-const db  = require('../database/database').db;
+const r  = require('rethinkdb');
 const req = require('../database/database').req;
 
 class Post {
   constructor(post) {
-    // sanitizer : make juste we have no extra properties
-    this.id = post.id;
-    this.title = post.title;
-    this.image = post.image;
-    this.author = post.author;
+    Object.assign(this, post);
   }
 
   static add(post) {
     return new Promise((resolve, reject) =>
       req(connection =>
-        db
+        r.db('openImageFeed')
           .table('posts')
           .insert(post)
           .run(connection, (err, result) => {
@@ -30,7 +26,7 @@ class Post {
   static find() {
     return new Promise((resolve, reject) =>
       req(connection =>
-        db
+        r.db('openImageFeed')
           .table('posts')
           .run(connection, (err, cursor) => {
             if (err) {
@@ -50,10 +46,13 @@ class Post {
   }
 
   static isValid(post, username) {
-    if (!post.title || !post.image || post.author !== username) {
-      return Promise.reject('Invalid post');
-    }
-    return Promise.resolve(post);
+    return new Promise((resolve, reject) => {
+      if (!post.title || !post.image || post.author !== username) {
+        reject({ statusCode : 400, message : 'Invalid post' });
+      } else {
+        resolve(post);
+      }
+    });
   }
 }
 

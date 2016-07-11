@@ -1,12 +1,12 @@
 import Form from '../../shared/components/Form.jsx';
 
-const LoginForm = ({
-  login
+const SignupForm = ({
+  signup
 }) =>
   <Form
-    title="Login"
-    submit={login}
-    submitLabel="Sign in"
+    title="Sign Up"
+    submit={signup}
+    submitLabel="Join"
     inputs={[
       {
         id    : 'username',
@@ -19,12 +19,12 @@ const LoginForm = ({
         label : 'Password'
       }
     ]}
-    secondLinkLabel="I do not have an account"
-    secondLinkTo="/signup"
+    secondLinkLabel="I already have an account"
+    secondLinkTo="/login"
   />;
 
-LoginForm.propTypes = {
-  login : React.PropTypes.func.isRequired
+SignupForm.propTypes = {
+  signup : React.PropTypes.func.isRequired
 };
 
-export default LoginForm;
+export default SignupForm;

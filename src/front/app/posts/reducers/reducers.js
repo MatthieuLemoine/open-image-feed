@@ -1,6 +1,8 @@
 import {
   REQUEST_ADD_POST, SUCCESS_ADD_POST, NEW_POST_FETCHED, FEED_WATCHED
 } from '../actions/actions';
+import { SUCCESS_LOGIN } from '../../users/actions/login';
+import { SUCCESS_SIGNUP } from '../../users/actions/signup';
 
 export default function post(state = {
   isFetching   : false,

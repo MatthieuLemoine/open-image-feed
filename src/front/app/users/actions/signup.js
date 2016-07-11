@@ -1,26 +1,25 @@
 import fetch from 'isomorphic-fetch';
 
-export const REQUEST_LOGIN  = 'REQUEST_LOGIN';
-export const SUCCESS_LOGIN  = 'SUCCESS_LOGIN';
+export const REQUEST_SIGNUP  = 'REQUEST_SIGNUP';
+export const SUCCESS_SIGNUP  = 'SUCCESS_SIGNUP';
 
-function requestLogin() {
+function requestSignup() {
   return {
-    type : REQUEST_LOGIN
+    type : REQUEST_SIGNUP
   };
 }
 
-function successLogin(user) {
+function successSignup(user) {
   return {
-    type : SUCCESS_LOGIN,
+    type : SUCCESS_SIGNUP,
     user
   };
 }
 
-// FIXME
-function doLogin(user) {
+function doSignup(user) {
   return dispatch => {
-    dispatch(requestLogin());
-    return fetch('/users/login', {
+    dispatch(requestSignup());
+    return fetch('/users/signup', {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',
@@ -31,11 +30,11 @@ function doLogin(user) {
     .then(() => {
       user.authHeader = `Basic ${btoa(`${user.username}:${user.password}`)}`;
     })
-    .then(() => dispatch(successLogin(user)));
+    .then(() => dispatch(successSignup(user)));
   };
 }
 
-function shouldLogin(state) {
+function shouldSignup(state) {
   const user = state.user;
   if (!user) {
     return true;
@@ -46,10 +45,10 @@ function shouldLogin(state) {
   return true;
 }
 
-export function login(user) {
+export function signup(user) {
   return (dispatch, getState) => {
-    if (shouldLogin(getState())) {
-      return dispatch(doLogin(user));
+    if (shouldSignup(getState())) {
+      return dispatch(doSignup(user));
     }
     return Promise.resolve();
   };

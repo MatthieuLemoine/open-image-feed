@@ -8,9 +8,9 @@ module.exports = {
 };
 
 function isValidPassword(password) {
-  return password.length >= PASSWORD_MIN_SIZE;
+  return password && password.length >= PASSWORD_MIN_SIZE;
 }
 
-function isValidUsername(name) {
-  return name.length >= USERNAME_MIN_SIZE && !forbiddenCaracters.test(name);
+function isValidUsername(username) {
+  return username && username.length >= USERNAME_MIN_SIZE && !forbiddenCaracters.test(username);
 }

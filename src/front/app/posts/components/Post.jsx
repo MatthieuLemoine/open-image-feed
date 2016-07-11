@@ -8,7 +8,7 @@ const Post = ({
     </div>
     <div className="mdl-card__media">
       <img
-        src={stockImg}
+        src={post.image}
         alt="stock"
         style={{
           padding : '20px'

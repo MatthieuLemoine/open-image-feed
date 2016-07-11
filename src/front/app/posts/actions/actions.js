@@ -36,12 +36,18 @@ function feedWatched(posts) {
   };
 }
 
-function persistPost(post) {
+function persistPost(post, state) {
   return dispatch => {
+    post.author = state.user.user.username;
     dispatch(requestAddPost());
     return fetch('/posts', {
-      method : 'POST',
-      body   : JSON.stringify(post)
+      method  : 'POST',
+      headers : {
+        Accept         : 'application/json',
+        'Content-Type' : 'application/json',
+        Authorization  : state.user.user.authHeader
+      },
+      body    : JSON.stringify(post)
     })
       .then(() => dispatch(successAddPost()));
   };
@@ -61,7 +67,7 @@ function shouldPersistPost(state) {
 export function persistPostIfNeeded(post) {
   return (dispatch, getState) => {
     if (shouldPersistPost(getState())) {
-      return dispatch(persistPost(post));
+      return dispatch(persistPost(post, getState()));
     }
     return Promise.resolve();
   };
@@ -77,7 +83,7 @@ function watchFeed() {
     // Get initial POSTS
     return fetch('/posts')
       .then(response => response.json())
-      .then(posts => dispatch(feedWatched([...posts].reverse())));
+      .then(posts => dispatch(feedWatched(posts)));
   };
 }
 

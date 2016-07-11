@@ -64,5 +64,12 @@ If you don't want to use self-signed certificates see this gist : [How to use Le
 
 ### TODO
 
+- Resize image before upload
+- Handle error in fetch
+- Loading
+- Display errors
+- Form validation
+- Redirect after form submit
 - Posts pagination
-- Client auth
+- RethinkDB auth
+- Image

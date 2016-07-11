@@ -11,7 +11,7 @@ const Header = ({
         </Link>
       </span>
       <div className="mdl-layout-spacer"></div>
-      <nav className="mdl-navigation mdl-layout--large-screen-only">
+      <nav className="mdl-navigation">
         <Link
           className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
           to="add-post"
@@ -20,7 +20,10 @@ const Header = ({
         </Link>
         <Link
           className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
-          to={ isLogged ? 'profile' : 'login' }
+          to="/login"
+          style={{
+            display : isLogged ? 'none' : 'initial'
+          }}
         >
           <i className="material-icons">account_circle</i>
         </Link>

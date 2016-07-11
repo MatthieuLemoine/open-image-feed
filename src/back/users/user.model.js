@@ -1,7 +1,7 @@
-const db         = require('../database/database').db;
-const req = require('../database/database').req;
-const crypt      = require('../utils/crypt.js');
-const validator  = require('../utils/validator.js');
+const r         = require('rethinkdb');
+const req       = require('../database/database').req;
+const crypt     = require('../utils/crypt.js');
+const validator = require('../utils/validator.js');
 
 class User {
   constructor(user) {
@@ -40,7 +40,7 @@ class User {
           user.password = derivedKey.toString('hex');
           user.type     = 'user';
           req(connection =>
-            db.table('users').insert(user).run(connection, (error, result) => {
+            r.db('openImageFeed').table('users').insert(user).run(connection, (error, result) => {
               if (error) {
                 reject(error);
               } else {
@@ -56,11 +56,17 @@ class User {
   static findByUsername(username) {
     return new Promise((resolve, reject) => {
       req(connection =>
-        db.table('users').filter({ username }).run(connection, (err, result) => {
-          if (err || result.length === 0) {
+        r.db('openImageFeed').table('users').filter({ username }).run(connection, (err, cursor) => {
+          if (err) {
             reject(err);
           } else {
-            resolve(new User(result[0]));
+            cursor.toArray((error, result) => {
+              if (error || result.length === 0) {
+                reject(error);
+              } else {
+                resolve(new User(result[0]));
+              }
+            });
           }
         })
       );
@@ -71,7 +77,7 @@ class User {
     return new Promise((resolve, reject) => {
       User
         .findByUsername(user.username)
-        .then(() => reject({ statusCode : 409 }))
+        .then(() => reject({ statusCode : 409, message : 'Not available' }))
         .catch((err) => {
           if (err) {
             reject(err);
@@ -86,11 +92,22 @@ class User {
     return new Promise((resolve, reject) => {
       if (validator.isValidUsername(newUser.username)
         && validator.isValidPassword(newUser.password)) {
+        resolve(newUser);
+      } else {
+        reject({ statusCode : 400, message : 'Invalid' });
+      }
+    });
+  }
+
+  static isValidAndAvailable(newUser) {
+    return new Promise((resolve, reject) => {
+      if (validator.isValidUsername(newUser.username)
+        && validator.isValidPassword(newUser.password)) {
         User.isAvailable(newUser)
           .then(() => resolve(newUser))
           .catch(reject);
       } else {
-        reject({ statusCode : 400 });
+        reject({ statusCode : 400, message : 'Invalid' });
       }
     });
   }

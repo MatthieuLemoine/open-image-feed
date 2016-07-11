@@ -6,7 +6,7 @@ const users      = require('./users/users');
 const database   = require('./database/database');
 const app        = express();
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit : '50mb' }));
 
 const PORT   = process.env.PORT || 8888;
 const server = require('http').createServer(app);
