@@ -1,10 +1,14 @@
+import fetch from 'isomorphic-fetch';
+import io from 'socket.io-client';
+
+const socket = io(`${window.location.protocol}//${window.location.host}`);
+
 export const REQUEST_ADD_POST  = 'REQUEST_ADD_POST';
 export const SUCCESS_ADD_POST  = 'SUCCESS_ADD_POST';
 export const NEW_POST_FETCHED  = 'NEW_POST_FETCHED';
 export const FEED_WATCHED      = 'FEED_WATCHED';
 export const DIALOG_REGISTERED = 'DIALOG_REGISTERED';
 
-const feed = horizon('posts');
 
 function requestAddPost() {
   return {
@@ -18,24 +22,28 @@ function successAddPost() {
   };
 }
 
-function newPostFetched(posts) {
+function newPostFetched(post) {
   return {
     type  : NEW_POST_FETCHED,
-    posts
+    post
   };
 }
 
-function feedWatched() {
+function feedWatched(posts) {
   return {
-    type : FEED_WATCHED
+    type : FEED_WATCHED,
+    posts
   };
 }
 
 function persistPost(post) {
   return dispatch => {
     dispatch(requestAddPost());
-    feed.store(post);
-    dispatch(successAddPost());
+    return fetch('/posts', {
+      method : 'POST',
+      body   : JSON.stringify(post)
+    })
+      .then(() => dispatch(successAddPost()));
   };
 }
 
@@ -61,10 +69,15 @@ export function persistPostIfNeeded(post) {
 
 function watchFeed() {
   return dispatch => {
-    feed
-      .watch()
-      .subscribe((docs) => dispatch(newPostFetched(docs)));
-    dispatch(feedWatched());
+    // Watch feed
+    socket
+      .on('post-change', (data) => {
+        dispatch(newPostFetched(data.new_val));
+      });
+    // Get initial POSTS
+    return fetch('/posts')
+      .then(response => response.json())
+      .then(posts => dispatch(feedWatched([...posts].reverse())));
   };
 }
 
@@ -82,7 +95,7 @@ function shouldWatchFeed(state) {
 export function watchFeedIfNeeded() {
   return (dispatch, getState) => {
     if (shouldWatchFeed(getState())) {
-      return dispatch(watchFeed());
+      return dispatch(watchFeed(getState));
     }
     return Promise.resolve();
   };

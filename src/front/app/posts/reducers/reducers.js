@@ -19,11 +19,12 @@ export default function post(state = {
       });
     case NEW_POST_FETCHED:
       return Object.assign({}, state, {
-        posts      : action.posts
+        posts      : [action.post].concat(state.posts)
       });
     case FEED_WATCHED:
       return Object.assign({}, state, {
-        isFetching : true
+        isFetching : true,
+        posts      : action.posts
       });
     default:
       return state;

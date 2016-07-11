@@ -1,5 +1,5 @@
 const db         = require('../database/database').db;
-const connection = require('../database/database').connection;
+const req = require('../database/database').req;
 const crypt      = require('../utils/crypt.js');
 const validator  = require('../utils/validator.js');
 
@@ -39,13 +39,15 @@ class User {
         } else {
           user.password = derivedKey.toString('hex');
           user.type     = 'user';
-          db.table('users').insert(user).run(connection, (error, result) => {
-            if (error) {
-              reject(error);
-            } else {
-              resolve(result);
-            }
-          });
+          req(connection =>
+            db.table('users').insert(user).run(connection, (error, result) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve(result);
+              }
+            })
+          );
         }
       });
     });
@@ -53,13 +55,15 @@ class User {
 
   static findByUsername(username) {
     return new Promise((resolve, reject) => {
-      db.table('users').filter({ username }).run(connection, (err, result) => {
-        if (err || result.length === 0) {
-          reject(err);
-        } else {
-          resolve(new User(result[0]));
-        }
-      });
+      req(connection =>
+        db.table('users').filter({ username }).run(connection, (err, result) => {
+          if (err || result.length === 0) {
+            reject(err);
+          } else {
+            resolve(new User(result[0]));
+          }
+        })
+      );
     });
   }
 

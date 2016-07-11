@@ -1,12 +1,12 @@
 const express   = require('express');
 const router    = express.Router();
-const auth      = require('./auth/auth');
+const auth      = require('../auth/auth');
 const Post      = require('./post.model');
 
 router
   .get('/', (req, res, next) => Post
     .find()
-    .then(res.send)
+    .then(post => res.send(post))
     .catch(next)
   )
   .post('/', auth.isAuthenticated, (req, res, next) => {

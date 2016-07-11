@@ -1,17 +1,36 @@
 const r = require('rethinkdb');
 
-let connection = null;
-const db = r.db('open-image-feed');
+const db = r.db('openImageFeed');
 
 module.exports = {
   init,
-  connection,
+  req,
   db
 };
 
-function init() {
+function req(request) {
   r.connect({ host : 'localhost', port : 28015 }, (err, conn) => {
     if (err) throw err;
-    connection = conn;
+    request(conn);
+  });
+}
+
+function init(io) {
+  r.connect({ host : 'localhost', port : 28015 }, (err, conn) => {
+    if (err) throw err;
+    // Listen to new post
+    db
+      .table('posts')
+      .changes()
+      .run(conn, (error, cursor) => {
+        if (error) {
+          console.error(error);
+        } else {
+          // Emit changes to all socket clients
+          cursor.each((_, change) => {
+            io.emit('post-change', change);
+          });
+        }
+      });
   });
 }

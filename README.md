@@ -60,3 +60,9 @@ If you don't want to use self-signed certificates see this gist : [How to use Le
 ### Run
 
     npm start
+
+
+### TODO
+
+- Posts pagination
+- Client auth

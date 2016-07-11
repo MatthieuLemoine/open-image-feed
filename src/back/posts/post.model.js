@@ -1,5 +1,5 @@
-const db         = require('../database/database').db;
-const connection = require('../database/database').connection;
+const db  = require('../database/database').db;
+const req = require('../database/database').req;
 
 class Post {
   constructor(post) {
@@ -12,36 +12,40 @@ class Post {
 
   static add(post) {
     return new Promise((resolve, reject) =>
-      db
-        .table('posts')
-        .insert(post)
-        .run(connection, (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(result);
-          }
-        })
+      req(connection =>
+        db
+          .table('posts')
+          .insert(post)
+          .run(connection, (err, result) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          })
+      )
     );
   }
 
   static find() {
     return new Promise((resolve, reject) =>
-      db
-        .table('posts')
-        .run(connection, (err, cursor) => {
-          if (err) {
-            reject(err);
-          } else {
-            cursor.toArray((error, result) => {
-              if (error) {
-                reject(error);
-              } else {
-                resolve(result);
-              }
-            });
-          }
-        })
+      req(connection =>
+        db
+          .table('posts')
+          .run(connection, (err, cursor) => {
+            if (err) {
+              reject(err);
+            } else {
+              cursor.toArray((error, result) => {
+                if (error) {
+                  reject(error);
+                } else {
+                  resolve(result);
+                }
+              });
+            }
+          })
+        )
     );
   }
 
