@@ -1,5 +1,6 @@
-const basic = require('basic-auth');
-const User  = require('../users/user.model.js');
+const basic         = require('basic-auth');
+const User          = require('../database/schema').User;
+const checkPassword = require('../utils/validator').checkPassword;
 
 module.exports = {
   isAuthenticated
@@ -13,8 +14,9 @@ function isAuthenticated(req, res, next) {
   }
   // Check credentials
   User
-    .findByUsername(credentials.name)
-    .then(user => user.checkPassword(credentials.pass))
+    .get(credentials.name)
+    .run()
+    .then(user => checkPassword(user, credentials.pass))
     .then(user => {
       req.user = user;
       next();

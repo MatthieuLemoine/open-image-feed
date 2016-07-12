@@ -76,9 +76,11 @@ export function persistPostIfNeeded(post) {
 function watchFeed() {
   return dispatch => {
     // Watch feed
+    // TODO Listen for updated / deleted documents
     socket
-      .on('post-change', (data) => {
-        dispatch(newPostFetched(data.new_val));
+      .on('post-created', (data) => {
+        console.log(data);
+        dispatch(newPostFetched(data));
       });
     // Get initial POSTS
     return fetch('/posts')

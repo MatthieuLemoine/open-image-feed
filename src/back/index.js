@@ -2,8 +2,10 @@ const express    = require('express');
 const path       = require('path');
 const bodyParser = require('body-parser');
 const posts      = require('./posts/posts');
+const comments   = require('./posts/comments');
+const likes      = require('./posts/likes');
 const users      = require('./users/users');
-const database   = require('./database/database');
+const postSocket = require('./socket/post');
 const app        = express();
 
 app.use(bodyParser.json({ limit : '50mb' }));
@@ -13,14 +15,20 @@ const server = require('http').createServer(app);
 const io     = require('socket.io')(server);
 server.listen(PORT, () => process.stdout.write(`Server running at localhost:${PORT}\n`));
 
-// Connect to RethinkDB
-database.init(io);
+// Init post feed
+postSocket(io);
 
 // Serve dist files
 app.use(express.static(path.join(__dirname, '../../dist')));
 
 // POSTS
 app.use('/posts', posts);
+
+// COMMENTS
+app.use('/comments', comments);
+
+// LIKES
+app.use('/likes', likes);
 
 // USERS
 app.use('/users', users);
