@@ -2,12 +2,14 @@ import Form from '../../shared/components/Form.jsx';
 
 // TODO Handle image
 const AddPost = ({
-  add
+  add,
+  isPersisting
 }) =>
   <Form
     title="Create a post"
     submit={add}
     submitLabel="Publish"
+    submitDisabled={isPersisting}
     inputs={[
       {
         id       : 'title',
@@ -27,7 +29,8 @@ const AddPost = ({
   />;
 
 AddPost.propTypes = {
-  add : React.PropTypes.func.isRequired
+  add : React.PropTypes.func.isRequired,
+  isPersisting : React.PropTypes.bool.isRequired
 };
 
 export default AddPost;

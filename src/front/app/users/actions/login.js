@@ -14,14 +14,16 @@ function requestLogin() {
 
 function successLogin(user) {
   return {
-    type : SUCCESS_LOGIN,
+    type    : SUCCESS_LOGIN,
+    message : 'You are now logged in',
     user
   };
 }
 
 function errorLogin() {
   return {
-    type : ERROR_LOGIN
+    type    : ERROR_LOGIN,
+    message : 'Invalid credentials'
   };
 }
 

@@ -21,26 +21,30 @@ function requestAddPost() {
 
 function successAddPost() {
   return {
-    type  : SUCCESS_ADD_POST
+    type    : SUCCESS_ADD_POST,
+    message : 'Post created'
   };
 }
 
 function errorAddPost() {
   return {
-    type  : ERROR_ADD_POST
+    type    : ERROR_ADD_POST,
+    message : 'Error while saving your post. Please check the form before submitting again'
   };
 }
 
 function newPostFetched(post) {
   return {
     type  : NEW_POST_FETCHED,
+    message : 'New post fetched',
     post
   };
 }
 
 function errorGetPosts() {
   return {
-    type  : ERROR_GET_POSTS
+    type  : ERROR_GET_POSTS,
+    message : 'Error while fetching the posts. Please check your internet connection'
   };
 }
 

@@ -7,6 +7,7 @@ import { scaleImage } from '../../utils/imageResizer';
  * @param title  : form's title
  * @param submit : function called on submit
  * @param submitLabel : submit button label
+ * @param submitDisabled : boolean to disable submit button
  * @param inputs : array of form fields
  * @param secondLinkLabel : secondary button label
  * @param secondLinkTo : secondary button "to" attribute
@@ -15,6 +16,7 @@ const Form = ({
   title,
   submit,
   submitLabel,
+  submitDisabled,
   inputs,
   secondLinkLabel,
   secondLinkTo
@@ -69,12 +71,8 @@ const Form = ({
     preview.src   = files[0].preview;
 
     reader.addEventListener('load', () => {
-      console.log('On load');
-      console.log(preview.width);
-      console.log(preview.height);
       preview.src    = reader.result;
       preview.src    = scaleImage(preview, type);
-      console.log(preview.src);
       imageRef.image = preview.src;
     }, false);
 
@@ -100,7 +98,7 @@ const Form = ({
         >
           <img
             role="presentation"
-            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEASABIAAD//gATQ3JlYXRlZCB3aXRoIEdJTVD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/2wBDAQMEBAUEBQkFBQkUDQsNFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBT/wgARCAABAu4DAREAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAj/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIQAxAAAAGqQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAf/8QAFBABAAAAAAAAAAAAAAAAAAAAYP/aAAgBAQABBQI9/8QAFBEBAAAAAAAAAAAAAAAAAAAAYP/aAAgBAwEBPwE9/8QAFBEBAAAAAAAAAAAAAAAAAAAAYP/aAAgBAgEBPwE9/8QAFBABAAAAAAAAAAAAAAAAAAAAYP/aAAgBAQAGPwI9/8QAFBABAAAAAAAAAAAAAAAAAAAAYP/aAAgBAQABPyE9/9oADAMBAAIAAwAAABCSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSST//xAAUEQEAAAAAAAAAAAAAAAAAAABg/9oACAEDAQE/ED3/xAAUEQEAAAAAAAAAAAAAAAAAAABg/9oACAECAQE/ED3/xAAUEAEAAAAAAAAAAAAAAAAAAABg/9oACAEBAAE/ED3/2Q=="
             id="preview"
             style={{
               padding : '20px'
@@ -117,6 +115,7 @@ const Form = ({
                 return obj;
               }, {}));
             }}
+            disabled={!!submitDisabled}
           >
              {submitLabel}
           </a>
@@ -132,6 +131,7 @@ Form.propTypes = {
   inputs          : React.PropTypes.array.isRequired,
   title           : React.PropTypes.string.isRequired,
   submitLabel     : React.PropTypes.string.isRequired,
+  submitDisabled  : React.PropTypes.bool,
   secondLinkLabel : React.PropTypes.string,
   secondLinkTo    : React.PropTypes.string
 };

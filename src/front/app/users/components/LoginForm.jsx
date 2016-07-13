@@ -1,12 +1,14 @@
 import Form from '../../shared/components/Form.jsx';
 
 const LoginForm = ({
+  isFetching,
   login
 }) =>
   <Form
     title="Login"
     submit={login}
     submitLabel="Sign in"
+    submitDisabled={isFetching}
     inputs={[
       {
         id       : 'username',
@@ -26,6 +28,7 @@ const LoginForm = ({
   />;
 
 LoginForm.propTypes = {
+  isFetching : React.PropTypes.bool.isRequired,
   login : React.PropTypes.func.isRequired
 };
 

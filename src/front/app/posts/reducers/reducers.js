@@ -29,7 +29,7 @@ export default function post(state = {
       });
     case FEED_WATCHED:
       return Object.assign({}, state, {
-        isFetching    : true,
+        isFetching    : false,
         posts         : action.posts,
         errorGetPosts : false
       });

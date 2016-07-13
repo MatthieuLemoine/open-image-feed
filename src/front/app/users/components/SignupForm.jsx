@@ -1,12 +1,14 @@
 import Form from '../../shared/components/Form.jsx';
 
 const SignupForm = ({
+  isFetching,
   signup
 }) =>
   <Form
     title="Sign Up"
     submit={signup}
     submitLabel="Join"
+    submitDisabled={isFetching}
     inputs={[
       {
         id       : 'username',
@@ -26,7 +28,8 @@ const SignupForm = ({
   />;
 
 SignupForm.propTypes = {
-  signup : React.PropTypes.func.isRequired
+  isFetching : React.PropTypes.bool.isRequired,
+  signup     : React.PropTypes.func.isRequired
 };
 
 export default SignupForm;

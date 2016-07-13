@@ -14,14 +14,16 @@ function requestSignup() {
 
 function successSignup(user) {
   return {
-    type : SUCCESS_SIGNUP,
+    type    : SUCCESS_SIGNUP,
+    message : 'Account created',
     user
   };
 }
 
 function errorSignup() {
   return {
-    type : ERROR_SIGNUP
+    type    : ERROR_SIGNUP,
+    message : 'Username already taken'
   };
 }
 
