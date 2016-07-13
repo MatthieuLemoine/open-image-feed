@@ -22,3 +22,7 @@
 .card .mdl-card__media{
   background-color: inherit;
 }
+
+.progress-indicator {
+  width: 100%;
+}

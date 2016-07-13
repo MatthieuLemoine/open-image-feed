@@ -67,7 +67,6 @@ If you don't want to use self-signed certificates see this gist : [How to use Le
 - Fix join save
 - Handle posts update i.e new comment / new like
 - Handle error in fetch
-- Loading
 - Display errors
 - Form validation
 - Posts pagination

@@ -25,8 +25,9 @@ export default function configureStore() {
       isPersisting : false
     },
     user : {
-      isLogged : store.getState().user.isLogged,
-      user     : store.getState().user.user
+      isLogged   : store.getState().user.isLogged,
+      user       : store.getState().user.user,
+      isFetching : false,
     }
   }), 1000));
 

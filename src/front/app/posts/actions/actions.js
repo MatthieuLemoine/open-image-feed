@@ -1,14 +1,16 @@
 import fetch from 'isomorphic-fetch';
 import io from 'socket.io-client';
 import { browserHistory } from 'react-router';
+import { checkStatus, parseJSON } from '../../utils/http';
 
 const socket = io(`${window.location.protocol}//${window.location.host}`);
 
 export const REQUEST_ADD_POST  = 'REQUEST_ADD_POST';
 export const SUCCESS_ADD_POST  = 'SUCCESS_ADD_POST';
+export const ERROR_ADD_POST    = 'ERROR_ADD_POST';
 export const NEW_POST_FETCHED  = 'NEW_POST_FETCHED';
 export const FEED_WATCHED      = 'FEED_WATCHED';
-export const DIALOG_REGISTERED = 'DIALOG_REGISTERED';
+export const ERROR_GET_POSTS   = 'ERROR_GET_POSTS';
 
 
 function requestAddPost() {
@@ -23,10 +25,22 @@ function successAddPost() {
   };
 }
 
+function errorAddPost() {
+  return {
+    type  : ERROR_ADD_POST
+  };
+}
+
 function newPostFetched(post) {
   return {
     type  : NEW_POST_FETCHED,
     post
+  };
+}
+
+function errorGetPosts() {
+  return {
+    type  : ERROR_GET_POSTS
   };
 }
 
@@ -49,8 +63,10 @@ function persistPost(post, state) {
       },
       body    : JSON.stringify(post)
     })
+      .then(checkStatus)
       .then(() => dispatch(successAddPost()))
-      .then(() => browserHistory.push('/'));
+      .then(() => browserHistory.push('/'))
+      .catch(() => dispatch(errorAddPost()));
   };
 }
 
@@ -80,13 +96,14 @@ function watchFeed() {
     // TODO Listen for updated / deleted documents
     socket
       .on('post-created', (data) => {
-        console.log(data);
         dispatch(newPostFetched(data));
       });
     // Get initial POSTS
     return fetch('/posts')
-      .then(response => response.json())
-      .then(posts => dispatch(feedWatched(posts)));
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(posts => dispatch(feedWatched(posts)))
+      .catch(() => dispatch(errorGetPosts()));
   };
 }
 

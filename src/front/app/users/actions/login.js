@@ -1,8 +1,10 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
+import { checkStatus } from '../../utils/http';
 
 export const REQUEST_LOGIN  = 'REQUEST_LOGIN';
 export const SUCCESS_LOGIN  = 'SUCCESS_LOGIN';
+export const ERROR_LOGIN    = 'ERROR_LOGIN';
 
 function requestLogin() {
   return {
@@ -17,7 +19,12 @@ function successLogin(user) {
   };
 }
 
-// FIXME
+function errorLogin() {
+  return {
+    type : ERROR_LOGIN
+  };
+}
+
 function doLogin(user) {
   return dispatch => {
     dispatch(requestLogin());
@@ -29,11 +36,13 @@ function doLogin(user) {
       },
       body    : JSON.stringify(user)
     })
+    .then(checkStatus)
     .then(() => {
       user.authHeader = `Basic ${btoa(`${user.username}:${user.password}`)}`;
     })
     .then(() => dispatch(successLogin(user)))
-    .then(() => browserHistory.push('/'));
+    .then(() => browserHistory.push('/'))
+    .catch(() => dispatch(errorLogin()));
   };
 }
 

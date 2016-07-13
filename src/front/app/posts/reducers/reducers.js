@@ -1,8 +1,7 @@
 import {
-  REQUEST_ADD_POST, SUCCESS_ADD_POST, NEW_POST_FETCHED, FEED_WATCHED
+  REQUEST_ADD_POST, SUCCESS_ADD_POST, NEW_POST_FETCHED,
+  FEED_WATCHED, ERROR_ADD_POST, ERROR_GET_POSTS
 } from '../actions/actions';
-import { SUCCESS_LOGIN } from '../../users/actions/login';
-import { SUCCESS_SIGNUP } from '../../users/actions/signup';
 
 export default function post(state = {
   isFetching   : false,
@@ -12,21 +11,32 @@ export default function post(state = {
   switch (action.type) {
     case REQUEST_ADD_POST:
       return Object.assign({}, state, {
-        isPersisting    : true
+        isPersisting : true
       });
     case SUCCESS_ADD_POST:
       return Object.assign({}, state, {
         isPersisting : false,
-        success    : true
+        errorAddPost : false
+      });
+    case ERROR_ADD_POST:
+      return Object.assign({}, state, {
+        isPersisting : false,
+        errorAddPost : true
       });
     case NEW_POST_FETCHED:
       return Object.assign({}, state, {
-        posts      : [action.post].concat(state.posts)
+        posts : [action.post].concat(state.posts)
       });
     case FEED_WATCHED:
       return Object.assign({}, state, {
-        isFetching : true,
-        posts      : action.posts
+        isFetching    : true,
+        posts         : action.posts,
+        errorGetPosts : false
+      });
+    case ERROR_GET_POSTS:
+      return Object.assign({}, state, {
+        isFetching    : false,
+        errorGetPosts : true
       });
     default:
       return state;
@@ -36,4 +46,20 @@ export default function post(state = {
 // Posts selector
 export function getPosts(state) {
   return state.posts;
+}
+
+export function hasErrorAddPost(state) {
+  return state.errorAddPost;
+}
+
+export function hasErrorGetPosts(state) {
+  return state.errorGetPosts;
+}
+
+export function isFetchingPosts(state) {
+  return state.isFetching;
+}
+
+export function isPersistingPost(state) {
+  return state.isPersisting;
 }

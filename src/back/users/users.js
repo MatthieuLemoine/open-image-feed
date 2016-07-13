@@ -25,7 +25,7 @@ router
         res.status(500).send('Server error');
       } else {
         tempUser.password = derivedKey.toString('hex');
-        const user = new User(Object.assign({}, tempUser));
+        const user = new User(tempUser);
         user
           .save()
           .then(() => res.sendStatus(201))
