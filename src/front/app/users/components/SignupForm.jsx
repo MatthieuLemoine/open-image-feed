@@ -9,14 +9,16 @@ const SignupForm = ({
     submitLabel="Join"
     inputs={[
       {
-        id    : 'username',
-        type  : 'text',
-        label : 'Username'
+        id       : 'username',
+        type     : 'text',
+        label    : 'Username',
+        required : true
       },
       {
-        id    : 'password',
-        type  : 'password',
-        label : 'Password'
+        id       : 'password',
+        type     : 'password',
+        label    : 'Password',
+        required : true
       }
     ]}
     secondLinkLabel="I already have an account"

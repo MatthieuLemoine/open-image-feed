@@ -10,14 +10,16 @@ const AddPost = ({
     submitLabel="Publish"
     inputs={[
       {
-        id    : 'title',
-        type  : 'text',
-        label : 'Title'
+        id       : 'title',
+        type     : 'text',
+        label    : 'Title',
+        required : true
       },
       {
-        id    : 'image',
-        type  : 'image',
-        label : 'Image'
+        id       : 'image',
+        type     : 'image',
+        label    : 'Image',
+        required : true
       }
     ]}
     secondLinkLabel="Cancel"

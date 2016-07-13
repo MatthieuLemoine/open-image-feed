@@ -10,18 +10,14 @@ function watchPosts(io) {
       }
 
       if (!doc.isSaved()) {
-        io.emit('post-deleted', stringify(doc));
+        io.emit('post-deleted', doc);
       } else if (!doc.getOldValue()) {
-        io.emit('post-created', stringify(doc));
+        io.emit('post-created', doc);
       } else {
-        io.emit('post-updated', stringify(doc));
+        io.emit('post-updated', doc);
       }
     })
   ).catch((err) => {
     console.error(err);
   });
-}
-
-function stringify(doc) {
-  return JSON.stringify(doc, null, 2);
 }

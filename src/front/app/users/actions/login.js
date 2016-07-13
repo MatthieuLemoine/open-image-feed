@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-fetch';
+import { browserHistory } from 'react-router';
 
 export const REQUEST_LOGIN  = 'REQUEST_LOGIN';
 export const SUCCESS_LOGIN  = 'SUCCESS_LOGIN';
@@ -31,7 +32,8 @@ function doLogin(user) {
     .then(() => {
       user.authHeader = `Basic ${btoa(`${user.username}:${user.password}`)}`;
     })
-    .then(() => dispatch(successLogin(user)));
+    .then(() => dispatch(successLogin(user)))
+    .then(() => browserHistory.push('/'));
   };
 }
 

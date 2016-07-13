@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import io from 'socket.io-client';
+import { browserHistory } from 'react-router';
 
 const socket = io(`${window.location.protocol}//${window.location.host}`);
 
@@ -38,7 +39,6 @@ function feedWatched(posts) {
 
 function persistPost(post, state) {
   return dispatch => {
-    post.author = state.user.user.username;
     dispatch(requestAddPost());
     return fetch('/posts', {
       method  : 'POST',
@@ -49,7 +49,8 @@ function persistPost(post, state) {
       },
       body    : JSON.stringify(post)
     })
-      .then(() => dispatch(successAddPost()));
+      .then(() => dispatch(successAddPost()))
+      .then(() => browserHistory.push('/'));
   };
 }
 

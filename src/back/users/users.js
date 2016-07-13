@@ -5,15 +5,15 @@ const checkPassword = require('../utils/validator').checkPassword;
 const crypt         = require('../utils/crypt.js');
 
 router
-  .post('/login', (req, res, next) =>
+  .post('/login', (req, res) =>
     User
       .get(req.body.username)
       .run()
       .then(user => checkPassword(user, req.body.password))
       .then(() => res.sendStatus(200))
-      .catch(next)
+      .catch(() => res.status(400).send('Invalid username or password'))
   )
-  .post('/signup', (req, res, next) => {
+  .post('/signup', (req, res) => {
     const tempUser = {
       username : req.body.username,
       password : req.body.password
@@ -22,14 +22,14 @@ router
     tempUser.salt = crypt.generateSalt();
     crypt.hashPassword(tempUser.password, tempUser.salt, (err, derivedKey) => {
       if (err) {
-        next({ statusCode : 500, message : 'Error hashing password' });
+        res.status(500).send('Server error');
       } else {
         tempUser.password = derivedKey.toString('hex');
         const user = new User(Object.assign({}, tempUser));
         user
           .save()
           .then(() => res.sendStatus(201))
-          .catch(next);
+          .catch(() => res.status(400).send('Username already taken'));
       }
     });
   });

@@ -1,5 +1,6 @@
 import { Link } from 'react-router';
 import Dropzone from 'react-dropzone';
+import { scaleImage } from '../../utils/imageResizer';
 
 /**
  * Generic form component
@@ -44,6 +45,7 @@ const Form = ({
               node
             });
           }}
+          required={input.required}
         />
         <label className="mdl-textfield__label" htmlFor={input.id}>{input.label}</label>
       </div>
@@ -62,13 +64,18 @@ const Form = ({
   // FIXME Image drop
   function onDrop(files) {
     const preview = document.querySelector('#preview');
-    preview.src = files[0].preview;
-
     const reader  = new FileReader();
+    const type    = files[0].type;
+    preview.src   = files[0].preview;
 
     reader.addEventListener('load', () => {
-      preview.src = reader.result;
-      imageRef.image = reader.result;
+      console.log('On load');
+      console.log(preview.width);
+      console.log(preview.height);
+      preview.src    = reader.result;
+      preview.src    = scaleImage(preview, type);
+      console.log(preview.src);
+      imageRef.image = preview.src;
     }, false);
 
     if (files[0]) {
@@ -77,40 +84,46 @@ const Form = ({
   }
 
   return (
-  <div className="form-container form-open">
-    <div className="card mdl-card mdl-shadow--2dp">
-      <div className="mdl-card__title">
-        <h2 className="mdl-card__title-text">{title}</h2>
-      </div>
-      <div className="mdl-card__supporting-text">
-        {form}
-      </div>
-      <div className="mdl-card__media">
-        <img
-          src={imageRef.image ? imageRef.image.preview : null}
-          id="preview"
+    <div className="form-container form-open">
+      <div className="card mdl-card mdl-shadow--2dp">
+        <div className="mdl-card__title">
+          <h2 className="mdl-card__title-text">{title}</h2>
+        </div>
+        <div className="mdl-card__supporting-text">
+          {form}
+        </div>
+        <div
+          className="mdl-card__media"
           style={{
-            padding : '20px'
-          }}
-        />
-      </div>
-      <div className="mdl-card__actions mdl-card--border">
-        <a
-          className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-          onClick={(e) => {
-            e.preventDefault();
-            submit(refs.reduce((obj, ref) => {
-              obj[ref.key] = ref.image || ref.node.value;
-              return obj;
-            }, {}));
+            display : imageRef.key ? 'initial' : 'none'
           }}
         >
-           {submitLabel}
-        </a>
-        {secondLink}
+          <img
+            role="presentation"
+            src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+            id="preview"
+            style={{
+              padding : '20px'
+            }}
+          />
+        </div>
+        <div className="mdl-card__actions mdl-card--border">
+          <a
+            className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+            onClick={(e) => {
+              e.preventDefault();
+              submit(refs.reduce((obj, ref) => {
+                obj[ref.key] = ref.image || ref.node.value;
+                return obj;
+              }, {}));
+            }}
+          >
+             {submitLabel}
+          </a>
+          {secondLink}
+        </div>
       </div>
     </div>
-  </div>
   );
 };
 

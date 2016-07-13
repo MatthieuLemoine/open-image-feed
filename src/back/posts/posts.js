@@ -22,12 +22,12 @@ router
   .post('/', auth.isAuthenticated, (req, res, next) => {
     const author = req.user;
     const post   = new Post({
-      title  : req.body.title,
-      image  : req.body.image,
-      author
+      title    : req.body.title,
+      image    : req.body.image,
+      authorId : author.username
     });
     post
-      .save()
+      .saveAll({ author : true })
       .then(() => res.sendStatus(201))
       .catch(next);
   });

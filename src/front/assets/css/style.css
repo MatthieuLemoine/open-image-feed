@@ -4,7 +4,7 @@
 }
 .card{
   width: 750px;
-  margin: auto;
+  margin: 0 auto 30px;
 }
 .card .mdl-card__media img{
   width: 750px;
@@ -19,6 +19,6 @@
 .form-open .mdl-textfield{
   display: block;
 }
-.form-open .mdl-card__media{
+.card .mdl-card__media{
   background-color: inherit;
 }
