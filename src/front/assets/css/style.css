@@ -1,0 +1,28 @@
+.feed-container, .form-container{
+  width: 800px;
+  margin: 50px auto;
+}
+.card{
+  width: 750px;
+  margin: 0 auto 30px;
+}
+.card .mdl-card__media img{
+  width: 750px;
+  padding: 0 !important;
+}
+
+.mdl-layout-title a {
+  text-decoration: none;
+  color : white;
+}
+
+.form-open .mdl-textfield{
+  display: block;
+}
+.card .mdl-card__media{
+  background-color: inherit;
+}
+
+.progress-indicator {
+  width: 100%;
+}
