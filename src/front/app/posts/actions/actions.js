@@ -5,12 +5,16 @@ import { checkStatus, parseJSON } from '../../utils/http';
 
 const socket = io(`${window.location.protocol}//${window.location.host}`);
 
-export const REQUEST_ADD_POST  = 'REQUEST_ADD_POST';
-export const SUCCESS_ADD_POST  = 'SUCCESS_ADD_POST';
-export const ERROR_ADD_POST    = 'ERROR_ADD_POST';
-export const NEW_POST_FETCHED  = 'NEW_POST_FETCHED';
-export const FEED_WATCHED      = 'FEED_WATCHED';
-export const ERROR_GET_POSTS   = 'ERROR_GET_POSTS';
+export const REQUEST_ADD_POST = 'REQUEST_ADD_POST';
+export const SUCCESS_ADD_POST = 'SUCCESS_ADD_POST';
+export const ERROR_ADD_POST   = 'ERROR_ADD_POST';
+export const NEW_POST_FETCHED = 'NEW_POST_FETCHED';
+export const POST_UPDATED     = 'POST_UPDATED';
+export const FEED_WATCHED     = 'FEED_WATCHED';
+export const ERROR_GET_POSTS  = 'ERROR_GET_POSTS';
+export const REQUEST_LIKE     = 'REQUEST_LIKE';
+export const SUCCESS_LIKE     = 'SUCCESS_LIKE';
+export const ERROR_LIKE       = 'ERROR_LIKE';
 
 
 function requestAddPost() {
@@ -41,6 +45,14 @@ function newPostFetched(post) {
   };
 }
 
+function postUpdated(post) {
+  return {
+    type    : POST_UPDATED,
+    message : 'Post updated',
+    post
+  };
+}
+
 function errorGetPosts() {
   return {
     type  : ERROR_GET_POSTS,
@@ -52,6 +64,26 @@ function feedWatched(posts) {
   return {
     type : FEED_WATCHED,
     posts
+  };
+}
+
+function requestLike() {
+  return {
+    type  : REQUEST_LIKE
+  };
+}
+
+function successLike(postId) {
+  return {
+    type    : SUCCESS_LIKE,
+    postId
+  };
+}
+
+function errorLike() {
+  return {
+    type    : ERROR_LIKE,
+    message : 'Error while liking/unliking this post. Please try again'
   };
 }
 
@@ -102,6 +134,14 @@ function watchFeed() {
       .on('post-created', (data) => {
         dispatch(newPostFetched(data));
       });
+    socket
+      .on('post-updated', (data) => {
+        dispatch(postUpdated(data));
+      });
+    socket
+      .on('post-deleted', () => {
+        // Not handled yet
+      });
     // Get initial POSTS
     return fetch('/posts')
       .then(checkStatus)
@@ -125,8 +165,29 @@ function shouldWatchFeed(state) {
 export function watchFeedIfNeeded() {
   return (dispatch, getState) => {
     if (shouldWatchFeed(getState())) {
-      return dispatch(watchFeed(getState));
+      return dispatch(watchFeed());
     }
     return Promise.resolve();
   };
+}
+
+function doLike(postId, state) {
+  return dispatch => {
+    dispatch(requestLike());
+    return fetch(`/likes/${postId}`, {
+      method  : 'POST',
+      headers : {
+        Accept         : 'application/json',
+        'Content-Type' : 'application/json',
+        Authorization  : state.user.user.authHeader
+      }
+    })
+      .then(checkStatus)
+      .then(() => dispatch(successLike(postId)))
+      .catch(() => dispatch(errorLike()));
+  };
+}
+
+export function like(postId) {
+  return (dispatch, getState) => dispatch(doLike(postId, getState()));
 }

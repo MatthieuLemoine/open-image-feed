@@ -64,8 +64,7 @@ If you don't want to use self-signed certificates see this gist : [How to use Le
 
 ### TODO
 
-- Fix join save
-- Handle posts update i.e new comment / new like
+- Handle comments
 - Form validation
 - Posts pagination
 - RethinkDB auth

@@ -10,13 +10,30 @@ router
     const postId = req.params.postId;
     Post
       .get(postId)
-      .then(post => {
-        const like = new Like({
-          author,
-          post
-        });
-        return like.save();
-      })
+      .then(post =>
+        Like
+          .filter({
+            postId,
+            authorId : author.username
+          })
+          .run()
+          // Unlike
+          .then((like) => {
+            // Unlike
+            if (like.length > 0) {
+              return like[0].delete();
+            }
+            // Like
+            const newLike = new Like({
+              author,
+              post
+            });
+            return newLike.saveAll({
+              author : true,
+              post : true
+            });
+          })
+      )
       .then(() => res.sendStatus(201))
       .catch(next);
   });

@@ -4,7 +4,7 @@ import user, * as fromUser from '../../users/reducers/reducers';
 import { ERROR_LOGIN, SUCCESS_LOGIN } from '../../users/actions/login';
 import { ERROR_SIGNUP, SUCCESS_SIGNUP } from '../../users/actions/signup';
 import {
-  ERROR_ADD_POST, ERROR_GET_POSTS, SUCCESS_ADD_POST
+  ERROR_ADD_POST, ERROR_GET_POSTS, SUCCESS_ADD_POST, ERROR_LIKE
 } from '../../posts/actions/actions';
 
 function root(state = {
@@ -15,6 +15,7 @@ function root(state = {
     case ERROR_ADD_POST:
     case ERROR_LOGIN:
     case ERROR_SIGNUP:
+    case ERROR_LIKE:
     case SUCCESS_LOGIN :
     case SUCCESS_SIGNUP :
     case SUCCESS_ADD_POST :
@@ -52,6 +53,10 @@ export function hasErrorGetPosts(state) {
   return fromPost.hasErrorGetPosts(state.post);
 }
 
+export function hasErrorLike(state) {
+  return fromPost.hasErrorLike(state.post);
+}
+
 export function isFetchingPosts(state) {
   return fromPost.isFetchingPosts(state.post);
 }
@@ -60,7 +65,15 @@ export function isPersistingPost(state) {
   return fromPost.isPersistingPost(state.post);
 }
 
+export function isLiking(state) {
+  return fromPost.isLiking(state.post);
+}
+
 // Users selectors
+export function getUser(state) {
+  return fromUser.getUser(state.user);
+}
+
 export function isLogged(state) {
   return fromUser.isLogged(state.user);
 }

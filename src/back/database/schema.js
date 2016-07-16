@@ -7,7 +7,7 @@ const Post = thinky.createModel('posts', {
   title     : type.string().required(),
   image     : type.string().required(),
   createdAt : type.date().default(r.now()),
-  authorId  : type.string()
+  authorId  : type.string().required()
 });
 Post.ensureIndex('createdAt');
 
@@ -24,21 +24,21 @@ const Comment = thinky.createModel('comments', {
   id        : type.string(),
   content   : type.string().required(),
   createdAt : type.date().default(r.now()),
-  authorId  : type.string(),
-  postId    : type.string()
+  authorId  : type.string().required(),
+  postId    : type.string().required()
 });
 Comment.ensureIndex('createdAt');
 
 const Like = thinky.createModel('likes', {
   id        : type.string(),
   createdAt : type.date().default(r.now()),
-  authorId  : type.string(),
-  postId    : type.string()
+  authorId  : type.string().required(),
+  postId    : type.string().required()
 });
 
 // Relations
 
-Post.belongsTo(User, 'author', 'authorId', 'id');
+Post.belongsTo(User, 'author', 'authorId', 'username');
 Post.hasMany(Comment, 'comments', 'id', 'postId');
 Post.hasMany(Like, 'likes', 'id', 'postId');
 
@@ -46,10 +46,10 @@ User.hasMany(Post, 'posts', 'id', 'authorId');
 User.hasMany(Comment, 'comments', 'id', 'authorId');
 User.hasMany(Like, 'likes', 'id', 'authorId');
 
-Comment.belongsTo(User, 'author', 'authorId', 'id');
+Comment.belongsTo(User, 'author', 'authorId', 'username');
 Comment.belongsTo(Post, 'post', 'postId', 'id');
 
-Like.belongsTo(User, 'author', 'authorId', 'id');
+Like.belongsTo(User, 'author', 'authorId', 'username');
 Like.belongsTo(Post, 'post', 'postId', 'id');
 
 module.exports = {

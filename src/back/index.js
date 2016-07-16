@@ -5,7 +5,7 @@ const posts      = require('./posts/posts');
 const comments   = require('./posts/comments');
 const likes      = require('./posts/likes');
 const users      = require('./users/users');
-const postSocket = require('./socket/post');
+const feed = require('./socket/feed');
 const app        = express();
 
 app.use(bodyParser.json({ limit : '50mb' }));
@@ -16,7 +16,9 @@ const io     = require('socket.io')(server);
 server.listen(PORT, () => process.stdout.write(`Server running at localhost:${PORT}\n`));
 
 // Init post feed
-postSocket(io);
+feed.watchPosts(io);
+feed.watchLikes(io);
+feed.watchComments(io);
 
 // Serve dist files
 app.use(express.static(path.join(__dirname, '../../dist')));

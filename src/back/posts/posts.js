@@ -12,8 +12,7 @@ router
       comments : {
         _apply : sequence => sequence.orderBy(r.desc('createdAt'))
       },
-      likes : true,
-      author : true
+      likes : true
     })
     .run()
     .then(post => res.send(post))
@@ -24,7 +23,7 @@ router
     const post   = new Post({
       title    : req.body.title,
       image    : req.body.image,
-      authorId : author.username
+      author
     });
     post
       .saveAll({ author : true })

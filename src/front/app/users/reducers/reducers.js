@@ -3,7 +3,8 @@ import { REQUEST_SIGNUP, SUCCESS_SIGNUP, ERROR_SIGNUP } from '../actions/signup'
 
 function user(state = {
   isFetching : false,
-  isLogged   : false
+  isLogged   : false,
+  user       : {}
 }, action) {
   switch (action.type) {
     case REQUEST_LOGIN:
@@ -44,6 +45,10 @@ function user(state = {
 }
 
 export default user;
+
+export function getUser(state) {
+  return state.user;
+}
 
 export function isLogged(state) {
   return state.isLogged;

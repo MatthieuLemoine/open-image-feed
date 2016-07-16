@@ -1,6 +1,6 @@
-const stockImg = require('../../../assets/img/stock.jpg');
 const Post = ({
-  post
+  post,
+  onLikeClick
 }) =>
   <div className="card mdl-card mdl-shadow--2dp">
     <div className="mdl-card__title">
@@ -16,11 +16,17 @@ const Post = ({
       />
     </div>
     <div className="mdl-card__supporting-text">
-      {post.author}
+      {post.authorId}
     </div>
     <div className="mdl-card__actions mdl-card--border">
-      <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
-        <i className="material-icons">favorite_border</i>
+      <a
+        className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+        onClick={(e) => {
+          e.preventDefault();
+          onLikeClick(post.id);
+        }}
+      >
+        <i className="material-icons">{ post.hasLiked ? 'favorite' : 'favorite_border' }</i>
       </a>
       <a className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect">
         <i className="material-icons">comment</i>
@@ -29,7 +35,8 @@ const Post = ({
   </div>;
 
 Post.propTypes = {
-  post : React.PropTypes.object.isRequired
+  post        : React.PropTypes.object.isRequired,
+  onLikeClick : React.PropTypes.func.isRequired
 };
 
 export default Post;
