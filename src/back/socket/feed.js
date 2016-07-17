@@ -80,5 +80,5 @@ function emitJoinPost(io, postId) {
     })
     .run()
     .then(post => io.emit('post-updated', post))
-    .catch(postError => console.error('Error while fetching Post updated', postError));
+    .catch(postError => console.error('Error while fetching updated post', postError));
 }

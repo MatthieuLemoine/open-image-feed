@@ -3,7 +3,7 @@ import PostList from '../components/PostList.jsx';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { getPosts, getUser } from '../../app/reducers/reducers';
-import { watchFeedIfNeeded, like } from '../actions/actions';
+import { watchFeedIfNeeded } from '../actions/actions';
 
 class FeedContainer extends Component {
   componentDidMount() {
@@ -30,7 +30,6 @@ export default withRouter(connect(
     }
   ),
   {
-    watchFeedIfNeeded,
-    like
+    watchFeedIfNeeded
   }
 )(FeedContainer));

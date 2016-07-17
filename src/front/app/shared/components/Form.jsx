@@ -19,7 +19,9 @@ const Form = ({
   submitDisabled,
   inputs,
   secondLinkLabel,
-  secondLinkTo
+  secondLinkTo,
+  notACard,
+  hideTitle
 }) => {
   const refs = [];
   const imageRef = {};
@@ -82,9 +84,22 @@ const Form = ({
   }
 
   return (
-    <div className="form-container form-open">
-      <div className="card mdl-card mdl-shadow--2dp">
-        <div className="mdl-card__title">
+    <div
+      className={
+        notACard ? '' : 'form-container form-open'
+      }
+    >
+      <div
+        className={
+          notACard ? '' : 'card mdl-card mdl-shadow--2dp'
+        }
+      >
+        <div
+          className="mdl-card__title"
+          style={{
+            display : hideTitle ? 'none' : 'block'
+          }}
+        >
           <h2 className="mdl-card__title-text">{title}</h2>
         </div>
         <div className="mdl-card__supporting-text">
@@ -105,7 +120,11 @@ const Form = ({
             }}
           />
         </div>
-        <div className="mdl-card__actions mdl-card--border">
+        <div
+          className={
+            notACard ? '' : 'mdl-card__actions mdl-card--border'
+          }
+        >
           <a
             className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
             onClick={(e) => {
@@ -133,7 +152,9 @@ Form.propTypes = {
   submitLabel     : React.PropTypes.string.isRequired,
   submitDisabled  : React.PropTypes.bool,
   secondLinkLabel : React.PropTypes.string,
-  secondLinkTo    : React.PropTypes.string
+  secondLinkTo    : React.PropTypes.string,
+  notACard        : React.PropTypes.bool,
+  hideTitle       : React.PropTypes.bool
 };
 
 export default Form;

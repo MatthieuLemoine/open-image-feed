@@ -32,3 +32,13 @@
     display : block
   }
 }
+
+.post-counts {
+    font-weight: 700;
+    padding: 0 10px;
+}
+
+.comment-secondary {
+  font-size: 14px;
+  color: rgba(0,0,0,.54);
+}

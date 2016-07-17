@@ -16,7 +16,10 @@ router
           author,
           post
         });
-        return comment.save();
+        return comment.saveAll({
+          author : true,
+          post : true
+        });
       })
       .then(() => res.sendStatus(201))
       .catch(next);

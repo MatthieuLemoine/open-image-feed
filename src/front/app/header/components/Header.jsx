@@ -15,12 +15,15 @@ const Header = ({
         <div className="mdl-layout-spacer"></div>
         <nav className="mdl-navigation">
           <Link
+            id="add-post"
             className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
             to="add-post"
           >
             <i className="material-icons">add</i>
           </Link>
+          <div className="mdl-tooltip" htmlFor="add-post">New post</div>
           <Link
+            id="login"
             className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
             to="/login"
             style={{
@@ -29,6 +32,7 @@ const Header = ({
           >
             <i className="material-icons">account_circle</i>
           </Link>
+          <div className="mdl-tooltip" htmlFor="login">Login</div>
         </nav>
       </div>
     </header>

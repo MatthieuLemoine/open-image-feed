@@ -5,17 +5,21 @@ import { checkStatus, parseJSON } from '../../utils/http';
 
 const socket = io(`${window.location.protocol}//${window.location.host}`);
 
-export const REQUEST_ADD_POST = 'REQUEST_ADD_POST';
-export const SUCCESS_ADD_POST = 'SUCCESS_ADD_POST';
-export const ERROR_ADD_POST   = 'ERROR_ADD_POST';
-export const NEW_POST_FETCHED = 'NEW_POST_FETCHED';
-export const POST_UPDATED     = 'POST_UPDATED';
-export const FEED_WATCHED     = 'FEED_WATCHED';
-export const ERROR_GET_POSTS  = 'ERROR_GET_POSTS';
-export const REQUEST_LIKE     = 'REQUEST_LIKE';
-export const SUCCESS_LIKE     = 'SUCCESS_LIKE';
-export const ERROR_LIKE       = 'ERROR_LIKE';
-
+export const REQUEST_ADD_POST   = 'REQUEST_ADD_POST';
+export const SUCCESS_ADD_POST   = 'SUCCESS_ADD_POST';
+export const ERROR_ADD_POST     = 'ERROR_ADD_POST';
+export const NEW_POST_FETCHED   = 'NEW_POST_FETCHED';
+export const POST_UPDATED       = 'POST_UPDATED';
+export const FEED_WATCHED       = 'FEED_WATCHED';
+export const ERROR_GET_POSTS    = 'ERROR_GET_POSTS';
+export const REQUEST_LIKE       = 'REQUEST_LIKE';
+export const SUCCESS_LIKE       = 'SUCCESS_LIKE';
+export const ERROR_LIKE         = 'ERROR_LIKE';
+export const REQUEST_COMMENT    = 'REQUEST_COMMENT';
+export const SUCCESS_COMMENT    = 'SUCCESS_COMMENT';
+export const ERROR_COMMENT      = 'ERROR_COMMENT';
+export const TOGGLE_COMMENTS    = 'TOGGLE_COMMENTS';
+export const TOGGLE_ADD_COMMENT = 'TOGGLE_ADD_COMMENT';
 
 function requestAddPost() {
   return {
@@ -26,21 +30,21 @@ function requestAddPost() {
 function successAddPost() {
   return {
     type    : SUCCESS_ADD_POST,
-    message : 'Post created'
+    message : 'Post created.'
   };
 }
 
 function errorAddPost() {
   return {
     type    : ERROR_ADD_POST,
-    message : 'Error while saving your post. Please check the form before submitting again'
+    message : 'Error while saving your post. Please check the form before submitting again.'
   };
 }
 
 function newPostFetched(post) {
   return {
     type  : NEW_POST_FETCHED,
-    message : 'New post fetched',
+    message : 'New post fetched.',
     post
   };
 }
@@ -48,7 +52,7 @@ function newPostFetched(post) {
 function postUpdated(post) {
   return {
     type    : POST_UPDATED,
-    message : 'Post updated',
+    message : 'Post updated.',
     post
   };
 }
@@ -56,7 +60,7 @@ function postUpdated(post) {
 function errorGetPosts() {
   return {
     type  : ERROR_GET_POSTS,
-    message : 'Error while fetching the posts. Please check your internet connection'
+    message : 'Error while fetching the posts. Please check your internet connection.'
   };
 }
 
@@ -73,17 +77,50 @@ function requestLike() {
   };
 }
 
-function successLike(postId) {
+function successLike() {
   return {
-    type    : SUCCESS_LIKE,
-    postId
+    type    : SUCCESS_LIKE
   };
 }
 
 function errorLike() {
   return {
     type    : ERROR_LIKE,
-    message : 'Error while liking/unliking this post. Please try again'
+    message : 'Error while liking/unliking this post. Please try again.'
+  };
+}
+
+function requestComment() {
+  return {
+    type  : REQUEST_COMMENT
+  };
+}
+
+function successComment() {
+  return {
+    type    : SUCCESS_COMMENT,
+    message : 'Comment sent.'
+  };
+}
+
+function errorComment() {
+  return {
+    type    : ERROR_COMMENT,
+    message : 'Error while saving your comment. Please try again.'
+  };
+}
+
+function requestToggleComment(postId) {
+  return {
+    type : TOGGLE_COMMENTS,
+    postId
+  };
+}
+
+function requestToggleAddComment(postId) {
+  return {
+    type : TOGGLE_ADD_COMMENT,
+    postId
   };
 }
 
@@ -183,11 +220,53 @@ function doLike(postId, state) {
       }
     })
       .then(checkStatus)
-      .then(() => dispatch(successLike(postId)))
+      .then(() => dispatch(successLike()))
       .catch(() => dispatch(errorLike()));
   };
 }
 
 export function like(postId) {
   return (dispatch, getState) => dispatch(doLike(postId, getState()));
+}
+
+function doComment(newComment, state) {
+  return dispatch => {
+    dispatch(requestComment());
+    return fetch(`/comments/${newComment.postId}`, {
+      method  : 'POST',
+      headers : {
+        Accept         : 'application/json',
+        'Content-Type' : 'application/json',
+        Authorization  : state.user.user.authHeader
+      },
+      body    : JSON.stringify(newComment)
+    })
+      .then(checkStatus)
+      .then(() => dispatch(successComment()))
+      .catch(() => dispatch(errorComment()));
+  };
+}
+
+export function comment(newComment) {
+  return (dispatch, getState) => dispatch(doComment(newComment, getState()));
+}
+
+function doToggleComments(postId) {
+  return dispatch => {
+    dispatch(requestToggleComment(postId));
+  };
+}
+
+export function toggleComments(postId) {
+  return (dispatch) => dispatch(doToggleComments(postId));
+}
+
+function doToggleAddComment(postId) {
+  return dispatch => {
+    dispatch(requestToggleAddComment(postId));
+  };
+}
+
+export function toggleAddComment(postId) {
+  return (dispatch) => dispatch(doToggleAddComment(postId));
 }

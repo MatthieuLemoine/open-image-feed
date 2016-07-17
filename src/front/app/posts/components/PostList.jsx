@@ -1,19 +1,21 @@
-import Post from './Post.jsx';
+import PostContainer from '../containers/PostContainer';
 
 const PostList = ({
-  posts,
-  like
+  posts
 }) =>
   <div className="feed-container">
   {
     posts.map((post) =>
-      <Post post={post} key={post.id} onLikeClick={like} />)
+      <PostContainer
+        post={post}
+        key={post.id}
+      />
+    )
   }
 </div>;
 
 PostList.propTypes = {
-  posts : React.PropTypes.array.isRequired,
-  like : React.PropTypes.func.isRequired
+  posts          : React.PropTypes.array.isRequired
 };
 
 export default PostList;
