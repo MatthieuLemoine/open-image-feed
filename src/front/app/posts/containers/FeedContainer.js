@@ -3,7 +3,7 @@ import PostList from '../components/PostList.jsx';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { getPosts, getUser } from '../../app/reducers/reducers';
-import { watchFeedIfNeeded } from '../actions/actions';
+import { watchFeedIfNeeded } from '../actions/posts';
 
 class FeedContainer extends Component {
   componentDidMount() {

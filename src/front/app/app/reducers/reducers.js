@@ -3,9 +3,9 @@ import post, * as fromPost from '../../posts/reducers/reducers';
 import user, * as fromUser from '../../users/reducers/reducers';
 import { ERROR_LOGIN, SUCCESS_LOGIN } from '../../users/actions/login';
 import { ERROR_SIGNUP, SUCCESS_SIGNUP } from '../../users/actions/signup';
-import {
-  ERROR_ADD_POST, ERROR_GET_POSTS, SUCCESS_ADD_POST, ERROR_LIKE, ERROR_COMMENT, SUCCESS_COMMENT
-} from '../../posts/actions/actions';
+import { ERROR_ADD_POST, ERROR_GET_POSTS, SUCCESS_ADD_POST } from '../../posts/actions/posts';
+import { ERROR_LIKE } from '../../posts/actions/likes';
+import { ERROR_COMMENT, SUCCESS_COMMENT } from '../../posts/actions/comments';
 
 function root(state = {
   message      : ''

@@ -1,6 +1,6 @@
 import AddPost from '../components/AddPost.jsx';
 import { connect } from 'react-redux';
-import { persistPostIfNeeded } from '../actions/actions';
+import { persistPostIfNeeded } from '../actions/posts';
 import { withRouter } from 'react-router';
 import { isPersistingPost } from '../../app/reducers/reducers';
 

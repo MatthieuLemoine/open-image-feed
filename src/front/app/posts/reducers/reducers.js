@@ -1,10 +1,14 @@
 import {
   REQUEST_ADD_POST, SUCCESS_ADD_POST, NEW_POST_FETCHED,
-  FEED_WATCHED, ERROR_ADD_POST, ERROR_GET_POSTS,
-  REQUEST_LIKE, SUCCESS_LIKE, ERROR_LIKE, POST_UPDATED,
+  FEED_WATCHED, ERROR_ADD_POST, ERROR_GET_POSTS, POST_UPDATED
+} from '../actions/posts';
+import {
+  REQUEST_LIKE, SUCCESS_LIKE, ERROR_LIKE
+} from '../actions/likes';
+import {
   REQUEST_COMMENT, SUCCESS_COMMENT, ERROR_COMMENT, TOGGLE_COMMENTS,
   TOGGLE_ADD_COMMENT
-} from '../actions/actions';
+} from '../actions/comments';
 
 export default function post(state = {
   isFetching   : false,
