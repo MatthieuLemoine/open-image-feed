@@ -1,6 +1,4 @@
 node_modules
 dist
-.hz
 rethinkdb_data
-hz.config.json
 src/back/config.json
