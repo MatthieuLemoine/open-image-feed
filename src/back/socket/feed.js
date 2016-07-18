@@ -79,6 +79,11 @@ function emitJoinPost(io, postId) {
       likes : true
     })
     .run()
+    .then(post => {
+      // Delete image to limit bandwith usage
+      delete post.image;
+      return post;
+    })
     .then(post => io.emit('post-updated', post))
     .catch(postError => console.error('Error while fetching updated post', postError));
 }

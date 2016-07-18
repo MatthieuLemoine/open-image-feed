@@ -96,9 +96,7 @@ function updatePosts(updatedPost, posts) {
   if (index !== -1) {
     return [
       ...posts.slice(0, index),
-      Object.assign({}, updatedPost, {
-        displayComments : !!foundPost.displayComments
-      }),
+      Object.assign({}, foundPost, updatedPost),
       ...posts.slice(index + 1, posts.size)
     ];
   }
