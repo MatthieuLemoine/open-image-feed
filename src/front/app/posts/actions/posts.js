@@ -5,13 +5,14 @@ import { checkStatus, parseJSON } from '../../utils/http';
 
 const socket = io(`${window.location.protocol}//${window.location.host}`);
 
-export const REQUEST_ADD_POST = 'REQUEST_ADD_POST';
-export const SUCCESS_ADD_POST = 'SUCCESS_ADD_POST';
-export const ERROR_ADD_POST   = 'ERROR_ADD_POST';
-export const NEW_POST_FETCHED = 'NEW_POST_FETCHED';
-export const POST_UPDATED     = 'POST_UPDATED';
-export const FEED_WATCHED     = 'FEED_WATCHED';
-export const ERROR_GET_POSTS  = 'ERROR_GET_POSTS';
+export const REQUEST_ADD_POST    = 'REQUEST_ADD_POST';
+export const SUCCESS_ADD_POST    = 'SUCCESS_ADD_POST';
+export const ERROR_ADD_POST      = 'ERROR_ADD_POST';
+export const REQUEST_FETCH_POSTS = 'REQUEST_FETCH_POSTS';
+export const NEW_POST_FETCHED    = 'NEW_POST_FETCHED';
+export const POST_UPDATED        = 'POST_UPDATED';
+export const FEED_WATCHED        = 'FEED_WATCHED';
+export const ERROR_GET_POSTS     = 'ERROR_GET_POSTS';
 
 function requestAddPost() {
   return {
@@ -30,6 +31,12 @@ function errorAddPost() {
   return {
     type    : ERROR_ADD_POST,
     message : 'Error while saving your post. Please check the form before submitting again.'
+  };
+}
+
+function requestFetchPosts() {
+  return {
+    type  : REQUEST_FETCH_POSTS
   };
 }
 
@@ -66,14 +73,15 @@ function feedWatched(posts) {
 function persistPost(post, state) {
   return dispatch => {
     dispatch(requestAddPost());
+    const data = new FormData();
+    data.append('image', post.image);
+    data.append('title', post.title);
     return fetch('/posts', {
       method  : 'POST',
       headers : {
-        Accept         : 'application/json',
-        'Content-Type' : 'application/json',
         Authorization  : state.user.user.authHeader
       },
-      body    : JSON.stringify(post)
+      body    : data
     })
       .then(checkStatus)
       .then(() => dispatch(successAddPost()))
@@ -104,6 +112,7 @@ export function persistPostIfNeeded(post) {
 
 function watchFeed() {
   return dispatch => {
+    dispatch(requestFetchPosts());
     // Watch feed
     // TODO Listen for updated / deleted documents
     socket

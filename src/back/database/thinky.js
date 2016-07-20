@@ -1,7 +1,7 @@
-
+const config = require('../config.json');
 const thinky = require('thinky')({
-  host : 'localhost',
-  port : 28015,
+  host : config.rethinkdb_host,
+  port : config.rethinkdb_port,
   db   : 'openImageFeed'
 });
 

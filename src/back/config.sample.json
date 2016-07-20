@@ -1,5 +1,4 @@
 {
-  "user"     : "database_user",
-  "password" : "database_password",
-  "secret"   : "ThisIsNotVerySecret"
+  "rethinkdb_host" : "localhost",
+  "rethinkdb_port" : "28015"
 }

@@ -12,7 +12,7 @@ module.exports = {
   scaleImage
 };
 
-function scaleImage(img, type) {
+function scaleImage(cb, img, type) {
   let canvas    = document.createElement('canvas');
   canvas.width  = img.width;
   canvas.height = img.height;
@@ -26,7 +26,7 @@ function scaleImage(img, type) {
     canvas = scaleCanvasWithAlgorithm(canvas);
   }
 
-  return canvas.toDataURL(type, config.quality);
+  return canvas.toBlob(cb, type, config.quality);
 }
 
 function scaleCanvasWithAlgorithm(canvas) {

@@ -1,5 +1,5 @@
 import {
-  REQUEST_ADD_POST, SUCCESS_ADD_POST, NEW_POST_FETCHED,
+  REQUEST_ADD_POST, SUCCESS_ADD_POST, REQUEST_FETCH_POSTS, NEW_POST_FETCHED,
   FEED_WATCHED, ERROR_ADD_POST, ERROR_GET_POSTS, POST_UPDATED
 } from '../actions/posts';
 import {
@@ -29,6 +29,10 @@ export default function post(state = {
       return Object.assign({}, state, {
         isPersisting : false,
         errorAddPost : true
+      });
+    case REQUEST_FETCH_POSTS:
+      return Object.assign({}, state, {
+        isFetching : true
       });
     case NEW_POST_FETCHED:
       return Object.assign({}, state, {

@@ -74,8 +74,13 @@ const Form = ({
 
     reader.addEventListener('load', () => {
       preview.src    = reader.result;
-      preview.src    = scaleImage(preview, type);
-      imageRef.image = preview.src;
+      scaleImage(blob => {
+        const url = URL.createObjectURL(blob);
+        preview.src = url;
+        console.log(blob);
+        console.log(url);
+        imageRef.image = blob;
+      }, preview, type);
     }, false);
 
     if (files[0]) {
