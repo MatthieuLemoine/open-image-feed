@@ -18,6 +18,9 @@ const Header = ({
             id="add-post"
             className="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon"
             to="add-post"
+            style={{
+              display : isLogged ? 'initial' : 'none'
+            }}
           >
             <i className="material-icons">add</i>
           </Link>
