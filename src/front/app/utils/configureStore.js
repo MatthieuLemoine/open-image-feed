@@ -6,15 +6,18 @@ import { loadState, saveState } from './localStorage';
 import throttle from 'lodash/throttle';
 
 export default function configureStore() {
-  const loggerMiddleware = createLogger();
   const persistedState = loadState();
+  const middlewares = [
+    thunkMiddleware // lets us dispatch() functions
+  ];
+  if (process.env.NODE_ENV !== 'production') {
+    const loggerMiddleware = createLogger(); // neat middleware that logs actions
+    middlewares.push(loggerMiddleware);
+  }
   const store = createStore(
     rootReducer,
     persistedState,
-    applyMiddleware(
-      thunkMiddleware, // lets us dispatch() functions
-      loggerMiddleware // neat middleware that logs actions
-    )
+    applyMiddleware(...middlewares)
   );
 
   // Makes sure that saveState is not call more often than one in second

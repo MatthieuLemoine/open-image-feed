@@ -5,7 +5,7 @@ const posts      = require('./posts/posts');
 const comments   = require('./posts/comments');
 const likes      = require('./posts/likes');
 const users      = require('./users/users');
-const feed = require('./socket/feed');
+const feed       = require('./socket/feed');
 const app        = express();
 
 app.use(bodyParser.json({ limit : '50mb' }));
