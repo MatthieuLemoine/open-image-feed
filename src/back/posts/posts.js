@@ -23,8 +23,10 @@ router
     const author = req.user;
     if (req.file) {
       const post   = new Post({
-        title    : req.body.title,
-        image    : `/uploads/${req.file.filename}`,
+        title       : req.body.title,
+        image       : `/uploads/${req.file.filename}`,
+        imageHeight : req.body.imageHeight,
+        imageWidth  : req.body.imageWidth,
         author
       });
       post

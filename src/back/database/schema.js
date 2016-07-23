@@ -3,11 +3,13 @@ const r       = thinky.r;
 const type    = thinky.type;
 
 const Post = thinky.createModel('posts', {
-  id        : type.string(),
-  title     : type.string().required(),
-  image     : type.string().required(),
-  createdAt : type.date().default(r.now()),
-  authorId  : type.string().required()
+  id          : type.string(),
+  title       : type.string().required(),
+  image       : type.string().required(),
+  imageHeight : type.string(),
+  imageWidth  : type.string(),
+  createdAt   : type.date().default(r.now()),
+  authorId    : type.string().required()
 });
 Post.ensureIndex('createdAt');
 

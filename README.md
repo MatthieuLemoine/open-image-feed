@@ -1,6 +1,10 @@
 # open-image-feed
 
-A open source self-hosted image feed.
+A open source self-hosted real-time image feed.
+
+See an example instance at https://oif.matthieulemoine.com
+
+Powered by React, Redux, Node.js, RethinkDB & socket.io
 
 ### Install
 
@@ -15,10 +19,6 @@ A open source self-hosted image feed.
 
     npm i
     npm run build
-
-**SSL certificate**
-
-If you don't want to use self-signed certificates see this gist : [How to use Let's encrypt with nginx](https://gist.github.com/MatthieuLemoine/fa827c009ad031459bf2)
 
 **Nginx vhost example**
 
@@ -66,3 +66,5 @@ If you don't want to use self-signed certificates see this gist : [How to use Le
 
 - Form validation
 - Posts pagination
+- Open post / Share post / Post link
+- Serve gzip assets

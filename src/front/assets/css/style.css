@@ -1,13 +1,13 @@
 .feed-container, .form-container{
-  width: 800px;
   margin: 50px auto;
 }
 .card{
-  width: 750px;
+  width: 80%;
+  max-width: 750px;
   margin: 0 auto 30px;
 }
 .card .mdl-card__media img{
-  width: 750px;
+  width: 100%;
   padding: 0 !important;
 }
 
@@ -41,4 +41,8 @@
 .comment-secondary {
   font-size: 14px;
   color: rgba(0,0,0,.54);
+}
+
+.mdl-list__item {
+  overflow: visible;
 }

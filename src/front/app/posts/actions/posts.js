@@ -75,6 +75,8 @@ function persistPost(post, state) {
     dispatch(requestAddPost());
     const data = new FormData();
     data.append('image', post.image);
+    data.append('imageHeight', post.imageHeight);
+    data.append('imageWidth', post.imageWidth);
     data.append('title', post.title);
     return fetch('/posts', {
       method  : 'POST',

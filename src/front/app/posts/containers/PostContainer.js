@@ -5,7 +5,6 @@ import { like } from '../actions/likes';
 import { comment, toggleComments, toggleAddComment } from '../actions/comments';
 import { isCommenting } from '../../app/reducers/reducers';
 
-
 export default withRouter(connect(
   state => (
     {

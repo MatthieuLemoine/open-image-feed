@@ -77,9 +77,19 @@ const Form = ({
       scaleImage(blob => {
         const url = URL.createObjectURL(blob);
         preview.src = url;
-        console.log(blob);
-        console.log(url);
         imageRef.image = blob;
+        refs.push({
+          key : 'imageHeight',
+          node : {
+            value : preview.height
+          }
+        });
+        refs.push({
+          key : 'imageWidth',
+          node : {
+            value : preview.width
+          }
+        });
       }, preview, type);
     }, false);
 
