@@ -65,6 +65,5 @@ Powered by React, Redux, Node.js, RethinkDB & socket.io
 ### TODO
 
 - Form validation
-- Posts pagination
 - Open post / Share post / Post link
 - Serve gzip assets

@@ -90,7 +90,9 @@ export default function post(state = {
     case SUCCESS_COMMENT:
       return Object.assign({}, state, {
         isCommenting : false,
-        errorComment : false
+        errorComment : false,
+        // Hide add comment form
+        posts : toggleAddComment(action.postId, state.posts)
       });
     case ERROR_COMMENT:
       return Object.assign({}, state, {

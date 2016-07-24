@@ -13,10 +13,11 @@ function requestComment() {
   };
 }
 
-function successComment() {
+function successComment(postId) {
   return {
     type    : SUCCESS_COMMENT,
-    message : 'Comment saved.'
+    message : 'Comment saved.',
+    postId
   };
 }
 
@@ -54,7 +55,7 @@ function doComment(newComment, state) {
       body    : JSON.stringify(newComment)
     })
       .then(checkStatus)
-      .then(() => dispatch(successComment()))
+      .then(() => dispatch(successComment(newComment.postId)))
       .catch(() => dispatch(errorComment()));
   };
 }
