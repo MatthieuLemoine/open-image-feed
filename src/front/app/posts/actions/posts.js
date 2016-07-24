@@ -3,7 +3,8 @@ import io from 'socket.io-client';
 import { browserHistory } from 'react-router';
 import { checkStatus, parseJSON } from '../../utils/http';
 
-const socket = io(`${window.location.protocol}//${window.location.host}`);
+const socket           = io(`${window.location.protocol}//${window.location.host}`);
+const POSTS_BATCH_SIZE = 10;
 
 export const REQUEST_ADD_POST    = 'REQUEST_ADD_POST';
 export const SUCCESS_ADD_POST    = 'SUCCESS_ADD_POST';
@@ -13,6 +14,8 @@ export const NEW_POST_FETCHED    = 'NEW_POST_FETCHED';
 export const POST_UPDATED        = 'POST_UPDATED';
 export const FEED_WATCHED        = 'FEED_WATCHED';
 export const ERROR_GET_POSTS     = 'ERROR_GET_POSTS';
+export const POSTS_FETCHED       = 'POSTS_FETCHED';
+export const REQUEST_POSTS_COUNT = 'REQUEST_POSTS_COUNT';
 
 function requestAddPost() {
   return {
@@ -63,10 +66,23 @@ function errorGetPosts() {
   };
 }
 
-function feedWatched(posts) {
+function feedWatched(count) {
   return {
     type : FEED_WATCHED,
+    count
+  };
+}
+
+function postsFetched(posts) {
+  return {
+    type : POSTS_FETCHED,
     posts
+  };
+}
+
+function requestPostsCount() {
+  return {
+    type  : REQUEST_POSTS_COUNT
   };
 }
 
@@ -114,9 +130,7 @@ export function persistPostIfNeeded(post) {
 
 function watchFeed() {
   return dispatch => {
-    dispatch(requestFetchPosts());
     // Watch feed
-    // TODO Listen for updated / deleted documents
     socket
       .on('post-created', (data) => {
         dispatch(newPostFetched(data));
@@ -129,16 +143,37 @@ function watchFeed() {
       .on('post-deleted', () => {
         // Not handled yet
       });
-    // Get initial POSTS
-    return fetch('/posts')
+    // Fetch posts count for infinite feed
+    dispatch(requestPostsCount());
+    return fetch('/posts/count')
       .then(checkStatus)
       .then(parseJSON)
-      .then(posts => dispatch(feedWatched(posts)))
+      .then(count => dispatch(feedWatched(count.count)))
       .catch(() => dispatch(errorGetPosts()));
   };
 }
 
-function shouldWatchFeed(state) {
+function isNotWatched(state) {
+  const post = state.post;
+  if (!post) {
+    return true;
+  }
+  if (post.isWatched) {
+    return false;
+  }
+  return true;
+}
+
+export function watchFeedIfNeeded() {
+  return (dispatch, getState) => {
+    if (isNotWatched(getState())) {
+      return dispatch(watchFeed());
+    }
+    return Promise.resolve();
+  };
+}
+
+function isNotFetching(state) {
   const post = state.post;
   if (!post) {
     return true;
@@ -149,10 +184,24 @@ function shouldWatchFeed(state) {
   return true;
 }
 
-export function watchFeedIfNeeded() {
+function doFetchPosts({ start, end }) {
+  return dispatch => {
+    dispatch(requestFetchPosts());
+    // Get initial POSTS
+    return fetch(`/posts?start=${start}&end=${end}`)
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(posts => dispatch(postsFetched(posts)))
+      .catch(() => dispatch(errorGetPosts()));
+  };
+}
+
+export function fetchPosts() {
   return (dispatch, getState) => {
-    if (shouldWatchFeed(getState())) {
-      return dispatch(watchFeed());
+    if (isNotFetching(getState())) {
+      const start = getState().post.offset;
+      const end   = start + POSTS_BATCH_SIZE;
+      return dispatch(doFetchPosts({ start, end }));
     }
     return Promise.resolve();
   };

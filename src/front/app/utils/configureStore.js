@@ -22,11 +22,6 @@ export default function configureStore() {
 
   // Makes sure that saveState is not call more often than one in second
   store.subscribe(throttle(() => saveState({
-    post : {
-      posts        : store.getState().post.posts,
-      isFetching   : false,
-      isPersisting : false
-    },
     user : {
       isLogged   : store.getState().user.isLogged,
       user       : store.getState().user.user,

@@ -47,6 +47,14 @@ export function getPosts(state) {
   return fromPost.getPosts(state.post);
 }
 
+export function hasMorePosts(state) {
+  return fromPost.hasMorePosts(state.post);
+}
+
+export function getOffset(state) {
+  return fromPost.getOffset(state.post);
+}
+
 export function hasErrorAddPost(state) {
   return fromPost.hasErrorAddPost(state.post);
 }
@@ -66,6 +74,11 @@ export function hasErrorComment(state) {
 export function isFetchingPosts(state) {
   return fromPost.isFetchingPosts(state.post);
 }
+
+export function isFetchingCount(state) {
+  return fromPost.isFetchingCount(state.post);
+}
+
 
 export function isPersistingPost(state) {
   return fromPost.isPersistingPost(state.post);

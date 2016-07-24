@@ -2,8 +2,8 @@ import { Component } from 'react';
 import PostList from '../components/PostList.jsx';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { getPosts, getUser } from '../../app/reducers/reducers';
-import { watchFeedIfNeeded } from '../actions/posts';
+import { getPosts, getUser, hasMorePosts } from '../../app/reducers/reducers';
+import { watchFeedIfNeeded, fetchPosts } from '../actions/posts';
 
 class FeedContainer extends Component {
   componentDidMount() {
@@ -26,10 +26,12 @@ export default withRouter(connect(
           _like => _like.authorId === getUser(state).username
         );
         return post;
-      })
+      }),
+      hasMore : hasMorePosts(state)
     }
   ),
   {
-    watchFeedIfNeeded
+    watchFeedIfNeeded,
+    loadMore : fetchPosts
   }
 )(FeedContainer));

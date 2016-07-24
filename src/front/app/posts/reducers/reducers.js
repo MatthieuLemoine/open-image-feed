@@ -1,6 +1,7 @@
 import {
   REQUEST_ADD_POST, SUCCESS_ADD_POST, REQUEST_FETCH_POSTS, NEW_POST_FETCHED,
-  FEED_WATCHED, ERROR_ADD_POST, ERROR_GET_POSTS, POST_UPDATED
+  FEED_WATCHED, ERROR_ADD_POST, ERROR_GET_POSTS, POST_UPDATED, POSTS_FETCHED,
+  REQUEST_POSTS_COUNT
 } from '../actions/posts';
 import {
   REQUEST_LIKE, SUCCESS_LIKE, ERROR_LIKE
@@ -11,9 +12,11 @@ import {
 } from '../actions/comments';
 
 export default function post(state = {
-  isFetching   : false,
-  isPersisting : false,
-  posts        : []
+  isFetching      : false,
+  isPersisting    : false,
+  isFetchingCount : false,
+  posts           : [],
+  offset          : 0
 }, action) {
   switch (action.type) {
     case REQUEST_ADD_POST:
@@ -36,16 +39,29 @@ export default function post(state = {
       });
     case NEW_POST_FETCHED:
       return Object.assign({}, state, {
-        posts : [action.post].concat(state.posts)
+        posts      : [action.post].concat(state.posts),
+        offset     : state.offset + 1,
+        totalPosts : state.totalPosts + 1
       });
     case POST_UPDATED:
       return Object.assign({}, state, {
         posts : updatePosts(action.post, state.posts)
       });
+    case REQUEST_POSTS_COUNT:
+      return Object.assign({}, state, {
+        isFetchingCount : true
+      });
     case FEED_WATCHED:
       return Object.assign({}, state, {
+        isWatched       : true,
+        totalPosts      : action.count,
+        isFetchingCount : false
+      });
+    case POSTS_FETCHED:
+      return Object.assign({}, state, {
         isFetching    : false,
-        posts         : action.posts,
+        posts         : state.posts.concat(action.posts),
+        offset        : state.offset + action.posts.length,
         errorGetPosts : false
       });
     case ERROR_GET_POSTS:
@@ -155,6 +171,17 @@ export function getPosts(state) {
   return state.posts;
 }
 
+export function hasMorePosts(state) {
+  if (!state.totalPosts) {
+    return false;
+  }
+  return state.offset < state.totalPosts;
+}
+
+export function getOffset(state) {
+  return state.offset;
+}
+
 export function hasErrorAddPost(state) {
   return state.errorAddPost;
 }
@@ -173,6 +200,10 @@ export function hasErrorComment(state) {
 
 export function isFetchingPosts(state) {
   return state.isFetching;
+}
+
+export function isFetchingCount(state) {
+  return state.isFetchingCount;
 }
 
 export function isPersistingPost(state) {
