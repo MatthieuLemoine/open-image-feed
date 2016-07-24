@@ -38,7 +38,7 @@ class Post extends Component {
         <div className="mdl-card__media">
           <img
             src={post.image}
-            alt="stock"
+            alt="loading..."
             style={{
               padding : '20px',
               height : height || 'initial'

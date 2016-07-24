@@ -67,3 +67,5 @@ Powered by React, Redux, Node.js, RethinkDB & socket.io
 - Form validation
 - Open post / Share post / Post link
 - Serve gzip assets
+- User avatar
+- Fix material input / label
