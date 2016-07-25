@@ -70,3 +70,4 @@ Powered by React, Redux, Node.js, RethinkDB & socket.io
 - User avatar
 - Giffy in comments / posts
 - Test on safari
+- App icon + Launcher icons + update manifest
