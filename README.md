@@ -68,4 +68,5 @@ Powered by React, Redux, Node.js, RethinkDB & socket.io
 - Open post / Share post / Post link
 - Serve gzip assets
 - User avatar
-- Fix material input / label
+- Giffy in comments / posts
+- Test on safari
