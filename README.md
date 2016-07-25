@@ -1,12 +1,48 @@
-# open-image-feed
+# Open Image Feed
 
-A open source self-hosted real-time image feed.
+A open source self-hosted real-time :zap: image feed.
 
-See an example instance at https://oif.matthieulemoine.com
+## Description :page_facing_up:
 
-Powered by React, Redux, Node.js, RethinkDB & socket.io
+Open Image Feed's goal is to provide a ready to run image feed which can be hosted on any server or computer.
 
-### Install
+### What is an image feed ?
+
+You surely know some image feeds like [9GAG](http://9gag.com).
+The idea behind a image feed is to provide an easy way for users to share an image (which can be animated) and to comment other users' posts.
+
+### How OIF differs from others image feeds ?
+
+- **Open source** :octocat: :
+    - Everyone can contribute
+    - Everybody have free access to it.
+- **Self-hosted** :globe_with_meridians: :
+    - You need to install it on a server to make your instance accessible for others to use
+    - You keep control of your data
+    - You can deploy as many instances of OIF that you want : an instance for your work place :office:, another for your friends or familly :house:...
+- **Real-time** :zap: :
+    - Real-time loading of new posts / comments / likes
+    - Real-time reloading of updated posts / comments / likes
+
+![Is this real life ?](http://i.giphy.com/Lgb9p7eXSEcp2.gif)
+
+### Where can i find a live example ?
+
+You can find one at https://oif.matthieulemoine.com.
+
+Please do not hesitate to sign up and post some content.
+
+## Functionalities :blue_book:
+
+- Authentication :lock:
+- User profile :man: :woman:
+- Posts with image and title
+- Comments :pencil2:
+- Likes :+1:
+- Infinite scroll loading
+- Real-time :zap: update thanks to the power of **RethinkDB** & **socket.io**
+
+## Install :electric_plug:
 
 **Install RethinkDB**
 
@@ -20,54 +56,24 @@ Powered by React, Redux, Node.js, RethinkDB & socket.io
     npm i
     npm run build
 
-**Nginx vhost example**
-
-    server {
-      listen 443 ssl;
-      server_name example.com;
-      ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
-      ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
-      ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-      ssl_prefer_server_ciphers on;
-      ssl_ciphers 'EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH';
-
-      location /.well-known/acme-challenge {
-        root /var/www/letsencrypt;
-      }
-
-      location = /robots.txt {
-         alias /var/www/robots/no_robots.txt;
-      }
-
-      access_log /var/log/nginx/example.log;
-      location / {
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_set_header X-NginX-Proxy true;
-        proxy_pass_header Set-Cookie;
-        proxy_cache_bypass $cookie_nocache $arg_nocache $arg_comment;
-        proxy_pass http://localhost:8888;
-        proxy_redirect off;
-      }
-    }
-    server {
-      listen 80;
-      server_name feed.example.com;
-      return 301 https://$host$request_uri;
-    }
-
-### Run
+## Run :runner:
 
     npm start
 
+## Tooling :wrench:
 
-### TODO
+- [React](https://facebook.github.io/react/)
+- [Redux](http://redux.js.org/)
+- [Node.js](https://nodejs.org)
+- [RethinkDB](http://rethinkdb.com/)
+- [Thinky](https://thinky.io/)
+- [socket.io](http://socket.io/)
 
-- Form validation
-- Open post / Share post / Post link
-- Serve gzip assets
-- User avatar
-- Giffy in comments / posts
-- Test on safari
-- App icon + Launcher icons + update manifest
+## Need help or found a bug :question:
+
+If you need help or found a bug, do not hesitate to open an [issue](https://github.com/MatthieuLemoine/open-image-feed/issues).
+
+## Contribute :pencil:
+
+Feel free to contribute. Every contributions are welcome.
+Please read the [contribution guidelines](https://github.com/MatthieuLemoine/open-image-feed/blob/master/CONTRIBUTING.md) first.
