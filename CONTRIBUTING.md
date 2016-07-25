@@ -27,7 +27,7 @@ Run this following commands :
 Open Image Feed is currently in **alpha** stage. OIF is missing some functionalities and some issues have to be fix before the first release.
 
 | Task                                                   | Priority|
-| -------------                                          |         |
+| -------------                                          |---------|
 | Add tests                                              | HIGH    |
 | Test on all browsers                                   | HIGH    |
 | Create a project logo                                  | HIGH    |
