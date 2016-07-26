@@ -65,10 +65,13 @@ You can find the installation instructions for your OS/distrib in [RethinkDB off
 
 - [React](https://facebook.github.io/react/)
 - [Redux](http://redux.js.org/)
+- [Material Design Lite](https://getmdl.io/)
 - [Node.js](https://nodejs.org)
+- [Express](http://expressjs.com)
 - [RethinkDB](http://rethinkdb.com/)
 - [Thinky](https://thinky.io/)
-- [socket.io](http://socket.io/)
+- [Socket.io](http://socket.io/)
+- [Webpack](https://webpack.github.io/)
 
 ## Need help or found a bug :question:
 
