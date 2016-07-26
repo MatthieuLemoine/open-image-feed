@@ -12,7 +12,7 @@ const CommentList = ({
       />
     )
   }
-</ul>;
+  </ul>;
 
 CommentList.propTypes = {
   comments : React.PropTypes.array.isRequired

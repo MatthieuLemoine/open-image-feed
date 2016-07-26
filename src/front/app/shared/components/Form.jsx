@@ -3,6 +3,7 @@ import Dropzone from 'react-dropzone';
 import { scaleImage } from '../../utils/imageResizer';
 import { Component } from 'react';
 
+// Generic Form component
 class Form extends Component {
   componentDidMount() {
     componentHandler.upgradeDom();
@@ -23,11 +24,14 @@ class Form extends Component {
       hideTitle
     } = this.props;
     const refs = [];
+    // Only support one image input for now
     const imageRef = {};
+    // Render inputs
     const form = inputs.map((input) => {
       if (input.type === 'image') {
         imageRef.key = input.id;
         refs.push(imageRef);
+        // Image Drag&Drop
         return (
           <div className="mdl-textfield mdl-js-textfield" key={input.id}>
             <Dropzone onDrop={onDrop} multiple={false}>
@@ -36,6 +40,7 @@ class Form extends Component {
           </div>
         );
       }
+      // Text input
       return (
         <div className="mdl-textfield mdl-js-textfield" key={input.id}>
           <input
@@ -55,6 +60,7 @@ class Form extends Component {
       );
     });
 
+    // Second button such as a cancel button
     const secondLink = secondLinkLabel && secondLinkTo ?
       <Link
         className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
@@ -64,7 +70,8 @@ class Form extends Component {
       </Link>
       : null;
 
-    // FIXME Image drop
+    // On image drop
+    // Load image in preview & scale it down to 750px width
     function onDrop(files) {
       const preview = document.querySelector('#preview');
       const reader  = new FileReader();
@@ -97,6 +104,7 @@ class Form extends Component {
       }
     }
 
+    // Render form
     return (
       <div
         className={

@@ -3,12 +3,8 @@ import PostContainer from '../containers/PostContainer';
 import Infinite from '../../shared/containers/Infinite';
 
 class PostList extends Component {
-  // Fix scroll on new post
-  componentWillMount() {
-    this.postWidth = window.innerWidth * 0.8;
-    this.postWidth = Math.ceil(this.postWidth > 750 ? 750 : this.postWidth);
-  }
   componentDidMount() {
+    // Scroll container
     this.layoutNode = document.querySelector('.mdl-layout__content');
   }
   componentWillReceiveProps(nextProps) {
@@ -21,12 +17,11 @@ class PostList extends Component {
     const node        = this.layoutNode;
     this.scrollHeight = node.scrollHeight;
     this.scrollTop    = node.scrollTop;
-    this.postWidth    = window.innerWidth * 0.8;
-    this.postWidth    = Math.ceil(this.postWidth > 750 ? 750 : this.postWidth);
   }
   componentDidUpdate() {
     const node = this.layoutNode;
     if (this.shouldUpdateScroll) {
+      // Update scroll position
       node.scrollTop = this.scrollTop + (node.scrollHeight - this.scrollHeight);
     }
   }

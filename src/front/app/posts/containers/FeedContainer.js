@@ -7,6 +7,7 @@ import { watchFeedIfNeeded, fetchPosts } from '../actions/posts';
 
 class FeedContainer extends Component {
   componentDidMount() {
+    // Register to live changes feed
     this.props.watchFeedIfNeeded();
   }
   render() {

@@ -40,6 +40,7 @@ function doSignup(user) {
     })
     .then(checkStatus)
     .then(() => {
+      // Generate authHeader / It will be save in state & localStorage
       user.authHeader = `Basic ${btoa(`${user.username}:${user.password}`)}`;
     })
     .then(() => dispatch(successSignup(user)))
@@ -48,6 +49,7 @@ function doSignup(user) {
   };
 }
 
+// Avoid making several signup requests
 function shouldSignup(state) {
   const user = state.user;
   if (!user) {

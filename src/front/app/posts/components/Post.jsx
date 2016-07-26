@@ -5,16 +5,18 @@ import Form from '../../shared/components/Form.jsx';
 import { since } from '../../utils/date';
 
 class Post extends Component {
-  // Define post width
   componentWillMount() {
+    // Compute post width
     this.postWidth = window.innerWidth * 0.8;
     this.postWidth = Math.ceil(this.postWidth > 750 ? 750 : this.postWidth);
   }
   componentWillUpdate() {
+    // Update post width
     const node     = findDOMNode(this);
     this.postWidth = node.clientWidth;
   }
   render() {
+    // Props
     const post             = this.props.post;
     const width            = this.postWidth;
     const like             = this.props.like;
@@ -22,6 +24,8 @@ class Post extends Component {
     const toggleComments   = this.props.toggleComments;
     const isCommenting     = this.props.isCommenting;
     const toggleAddComment = this.props.toggleAddComment;
+
+    // Compute image height
     let height;
     const nativeHeight = post.imageHeight;
     const nativeWidth  = post.imageWidth;
@@ -30,6 +34,8 @@ class Post extends Component {
       height = Math.ceil(nativeRatio * width);
       height += 'px';
     }
+
+    // Render
     return (
       <div className="card mdl-card mdl-shadow--2dp">
         <div className="mdl-card__title">

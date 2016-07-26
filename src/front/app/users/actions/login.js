@@ -40,6 +40,7 @@ function doLogin(user) {
     })
     .then(checkStatus)
     .then(() => {
+      // Generate authHeader / It will be save in state & localStorage
       user.authHeader = `Basic ${btoa(`${user.username}:${user.password}`)}`;
     })
     .then(() => dispatch(successLogin(user)))
@@ -48,6 +49,7 @@ function doLogin(user) {
   };
 }
 
+// Avoid making several login requests
 function shouldLogin(state) {
   const user = state.user;
   if (!user) {

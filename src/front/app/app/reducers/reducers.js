@@ -7,6 +7,7 @@ import { ERROR_ADD_POST, ERROR_GET_POSTS, SUCCESS_ADD_POST } from '../../posts/a
 import { ERROR_LIKE } from '../../posts/actions/likes';
 import { ERROR_COMMENT, SUCCESS_COMMENT } from '../../posts/actions/comments';
 
+// Handles snackbar display
 function root(state = {
   message      : ''
 }, action) {

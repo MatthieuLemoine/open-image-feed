@@ -1,5 +1,6 @@
 import { browserHistory } from 'react-router';
 
+// Interceptor to check http status code
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response;

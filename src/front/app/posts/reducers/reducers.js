@@ -125,6 +125,7 @@ function updatePosts(updatedPost, posts) {
   return posts;
 }
 
+// Hide/Show comment form
 function toggleAddComment(postId, posts) {
   const { foundPost, index } = getPostWithIndex(postId, posts);
 
@@ -140,6 +141,7 @@ function toggleAddComment(postId, posts) {
   return posts;
 }
 
+// Hide/Show comments list
 function toggleComments(postId, posts) {
   const { foundPost, index } = getPostWithIndex(postId, posts);
 
