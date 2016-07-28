@@ -1,4 +1,6 @@
 # Open Image Feed
+[![Build Status](https://travis-ci.org/MatthieuLemoine/open-image-feed.svg?branch=master)](https://travis-ci.org/MatthieuLemoine/open-image-feed)
+[![Coverage Status](https://coveralls.io/repos/github/MatthieuLemoine/open-image-feed/badge.svg?branch=master)](https://coveralls.io/github/MatthieuLemoine/open-image-feed?branch=master)
 
 A open source self-hosted real-time :zap: image feed.
 
