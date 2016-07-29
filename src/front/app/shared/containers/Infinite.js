@@ -31,7 +31,7 @@ class InfiniteScroll extends Component {
     this.detachScrollListener();
   }
   setDefaultLoader(loader) {
-    this._defaultLoader = loader;
+    this.defaultLoader = loader;
   }
   getParentDOMElement() {
     return this.props.parentSelector ?
@@ -87,7 +87,7 @@ class InfiniteScroll extends Component {
   render() {
     const props = this.props;
     return React.DOM.div(
-      null, props.children, props.hasMore && (props.loader || this._defaultLoader)
+      null, props.children, props.hasMore && (props.loader || this.defaultLoader)
     );
   }
 }

@@ -3,3 +3,4 @@ dist
 rethinkdb_data
 src/back/config.json
 coverage
+.eslintcache

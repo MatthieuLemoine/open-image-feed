@@ -1,4 +1,4 @@
-describe('CommentList', () => {
+describe('PostContainer', () => {
   it('has no test', () => {
 
   });

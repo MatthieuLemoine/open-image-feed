@@ -1,4 +1,4 @@
-describe('users reducers', () => {
+describe('posts reducers', () => {
   it('have no test', () => {
 
   });

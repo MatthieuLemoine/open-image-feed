@@ -17,10 +17,9 @@ To do so you will need to install [ESLint](http://eslint.org/).
 
 Be sure that your code builds and tests passed before submitting it.
 
-Run this following commands :
+Run this following command :
 
-    npm run build
-    npm test
+    npm run check
 
 ## Roadmap
 
