@@ -19,13 +19,16 @@
       "jsx"
     ],
     "scriptPreprocessor": "./node_modules/babel-jest",
+    "setupTestFrameworkScriptFile": "node_modules/jasmine-enzyme/lib/jest.js",
     "testPathDirs": [
       "./src"
     ],
     "unmockedModulePathPatterns": [
       "./node_modules/react",
       "./node_modules/react-dom",
-      "./node_modules/react-addons-test-utils"
+      "./node_modules/react-addons-test-utils",
+      "./node_modules/enzyme",
+      "./node_modules/jasmine-enzyme"
     ],
     "verbose": false
   },
@@ -49,6 +52,7 @@
     "compression-webpack-plugin": "^0.3.1",
     "coveralls": "^2.11.12",
     "css-loader": "^0.23.1",
+    "enzyme": "^2.4.1",
     "eslint": "^2.12.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.8.1",
@@ -60,6 +64,7 @@
     "html-webpack-plugin": "^2.19.0",
     "image-webpack-loader": "^1.8.0",
     "isomorphic-fetch": "^2.2.1",
+    "jasmine-enzyme": "^1.1.0",
     "jest-cli": "^14.0.0",
     "jsx-loader": "^0.13.2",
     "lodash": "^4.13.1",
