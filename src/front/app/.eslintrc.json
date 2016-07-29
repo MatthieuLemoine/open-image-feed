@@ -1,7 +1,11 @@
 {
   "globals" : {
     "React" : true,
-    "componentHandler" : true
+    "componentHandler" : true,
+    "describe": true,
+    "it": true,
+    "expect": true,
+    "jest" : true
   },
   "extends": "airbnb",
   "rules" :{

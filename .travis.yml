@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "6"
+before_install:
+  - cp ./src/back/config.sample.json ./src/back/config.json
+install :
+  - npm i
+script :
+  - npm test
+  - npm run lint
+  - npm run prod
+after_script:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+notifications:
+  email: false
