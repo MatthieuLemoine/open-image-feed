@@ -74,17 +74,14 @@ class Form extends Component {
     // On image drop
     // Load image in preview & scale it down to 750px width
     function onDrop(files) {
-      const preview = document.querySelector('#preview');
-      const reader  = new FileReader();
-      const type    = files[0].type;
-      preview.src   = files[0].preview;
+      const preview  = document.querySelector('#preview');
+      const reader   = new FileReader();
+      const type     = files[0].type;
+      preview.src    = files[0].preview;
+      imageRef.image = files[0];
 
       reader.addEventListener('load', () => {
-        preview.src    = reader.result;
-        scaleImage(blob => {
-          const url = URL.createObjectURL(blob);
-          preview.src = url;
-          imageRef.image = blob;
+        if (type === 'image/gif') {
           refs.push({
             key : 'imageHeight',
             node : {
@@ -97,7 +94,26 @@ class Form extends Component {
               value : preview.width
             }
           });
-        }, preview, type);
+        } else {
+          preview.src    = reader.result;
+          scaleImage(blob => {
+            const url = URL.createObjectURL(blob);
+            preview.src = url;
+            imageRef.image = blob;
+            refs.push({
+              key : 'imageHeight',
+              node : {
+                value : preview.height
+              }
+            });
+            refs.push({
+              key : 'imageWidth',
+              node : {
+                value : preview.width
+              }
+            });
+          }, preview, type);
+        }
       }, false);
 
       if (files[0]) {
