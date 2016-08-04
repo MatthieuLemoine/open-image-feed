@@ -1,7 +1,7 @@
 {
   "name": "open-image-feed",
   "version": "1.0.0",
-  "description": "A open source self-hosted image feed.",
+  "description": "A open source self-hosted real-time image feed.",
   "main": "src/back/index.js",
   "scripts": {
     "start": "node src/back/index",

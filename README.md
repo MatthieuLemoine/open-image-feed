@@ -74,6 +74,8 @@ You can find the installation instructions for your OS/distrib in [RethinkDB off
 - [Thinky](https://thinky.io/)
 - [Socket.io](http://socket.io/)
 - [Webpack](https://webpack.github.io/)
+- [Jest](https://facebook.github.io/jest/)
+- [Enzyme](https://github.com/airbnb/enzyme)
 
 ## Need help or found a bug :question:
 
