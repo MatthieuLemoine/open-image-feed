@@ -123,7 +123,8 @@ class Form extends Component {
 
     // Render form
     return (
-      <div
+      <form
+        action="#"
         className={
           notACard ? '' : 'form-container form-open'
         }
@@ -164,7 +165,7 @@ class Form extends Component {
               notACard ? '' : 'mdl-card__actions mdl-card--border'
             }
           >
-            <a
+            <button
               className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
               onClick={(e) => {
                 e.preventDefault();
@@ -176,11 +177,11 @@ class Form extends Component {
               disabled={!!submitDisabled}
             >
                {submitLabel}
-            </a>
+            </button>
             {secondLink}
           </div>
         </div>
-      </div>
+      </form>
     );
   }
 }
