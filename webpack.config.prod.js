@@ -8,7 +8,7 @@ module.exports = {
   debug    : false,
   profile  : false,
   pathInfo : false,
-  entry  : './src/front/app/app.js',
+  entry  : './src/browser/app.js',
   output : {
     path     : `${__dirname}/dist`,
     filename : 'bundle.js',
@@ -71,7 +71,7 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      template : 'src/front/app/index.html',
+      template : 'src/browser/index.html',
       inject   : true
     }),
     new webpack.ProvidePlugin({

@@ -2,9 +2,9 @@
   "name": "open-image-feed",
   "version": "1.0.0",
   "description": "A open source self-hosted real-time image feed.",
-  "main": "src/back/index.js",
+  "main": "src/server/index.js",
   "scripts": {
-    "start": "node src/back/index",
+    "start": "node src/server/index",
     "build": "./node_modules/webpack/bin/webpack.js --progress --colors",
     "watch": "./node_modules/webpack/bin/webpack.js --progress --colors --watch",
     "prod": "./node_modules/webpack/bin/webpack.js --config webpack.config.prod.js --progress --colors",
