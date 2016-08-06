@@ -10,7 +10,14 @@
     "prod": "./node_modules/webpack/bin/webpack.js --config webpack.config.prod.js --progress --colors",
     "test": "./node_modules/jest-cli/bin/jest.js",
     "lint": "./node_modules/eslint/bin/eslint.js ./src --ext .js --ext .jsx --ignore-path .gitignore --cache",
-    "check": "npm test && npm run lint && npm run prod"
+    "check": "npm test && npm run lint && npm run prod",
+    "mobile-start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "ios-bundle": "react-native bundle --dev false --entry-file src/mobile/index.ios.js --platform ios --bundle-output ios/main.jsbundle",
+    "ios-dev-bundle": "react-native bundle --entry-file src/mobile/index.ios.js --platform ios --bundle-output ios/main.jsbundle",
+    "android-bundle": "react-native bundle --dev false --entry-file src/mobile/index.android.js --platform android --bundle-output android/app/src/main/assets/index.android.bundle",
+    "android-dev-bundle": "react-native bundle --entry-file src/mobile/index.android.js --platform android --bundle-output android/app/src/main/assets/index.android.bundle"
   },
   "jest": {
     "bail": false,
@@ -80,6 +87,7 @@
     "react-addons-test-utils": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-dropzone": "^3.5.3",
+    "react-native": "^0.31.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.5.2",
     "redux": "^3.5.2",
