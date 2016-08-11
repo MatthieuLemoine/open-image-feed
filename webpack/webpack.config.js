@@ -1,11 +1,10 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const webpack           = require('webpack');
 
 module.exports = {
   entry  : './src/browser/app.js',
   output : {
-    path     : `${__dirname}/dist`,
+    path     : './dist',
     filename : 'bundle.js'
   },
   module : {
@@ -59,10 +58,6 @@ module.exports = {
     ]
   },
   plugins : [
-    new HtmlWebpackPlugin({
-      template : 'src/browser/index.html',
-      inject   : true
-    }),
     new webpack.ProvidePlugin({
       React : 'react'
     }),
