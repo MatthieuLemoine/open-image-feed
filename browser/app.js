@@ -3,7 +3,7 @@ import configureStore from '../common/utils/configureStore';
 import Root from './components/app/Root.jsx';
 
 // Require material light
-require('../../node_modules/material-design-lite/material.min.js');
+require('../node_modules/material-design-lite/material.min.js');
 require('./styles/material.min.css');
 // Custom CSS
 require('./styles/style.css');

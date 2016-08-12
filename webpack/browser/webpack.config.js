@@ -6,7 +6,7 @@ module.exports = Object.assign(
   {
     plugins : [
       new HtmlWebpackPlugin({
-        template : 'src/browser/index.html',
+        template : 'browser/index.html',
         inject   : true
       }),
       ...defaultConfig.plugins

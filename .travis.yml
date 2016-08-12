@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "6"
 before_install:
-  - cp ./src/server/config.sample.json ./src/server/config.json
+  - cp ./server/config.sample.json ./server/config.json
 install :
   - npm i
 script :

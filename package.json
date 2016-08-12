@@ -2,26 +2,15 @@
   "name": "open-image-feed",
   "version": "1.0.0",
   "description": "A open source self-hosted real-time image feed.",
-  "main": "src/server/index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "node src/server/index",
+    "start": "node server/index",
     "build": "./node_modules/webpack/bin/webpack.js --config webpack/browser/webpack.config.browser.js --progress --colors",
     "watch": "./node_modules/webpack/bin/webpack.js --config webpack/browser/webpack.config.browser.js --progress --colors --watch",
     "prod": "./node_modules/webpack/bin/webpack.js --config webpack/browser/webpack.config.browser.prod.js --progress --colors",
     "test": "./node_modules/jest-cli/bin/jest.js",
-    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext .js --ext .jsx --ignore-path .gitignore --cache",
-    "check": "npm test && npm run lint && npm run prod",
-    "build-android": "./node_modules/webpack/bin/webpack.js --config webpack/mobile/webpack.config.android.js --progress --colors",
-    "build-ios": "./node_modules/webpack/bin/webpack.js --config webpack/mobile/webpack.config.ios.js --progress --colors",
-    "watch-android": "./node_modules/webpack/bin/webpack.js --config webpack/mobile/webpack.config.android.js --progress --colors --watch",
-    "watch-ios": "./node_modules/webpack/bin/webpack.js --config webpack/mobile/webpack.config.ios.js --progress --colors --watch",
-    "mobile-start": "node ./node_modules/react-native/local-cli/cli.js start --root ./src/mobile/",
-    "android": "node ./node_modules/react-native/local-cli/cli.js run-android",
-    "ios": "node ./node_modules/react-native/local-cli/cli.js run-ios",
-    "ios-bundle": "node ./node_modules/react-native/local-cli/cli.js bundle --dev false --entry-file src/mobile/index.ios.js --platform ios --bundle-output ios/main.jsbundle",
-    "ios-dev-bundle": "node ./node_modules/react-native/local-cli/cli.js bundle --entry-file src/mobile/index.ios.js --platform ios --bundle-output ios/main.jsbundle",
-    "android-bundle": "node ./node_modules/react-native/local-cli/cli.js bundle --dev false --entry-file src/mobile/index.android.js --platform android --bundle-output android/app/src/main/assets/index.android.bundle",
-    "android-dev-bundle": "node ./node_modules/react-native/local-cli/cli.js bundle --entry-file src/mobile/index.android.js --platform android --bundle-output android/app/src/main/assets/index.android.bundle"
+    "lint": "./node_modules/eslint/bin/eslint.js ./ --ext .js --ext .jsx --ignore-path .gitignore --cache",
+    "check": "npm test && npm run lint && npm run prod"
   },
   "jest": {
     "bail": false,
@@ -35,7 +24,8 @@
     "setupEnvScriptFile": "./test/setup-env.js",
     "setupTestFrameworkScriptFile": "node_modules/jasmine-enzyme/lib/jest.js",
     "testPathDirs": [
-      "./src"
+      "./browser",
+      "./common"
     ],
     "unmockedModulePathPatterns": [
       "react",

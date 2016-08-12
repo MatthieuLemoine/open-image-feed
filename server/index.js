@@ -21,7 +21,7 @@ feed.watchLikes(io);
 feed.watchComments(io);
 
 // Serve dist files
-app.use(express.static(path.join(__dirname, '../../dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 
 // POSTS
 app.use('/posts', posts);
@@ -36,4 +36,4 @@ app.use('/likes', likes);
 app.use('/users', users);
 
 // Send all requests to index.html
-app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../../dist', 'index.html')));
+app.get('*', (req, res) => res.sendFile(path.join(__dirname, '../dist', 'index.html')));

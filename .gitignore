@@ -1,6 +1,6 @@
 node_modules
 dist
 rethinkdb_data
-src/server/config.json
+server/config.json
 coverage
 .eslintcache
