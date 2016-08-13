@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
 import { checkStatus } from '../../utils/http';
+import { API_URL } from '../../utils/config.js';
 
 export const REQUEST_LOGIN  = 'REQUEST_LOGIN';
 export const SUCCESS_LOGIN  = 'SUCCESS_LOGIN';
@@ -30,7 +31,7 @@ function errorLogin() {
 function doLogin(user) {
   return dispatch => {
     dispatch(requestLogin());
-    return fetch('/users/login', {
+    return fetch(`${API_URL}/users/login`, {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',

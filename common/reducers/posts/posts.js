@@ -172,7 +172,7 @@ function getPostWithIndex(postId, posts) {
 
 // Posts selector
 export function getPosts(state) {
-  return state.posts;
+  return state.posts || [];
 }
 
 export function hasMorePosts(state) {
@@ -183,41 +183,41 @@ export function hasMorePosts(state) {
 }
 
 export function getOffset(state) {
-  return state.offset;
+  return state.offset || 0;
 }
 
 export function hasErrorAddPost(state) {
-  return state.errorAddPost;
+  return !!state.errorAddPost;
 }
 
 export function hasErrorGetPosts(state) {
-  return state.errorGetPosts;
+  return !!state.errorGetPosts;
 }
 
 export function hasErrorLike(state) {
-  return state.errorLike;
+  return !!state.errorLike;
 }
 
 export function hasErrorComment(state) {
-  return state.errorComment;
+  return !!state.errorComment;
 }
 
 export function isFetchingPosts(state) {
-  return state.isFetching;
+  return !!state.isFetching;
 }
 
 export function isFetchingCount(state) {
-  return state.isFetchingCount;
+  return !!state.isFetchingCount;
 }
 
 export function isPersistingPost(state) {
-  return state.isPersisting;
+  return !!state.isPersisting;
 }
 
 export function isLiking(state) {
-  return state.isLiking;
+  return !!state.isLiking;
 }
 
 export function isCommenting(state) {
-  return state.isCommenting;
+  return !!state.isCommenting;
 }

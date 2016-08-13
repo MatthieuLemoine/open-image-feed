@@ -1,9 +1,8 @@
-import { Component } from 'react';
-import PostList from '../../components/posts/PostList.jsx';
+import React, { Component } from 'react';
+import PostList from '../../components/posts/PostList.js';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router';
-import { getPosts, getUser, hasMorePosts } from '../../../common/reducers/app/app';
-import { watchFeedIfNeeded, fetchPosts } from '../../../common/actions/posts/posts';
+import { getPosts, getUser, hasMorePosts } from '../../../common/reducers/app/app.js';
+import { watchFeedIfNeeded, fetchPosts } from '../../../common/actions/posts/posts.js';
 
 class FeedContainer extends Component {
   componentDidMount() {
@@ -19,7 +18,7 @@ FeedContainer.propTypes = {
   watchFeedIfNeeded : React.PropTypes.func.isRequired
 };
 
-export default withRouter(connect(
+export default connect(
   state => (
     {
       posts : getPosts(state).map(post => {
@@ -35,4 +34,4 @@ export default withRouter(connect(
     watchFeedIfNeeded,
     loadMore : fetchPosts
   }
-)(FeedContainer));
+)(FeedContainer);

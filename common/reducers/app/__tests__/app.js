@@ -147,10 +147,10 @@ describe('Root reducer', () => {
     expect(isLogged(rootState)).toEqual(rootState.user.isLogged);
   });
   it('should return hasErrorLogin', () => {
-    expect(hasErrorLogin(rootState)).toEqual(rootState.user.errorLogin);
+    expect(hasErrorLogin(rootState)).toEqual(false);
   });
   it('should return hasErrorSignup', () => {
-    expect(hasErrorSignup(rootState)).toEqual(rootState.user.errorSignup);
+    expect(hasErrorSignup(rootState)).toEqual(false);
   });
   it('should return isFetchingUser', () => {
     expect(isFetchingUser(rootState)).toEqual(rootState.user.isFetching);

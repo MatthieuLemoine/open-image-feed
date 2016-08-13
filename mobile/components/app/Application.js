@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import styles from '../../styles/styles';
+import styles from '../../styles/styles.js';
 
 const Application = ({ children }) =>
   <View style={styles.container}>

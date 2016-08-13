@@ -2,8 +2,9 @@ import fetch from 'isomorphic-fetch';
 import io from 'socket.io-client';
 import { browserHistory } from 'react-router';
 import { checkStatus, parseJSON } from '../../utils/http';
+import { API_URL, SOCKET_URL } from '../../utils/config.js';
 
-const socket           = io(`${window.location.protocol}//${window.location.host}`);
+const socket           = io(SOCKET_URL);
 const POSTS_BATCH_SIZE = 10;
 
 export const REQUEST_ADD_POST    = 'REQUEST_ADD_POST';
@@ -94,7 +95,7 @@ function persistPost(post, state) {
     data.append('imageHeight', post.imageHeight);
     data.append('imageWidth', post.imageWidth);
     data.append('title', post.title);
-    return fetch('/posts', {
+    return fetch(`${API_URL}/posts`, {
       method  : 'POST',
       headers : {
         Authorization  : state.user.user.authHeader
@@ -145,7 +146,7 @@ function watchFeed() {
       });
     // Fetch posts count for infinite feed
     dispatch(requestPostsCount());
-    return fetch('/posts/count')
+    return fetch(`${API_URL}/posts/count`)
       .then(checkStatus)
       .then(parseJSON)
       .then(count => dispatch(feedWatched(count.count)))
@@ -188,7 +189,7 @@ function doFetchPosts({ start, end }) {
   return dispatch => {
     dispatch(requestFetchPosts());
     // Get initial POSTS
-    return fetch(`/posts?start=${start}&end=${end}`)
+    return fetch(`${API_URL}/posts?start=${start}&end=${end}`)
       .then(checkStatus)
       .then(parseJSON)
       .then(posts => dispatch(postsFetched(posts)))

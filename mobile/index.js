@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
-import configureStore from '../common/utils/configureStore';
-import Root from './components/app/Root.jsx';
+import configureStore from './utils/configureStore.js';
+import Root from './components/app/Root.js';
 
 export function init() {
   const store = configureStore();

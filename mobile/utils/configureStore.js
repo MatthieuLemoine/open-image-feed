@@ -1,8 +1,7 @@
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import rootReducer from '../../common/reducers/app/app';
-import { routerReducer } from 'react-router-redux';
 
 export default function configureStore() {
   const middlewares = [
@@ -15,10 +14,8 @@ export default function configureStore() {
   }
 
   const store = createStore(
-    combineReducers({
-      rootReducer,
-      routing : routerReducer
-    }),
+    rootReducer,
+    {},
     applyMiddleware(...middlewares)
   );
 

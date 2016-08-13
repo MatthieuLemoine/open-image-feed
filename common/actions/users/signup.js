@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { browserHistory } from 'react-router';
 import { checkStatus } from '../../utils/http';
+import { API_URL } from '../../utils/config.js';
 
 export const REQUEST_SIGNUP  = 'REQUEST_SIGNUP';
 export const SUCCESS_SIGNUP  = 'SUCCESS_SIGNUP';
@@ -30,7 +31,7 @@ function errorSignup() {
 function doSignup(user) {
   return dispatch => {
     dispatch(requestSignup());
-    return fetch('/users/signup', {
+    return fetch(`${API_URL}/users/signup`, {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',

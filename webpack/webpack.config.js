@@ -10,6 +10,10 @@ module.exports = {
   module : {
     loaders : [
       {
+        test : /\.json$/,
+        loader : 'json-loader'
+      },
+      {
         test   : /\.css$/,
         loader : ExtractTextPlugin.extract(
           'style-loader',

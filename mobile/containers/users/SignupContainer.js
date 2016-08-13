@@ -1,14 +1,13 @@
-import SignupForm from '../../components/users/SignupForm.jsx';
+import SignupForm from '../../components/users/SignupForm.js';
 import { connect } from 'react-redux';
-import { signup } from '../../../common/actions/users/signup';
-import { withRouter } from 'react-router';
-import { isFetchingUser } from '../../../common/reducers/app/app';
+import { signup } from '../../../common/actions/users/signup.js';
+import { isFetchingUser } from '../../../common/reducers/app/app.js';
 
-export default withRouter(connect(
+export default connect(
   state => ({
     isFetching : !!isFetchingUser(state)
   }),
   {
     signup
   }
-)(SignupForm));
+)(SignupForm);

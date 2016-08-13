@@ -1,5 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { checkStatus } from '../../utils/http';
+import { API_URL } from '../../utils/config.js';
 
 export const REQUEST_COMMENT    = 'REQUEST_COMMENT';
 export const SUCCESS_COMMENT    = 'SUCCESS_COMMENT';
@@ -45,7 +46,7 @@ function requestToggleAddComment(postId) {
 function doComment(newComment, state) {
   return dispatch => {
     dispatch(requestComment());
-    return fetch(`/comments/${newComment.postId}`, {
+    return fetch(`${API_URL}/comments/${newComment.postId}`, {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',

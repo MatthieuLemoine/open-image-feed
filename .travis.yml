@@ -5,6 +5,7 @@ before_install:
   - cp ./server/config.sample.json ./server/config.json
 install :
   - npm i
+  - cd mobile && npm i && cd -
 script :
   - npm test
   - npm run lint
