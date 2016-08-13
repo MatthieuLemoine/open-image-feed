@@ -3,11 +3,12 @@ import PostList from '../../components/posts/PostList.js';
 import { connect } from 'react-redux';
 import { getPosts, getUser, hasMorePosts } from '../../../common/reducers/app/app.js';
 import { watchFeedIfNeeded, fetchPosts } from '../../../common/actions/posts/posts.js';
-
+import withNavigationBar from '../../components/app/NavigationBar.js';
 class FeedContainer extends Component {
   componentDidMount() {
     // Register to live changes feed
     this.props.watchFeedIfNeeded();
+    this.props.loadMore();
   }
   render() {
     return <PostList {...this.props} />;
@@ -15,10 +16,11 @@ class FeedContainer extends Component {
 }
 
 FeedContainer.propTypes = {
-  watchFeedIfNeeded : React.PropTypes.func.isRequired
+  watchFeedIfNeeded : React.PropTypes.func.isRequired,
+  loadMore          : React.PropTypes.func.isRequired
 };
 
-export default connect(
+export default withNavigationBar(connect(
   state => (
     {
       posts : getPosts(state).map(post => {
@@ -34,4 +36,4 @@ export default connect(
     watchFeedIfNeeded,
     loadMore : fetchPosts
   }
-)(FeedContainer);
+)(FeedContainer));
