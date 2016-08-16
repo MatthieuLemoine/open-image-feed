@@ -42,6 +42,7 @@
     "basic-auth": "^1.0.4",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
+    "mmmagic": "^0.4.5",
     "multer": "^1.1.0",
     "node-uuid": "^1.4.7",
     "path": "^0.12.7",
