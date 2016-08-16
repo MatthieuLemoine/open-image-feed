@@ -12,6 +12,7 @@
     "react-native": "^0.31.0",
     "react-native-infinite-scroll-view": "^0.4.2",
     "react-native-material-design": "^0.3.7",
+    "react-native-material-kit": "^0.3.2",
     "react-native-router-flux": "^3.34.0",
     "react-native-tabs": "^1.0.9",
     "react-router": "^2.5.2",
