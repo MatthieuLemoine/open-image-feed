@@ -41,6 +41,7 @@
   "dependencies": {
     "basic-auth": "^1.0.4",
     "body-parser": "^1.15.2",
+    "engine.io-parser": "git://github.com/socketio/engine.io-parser.git#149f340611ec8e5ea6f19968f2d0fa93b479e5d9",
     "express": "^4.14.0",
     "mmmagic": "^0.4.5",
     "multer": "^1.1.0",

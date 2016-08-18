@@ -7,6 +7,15 @@ import { MKProgress } from 'react-native-material-kit';
 const styles = StyleSheet.create({
   progress : {
     width : 150,
+    height : 150
+  },
+  toolbar : {
+    position      : 'absolute',
+    top           : 0,
+    left          : 0,
+    right         : 0,
+    flexDirection : 'row',
+    alignItems    : 'center'
   }
 });
 
@@ -20,7 +29,7 @@ const Toolbar = ({
     />
   : null;
   return (
-    <View>
+    <View style={styles.toolbar}>
       <MaterialToolbar
         title={title}
         primary={PRIMARY}
