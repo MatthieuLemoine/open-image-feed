@@ -1,12 +1,38 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import Form from '../app/Form.js';
+import styles from '../../styles/styles.js';
 
-const AddPost = () =>
-  <View>
-    <Text>
-      AddPost component
-    </Text>
-  </View>
-;
+const AddPost = ({
+  add,
+  isPersisting
+}) =>
+  <Form
+    style={styles.container}
+    title="Create a post"
+    submit={add}
+    submitLabel="Publish"
+    submitDisabled={isPersisting}
+    inputs={[
+      {
+        id       : 'title',
+        type     : 'text',
+        label    : 'Title',
+        required : true
+      },
+      {
+        id       : 'image',
+        type     : 'image',
+        label    : 'Image',
+        required : true
+      }
+    ]}
+    secondLinkLabel="Cancel"
+    secondLinkTo="feed"
+  />;
+
+AddPost.propTypes = {
+  add : React.PropTypes.func.isRequired,
+  isPersisting : React.PropTypes.bool.isRequired
+};
 
 export default AddPost;

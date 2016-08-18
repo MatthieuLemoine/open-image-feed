@@ -5,7 +5,7 @@ import {
   MKButton
 } from 'react-native-material-kit';
 import { Actions } from 'react-native-router-flux';
-import { Text, View } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { Card } from 'react-native-material-design';
 
 const styles = StyleSheet.create({
@@ -47,7 +47,8 @@ const Form = ({
   secondLinkLabel,
   secondLinkTo,
   notACard,
-  hideTitle
+  hideTitle,
+  style
 }) => {
   const refs = [];
   // Render inputs
@@ -62,6 +63,7 @@ const Form = ({
           node
         });
       }}
+      key={input.id}
       required={input.required}
     />
   );
@@ -142,7 +144,7 @@ const Form = ({
 
   // Render form
   return (
-    <View>
+    <View style={style}>
       {computedForm}
     </View>
   );
@@ -169,7 +171,8 @@ Form.propTypes = {
   secondLinkLabel : React.PropTypes.string,
   secondLinkTo    : React.PropTypes.string,
   notACard        : React.PropTypes.bool,
-  hideTitle       : React.PropTypes.bool
+  hideTitle       : React.PropTypes.bool,
+  style           : React.PropTypes.any
 };
 
 export default Form;

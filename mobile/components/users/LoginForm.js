@@ -1,12 +1,38 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import Form from '../app/Form.js';
+import styles from '../../styles/styles.js';
 
-const LoginForm = () =>
-  <View>
-    <Text>
-      LoginForm component
-    </Text>
-  </View>
-;
+const LoginForm = ({
+  isFetching,
+  login
+}) =>
+  <Form
+    title="Login"
+    submit={login}
+    submitLabel="Sign in"
+    submitDisabled={isFetching}
+    inputs={[
+      {
+        id       : 'username',
+        type     : 'text',
+        label    : 'Username',
+        required : true
+      },
+      {
+        id       : 'password',
+        type     : 'password',
+        label    : 'Password',
+        required : true
+      }
+    ]}
+    secondLinkLabel="I do not have an account"
+    secondLinkTo="signup"
+    style={styles.container}
+  />;
+
+LoginForm.propTypes = {
+  isFetching : React.PropTypes.bool.isRequired,
+  login : React.PropTypes.func.isRequired
+};
 
 export default LoginForm;

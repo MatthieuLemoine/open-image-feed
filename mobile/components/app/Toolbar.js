@@ -3,6 +3,7 @@ import { Toolbar as MaterialToolbar } from 'react-native-material-design';
 import { PRIMARY } from '../../styles/material.js';
 import { View, StyleSheet } from 'react-native';
 import { MKProgress } from 'react-native-material-kit';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   progress : {
@@ -21,18 +22,27 @@ const styles = StyleSheet.create({
 
 const Toolbar = ({
   title,
-  isFetching
+  isFetching,
+  isLogged
 }) => {
   const progress = isFetching ?
     <MKProgress.Indeterminate
       style={styles.progress}
     />
   : null;
+  const action = isLogged ? {
+    icon : 'add',
+    onPress : () => Actions['add-post']()
+  } : {
+    icon : 'account-circle',
+    onPress : () => Actions.login()
+  };
   return (
     <View style={styles.toolbar}>
       <MaterialToolbar
         title={title}
         primary={PRIMARY}
+        actions={[action]}
       />
       {progress}
     </View>
@@ -41,7 +51,8 @@ const Toolbar = ({
 
 Toolbar.propTypes = {
   title : React.PropTypes.string.isRequired,
-  isFetching : React.PropTypes.bool.isRequired
+  isFetching : React.PropTypes.bool.isRequired,
+  isLogged : React.PropTypes.bool.isRequired
 };
 
 export default Toolbar;

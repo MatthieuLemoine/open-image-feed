@@ -1,16 +1,8 @@
 import React from 'react';
-import { ListView, StyleSheet } from 'react-native';
+import { ListView } from 'react-native';
 import PostContainer from '../../containers/posts/PostContainer';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-
-const styles = StyleSheet.create({
-  container : {
-    flex            : 1,
-    backgroundColor : 'transparent',
-    marginTop : 60
-  }
-});
-
+import styles from '../../styles/styles.js';
 
 const PostList = ({
   posts,
