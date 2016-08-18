@@ -1,5 +1,4 @@
 import fetch from 'isomorphic-fetch';
-import { browserHistory } from 'react-router';
 import { checkStatus } from '../../utils/http';
 import { API_URL } from '../../utils/config.js';
 
@@ -28,7 +27,7 @@ function errorLogin() {
   };
 }
 
-function doLogin(user) {
+function doLogin(user, onCompletion) {
   return dispatch => {
     dispatch(requestLogin());
     return fetch(`${API_URL}/users/login`, {
@@ -45,7 +44,7 @@ function doLogin(user) {
       user.authHeader = `Basic ${btoa(`${user.username}:${user.password}`)}`;
     })
     .then(() => dispatch(successLogin(user)))
-    .then(() => browserHistory.push('/'))
+    .then(onCompletion)
     .catch(() => dispatch(errorLogin()));
   };
 }
@@ -62,10 +61,10 @@ function shouldLogin(state) {
   return true;
 }
 
-export function login(user) {
+export function login(user, onCompletion) {
   return (dispatch, getState) => {
     if (shouldLogin(getState())) {
-      return dispatch(doLogin(user));
+      return dispatch(doLogin(user, onCompletion));
     }
     return Promise.resolve();
   };

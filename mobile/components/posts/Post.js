@@ -66,7 +66,6 @@ class Post extends Component {
         opacity : post.displayComments ? 1 : 0
       }
     });
-    console.log(`${API_URL}${post.image}`);
     return (
       <View>
         <Card>

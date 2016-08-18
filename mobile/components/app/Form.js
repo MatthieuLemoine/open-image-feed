@@ -34,6 +34,14 @@ const styles = StyleSheet.create({
   },
   spacer : {
     width : 15
+  },
+  actionsContainer : {
+    flex          : 1,
+    alignItems    : 'flex-start',
+    flexDirection : 'row',
+  },
+  button : {
+    height : 25
   }
 });
 
@@ -50,19 +58,17 @@ const Form = ({
   hideTitle,
   style
 }) => {
-  const refs = [];
+  const values = {};
   // Render inputs
   const form = inputs.map((input) =>
     <MKTextField
-      tintColor={MKColor.Lime}
-      textInputStyle={{ color : MKColor.Orange }}
+      tintColor={MKColor.Indigo}
+      textInputStyle={{ color : 'rgba(0, 0, 0, 0.54)' }}
       placeholder={input.label}
-      ref={node => {
-        refs.push({
-          key : input.id,
-          node
-        });
+      onChangeText={(text) => {
+        values[input.id] = text;
       }}
+      value={values[input.id]}
       key={input.id}
       required={input.required}
     />
@@ -71,14 +77,19 @@ const Form = ({
   // Second button such as a cancel button
   const secondLink = secondLinkLabel && secondLinkTo ?
     <MKButton
-      backgroundColor={MKColor.Teal}
       onPress={() => Actions[secondLinkTo]()}
+      shadowRadius={2}
+      shadowOffset={{ width : 0, height : 2 }}
+      shadowOpacity={0.7}
+      shadowColor="black"
     >
       <Text
         pointerEvents="none"
-        style={{ color : 'white', fontWeight : 'bold' }}
+        style={{
+          color : MKColor.Red
+        }}
       >
-        {secondLinkLabel}
+        {secondLinkLabel.toUpperCase()}
       </Text>
     </MKButton>
     : null;
@@ -91,28 +102,26 @@ const Form = ({
     </Text>;
 
   const actions = (
-    <View>
+    <View style={styles.actionsContainer}>
+      <View style={styles.spacer} />
+      {secondLink}
       <View style={styles.spacer} />
       <MKButton
-        tintColor={MKColor.Lime}
-        textInputStyle={{ color : MKColor.Orange }}
+        style={styles.button}
         onPress={() => {
-          submit(refs.reduce((obj, ref) => {
-            obj[ref.key] = ref.image || ref.node.value;
-            return obj;
-          }, {}));
+          submit(values);
         }}
         disabled={!!submitDisabled}
       >
         <Text
           pointerEvents="none"
-          style={{ color : 'white', fontWeight : 'bold' }}
+          style={{
+            color : MKColor.Indigo
+          }}
         >
-          {submitLabel}
+          {submitLabel.toUpperCase()}
         </Text>
       </MKButton>
-      <View style={styles.spacer} />
-      {secondLink}
     </View>
   );
   const card = (
