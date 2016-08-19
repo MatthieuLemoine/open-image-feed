@@ -4,8 +4,9 @@ import { Card, IconToggle, Icon } from 'react-native-material-design';
 import { PRIMARY, SECONDARY } from '../../styles/material.js';
 import { since } from '../../../common/utils/date';
 import { API_URL } from '../../../common/utils/config.js';
-import Dimensions from 'Dimensions';
 import CommentList from './CommentList.js';
+// eslint-disable-next-line import/no-unresolved
+import Dimensions from 'Dimensions';
 
 const styles = StyleSheet.create({
   title : {

@@ -7,16 +7,17 @@ import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   progress : {
-    width : 150,
-    height : 150
+    alignSelf : 'stretch',
+    marginTop : 56,
+    height    : 4,
+    flex : 1
   },
   toolbar : {
     position      : 'absolute',
     top           : 0,
     left          : 0,
     right         : 0,
-    flexDirection : 'row',
-    alignItems    : 'center'
+    flexDirection : 'row'
   }
 });
 

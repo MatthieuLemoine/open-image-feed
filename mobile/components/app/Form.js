@@ -5,8 +5,10 @@ import {
   MKButton
 } from 'react-native-material-kit';
 import { Actions } from 'react-native-router-flux';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Card } from 'react-native-material-design';
+// eslint-disable-next-line import/no-unresolved
+import dismissKeyboard from 'dismissKeyboard';
 
 const styles = StyleSheet.create({
   title : {
@@ -71,6 +73,7 @@ const Form = ({
       value={values[input.id]}
       key={input.id}
       required={input.required}
+      secureTextEntry={input.type === 'password'}
     />
   );
 
@@ -109,6 +112,7 @@ const Form = ({
       <MKButton
         style={styles.button}
         onPress={() => {
+          dismissKeyboard();
           submit(values);
         }}
         disabled={!!submitDisabled}
@@ -153,9 +157,11 @@ const Form = ({
 
   // Render form
   return (
-    <View style={style}>
-      {computedForm}
-    </View>
+    <TouchableWithoutFeedback onPress={() => dismissKeyboard()} >
+      <View style={style}>
+        {computedForm}
+      </View>
+    </TouchableWithoutFeedback>
   );
 };
 
