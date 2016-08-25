@@ -8,7 +8,7 @@ import { ERROR_LIKE } from '../../actions/posts/likes';
 import { ERROR_COMMENT, SUCCESS_COMMENT } from '../../actions/posts/comments';
 
 // Handles snackbar display
-function root(state = {
+export function root(state = {
   message      : ''
 }, action) {
   switch (action.type) {

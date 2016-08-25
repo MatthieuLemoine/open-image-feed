@@ -5,6 +5,8 @@ import FeedContainer from '../../containers/posts/FeedContainer.js';
 import AddPostContainer from '../../containers/posts/AddPostContainer.js';
 import LoginContainer from '../../containers/users/LoginContainer.js';
 import SignupContainer from '../../containers/users/SignupContainer.js';
+import SplashscreenContainer from '../../containers/app/SplashscreenContainer.js';
+import ChooseFeedContainer from '../../containers/app/ChooseFeedContainer.js';
 import TabIcon from '../../components/app/TabIcon.js';
 
 const Application = ({
@@ -19,16 +21,12 @@ const Application = ({
             key="root"
             hideNavBar
           >
-            <Scene
-              key="app"
-              tabs
-              initial
-            >
-              <Scene key="feed" component={FeedContainer} title="Feed" icon={TabIcon} />
-              <Scene key="add-post" component={AddPostContainer} title="New post" icon={TabIcon} />
-              <Scene key="login" component={LoginContainer} title="Login" icon={TabIcon} />
-              <Scene key="signup" component={SignupContainer} title="Signup" icon={TabIcon} />
-            </Scene>
+            <Scene key="splashscreen" component={SplashscreenContainer} title="Splashscreen" initial />
+            <Scene key="choose-feed" component={ChooseFeedContainer} title="Choose feed" />
+            <Scene key="feed" component={FeedContainer} title="Feed" icon={TabIcon} />
+            <Scene key="add-post" component={AddPostContainer} title="New post" icon={TabIcon} />
+            <Scene key="login" component={LoginContainer} title="Login" icon={TabIcon} />
+            <Scene key="signup" component={SignupContainer} title="Signup" icon={TabIcon} />
           </Scene>
         </Scene>
       </RouterWithRedux>

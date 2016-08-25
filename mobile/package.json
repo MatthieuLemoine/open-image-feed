@@ -8,6 +8,7 @@
     "ios": "node node_modules/react-native/local-cli/cli.js run-ios"
   },
   "dependencies": {
+    "lodash": "^4.15.0",
     "react": "^15.2.1",
     "react-native": "^0.31.0",
     "react-native-infinite-scroll-view": "^0.4.2",
@@ -16,7 +17,8 @@
     "react-native-router-flux": "^3.34.0",
     "react-native-tabs": "^1.0.9",
     "react-router": "^2.5.2",
-    "react-router-native": "^2.0.0-alpha.2"
+    "react-router-native": "^2.0.0-alpha.2",
+    "redux-async-initial-state": "^0.1.2"
   },
   "devDependencies": {
     "babel-preset-react-native": "^1.9.0",

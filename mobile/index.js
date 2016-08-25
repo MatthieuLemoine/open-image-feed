@@ -2,6 +2,7 @@ import React from 'react';
 import { AppRegistry } from 'react-native';
 import configureStore from './utils/configureStore.js';
 import Application from './components/app/Application.js';
+import { AsyncStorage } from 'react-native';
 
 export function init() {
   const store = configureStore();
