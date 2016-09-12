@@ -6,25 +6,19 @@ export const initialState = {
 };
 // Load state from AsyncStorage
 export function loadState() {
-  console.log('loadState');
   return AsyncStorage
     .getItem('state')
     .then(serializedState => {
-      console.log('Load', serializedState);
       if (!serializedState) {
         return initialState;
       }
       return JSON.parse(serializedState);
     })
-    .catch((err) => {
-      console.log(err);
-      return initialState;
-    });
+    .catch(() => initialState);
 }
 
 // Save state to AsyncStorage
 export function saveState(state) {
-  console.log('save');
   try {
     const serializedState = JSON.stringify(state);
     AsyncStorage.setItem('state', serializedState);

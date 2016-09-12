@@ -17,8 +17,7 @@
     "react-native-router-flux": "^3.34.0",
     "react-native-tabs": "^1.0.9",
     "react-router": "^2.5.2",
-    "react-router-native": "^2.0.0-alpha.2",
-    "redux-async-initial-state": "^0.1.2"
+    "react-router-native": "^2.0.0-alpha.2"
   },
   "devDependencies": {
     "babel-preset-react-native": "^1.9.0",

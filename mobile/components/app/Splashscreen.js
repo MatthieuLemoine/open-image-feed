@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MKSpinner } from 'react-native-material-kit';
 
@@ -20,25 +20,33 @@ const styles = StyleSheet.create({
   }
 });
 
-const Splashscreen = ({
-  loaded,
-  redirect
-}) => {
-  if (loaded) {
-    redirect();
+class Splashscreen extends Component {
+  componentDidMount() {
+    if (this.props.loaded) {
+      this.props.redirect();
+    } else {
+      this.props.loadState();
+    }
   }
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Open Image Feed</Text>
-      <MKSpinner style={styles.spinner} />
-    </View>
-  );
-};
-
+  componentDidUpdate() {
+    if (this.props.loaded) {
+      this.props.redirect();
+    }
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Open Image Feed</Text>
+        <MKSpinner style={styles.spinner} />
+      </View>
+    );
+  }
+}
 
 Splashscreen.propTypes = {
-  loaded : React.PropTypes.bool,
-  redirect : React.PropTypes.func
+  loaded      : React.PropTypes.bool,
+  redirect    : React.PropTypes.func,
+  loadState   : React.PropTypes.func
 };
 
 export default Splashscreen;
