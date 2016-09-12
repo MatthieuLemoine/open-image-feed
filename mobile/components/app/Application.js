@@ -21,10 +21,15 @@ const Application = ({
             key="root"
             hideNavBar
           >
-            <Scene key="splashscreen" component={SplashscreenContainer} title="Splashscreen" initial />
-            <Scene key="choose-feed" component={ChooseFeedContainer} title="Choose feed" />
+            <Scene
+              key="splashscreen"
+              component={SplashscreenContainer}
+              title="Splashscreen"
+              initial
+            />
+            <Scene key="chooseFeed" component={ChooseFeedContainer} title="Choose feed" />
             <Scene key="feed" component={FeedContainer} title="Feed" icon={TabIcon} />
-            <Scene key="add-post" component={AddPostContainer} title="New post" icon={TabIcon} />
+            <Scene key="addPost" component={AddPostContainer} title="New post" icon={TabIcon} />
             <Scene key="login" component={LoginContainer} title="Login" icon={TabIcon} />
             <Scene key="signup" component={SignupContainer} title="Signup" icon={TabIcon} />
           </Scene>

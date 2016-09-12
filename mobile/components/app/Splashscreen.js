@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { MKSpinner } from 'react-native-material-kit';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container : {
@@ -23,14 +24,14 @@ const styles = StyleSheet.create({
 class Splashscreen extends Component {
   componentDidMount() {
     if (this.props.loaded) {
-      this.props.redirect();
+      Actions.chooseFeed();
     } else {
       this.props.loadState();
     }
   }
   componentDidUpdate() {
     if (this.props.loaded) {
-      this.props.redirect();
+      Actions.chooseFeed();
     }
   }
   render() {
