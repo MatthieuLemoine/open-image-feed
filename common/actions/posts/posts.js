@@ -200,7 +200,7 @@ function doFetchPosts({ start, end }) {
 export function fetchPosts() {
   return (dispatch, getState) => {
     if (isNotFetching(getState())) {
-      const start = getState().post.offset;
+      const start = getState().post.offset || 0;
       const end   = start + POSTS_BATCH_SIZE;
       return dispatch(doFetchPosts({ start, end }));
     }

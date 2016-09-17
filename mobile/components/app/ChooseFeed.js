@@ -1,5 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import Form from './Form';
+import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container : {
@@ -15,16 +17,31 @@ const styles = StyleSheet.create({
   }
 });
 
-const ChooseFeed = (
-  feedURL = ''
-) => (
+const ChooseFeed = ({
+  connectToFeed
+}) =>
   <View style={styles.container}>
-    <Text style={styles.title}>{ `Feed URL : ${feedURL}` } </Text>
-  </View>
-);
+    <Form
+      title="Connect to a feed"
+      submit={(feed) => {
+        connectToFeed(feed);
+        Actions.feed();
+      }}
+      submitLabel="Connect"
+      inputs={[
+        {
+          id       : 'feedUrl',
+          type     : 'text',
+          label    : 'Feed URL',
+          required : true
+        }
+      ]}
+      style={styles.container}
+    />
+  </View>;
 
 ChooseFeed.propTypes = {
-  feedURL  : React.PropTypes.string
+  connectToFeed : React.PropTypes.func.isRequired
 };
 
 export default ChooseFeed;

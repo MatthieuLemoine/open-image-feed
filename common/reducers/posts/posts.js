@@ -60,8 +60,9 @@ export default function post(state = {
     case POSTS_FETCHED:
       return Object.assign({}, state, {
         isFetching    : false,
-        posts         : state.posts.concat(action.posts),
-        offset        : state.offset + action.posts.length,
+        posts         : state.posts ? state.posts.concat(action.posts) : [].concat(action.posts),
+        offset        : state.offset || state.offset === 0 ?
+          state.offset + action.posts.length : 0 + action.posts.length,
         errorGetPosts : false
       });
     case ERROR_GET_POSTS:

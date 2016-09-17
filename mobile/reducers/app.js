@@ -1,14 +1,24 @@
-import { APP_LOADED } from '../actions/root/root';
+import { APP_LOADED, CONNECT_TO_FEED } from '../actions/root/root';
 import rootReducer from '../../common/reducers/app/app';
 
 function app(state = {
-  loaded : false
+  root : {
+    loaded : false,
+    feedURL : ''
+  }
 }, action) {
   switch (action.type) {
     case APP_LOADED :
       return Object.assign({}, state, action.state, {
         root : {
-          loaded : true
+          loaded : true,
+          feedURL : action.state.root.feedURL
+        }
+      });
+    case CONNECT_TO_FEED :
+      return Object.assign({}, state, {
+        root : {
+          feedURL : action.url
         }
       });
     default:
@@ -17,3 +27,11 @@ function app(state = {
 }
 
 export default app;
+
+export function isAppLoaded(state) {
+  return state.root.loaded || false;
+}
+
+export function getFeedURL(state) {
+  return state.root.feedURL || '';
+}

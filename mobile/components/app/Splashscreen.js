@@ -24,14 +24,22 @@ const styles = StyleSheet.create({
 class Splashscreen extends Component {
   componentDidMount() {
     if (this.props.loaded) {
-      Actions.chooseFeed();
+      if (this.props.feedURL) {
+        Actions.feed();
+      } else {
+        Actions.chooseFeed();
+      }
     } else {
       this.props.loadState();
     }
   }
   componentDidUpdate() {
     if (this.props.loaded) {
-      Actions.chooseFeed();
+      if (this.props.feedURL) {
+        Actions.feed();
+      } else {
+        Actions.chooseFeed();
+      }
     }
   }
   render() {
@@ -47,7 +55,8 @@ class Splashscreen extends Component {
 Splashscreen.propTypes = {
   loaded      : React.PropTypes.bool,
   redirect    : React.PropTypes.func,
-  loadState   : React.PropTypes.func
+  loadState   : React.PropTypes.func,
+  feedURL     : React.PropTypes.string
 };
 
 export default Splashscreen;

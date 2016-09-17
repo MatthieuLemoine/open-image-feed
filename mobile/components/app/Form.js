@@ -60,7 +60,10 @@ const Form = ({
   hideTitle,
   style
 }) => {
-  const values = {};
+  const values = inputs.reduce((prev, input) => {
+    prev[input.id] = input.value;
+    return prev;
+  }, {});
   // Render inputs
   const form = inputs.map((input) =>
     <MKTextField
