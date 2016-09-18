@@ -49,7 +49,7 @@ Please do not hesitate to sign up and post some content.
 Open Image Feed, it's also a mobile app powered by React Native.
 The OIF mobile app is still on alpha stage, some [key features are missing](https://github.com/MatthieuLemoine/open-image-feed/blob/master/TODO.md) and have only been tested on Android.
 
-This mobile app will allow the user to connect to several instances of OIF and to receive push notifications on new post/like/comment.
+This mobile app will allow users to connect to several instances of OIF and to receive push notifications on new post/like/comment.
 
 ## Install :electric_plug:
 
