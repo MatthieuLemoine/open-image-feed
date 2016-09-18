@@ -44,6 +44,13 @@ Please do not hesitate to sign up and post some content.
 - Infinite scroll loading
 - Real-time :zap: update thanks to the power of **RethinkDB** & **socket.io**
 
+## Mobile app :iphone:
+
+Open Image Feed, it's also a mobile app powered by React Native.
+The OIF mobile app is still on alpha stage, some [key features are missing](https://github.com/MatthieuLemoine/open-image-feed/blob/master/TODO.md) and have only been tested on Android.
+
+This mobile app will allow the user to connect to several instances of OIF and to receive push notifications on new post/like/comment.
+
 ## Install :electric_plug:
 
 **Install Node.js**
@@ -76,6 +83,7 @@ You can find the installation instructions for your OS/distrib in [RethinkDB off
 - [Webpack](https://webpack.github.io/)
 - [Jest](https://facebook.github.io/jest/)
 - [Enzyme](https://github.com/airbnb/enzyme)
+- [React Native](https://facebook.github.io/react-native/)
 
 ## Need help or found a bug :question:
 
