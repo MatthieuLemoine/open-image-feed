@@ -47,21 +47,21 @@ function user(state = {
 export default user;
 
 export function getUser(state) {
-  return state.user;
+  return state.user || {};
 }
 
 export function isLogged(state) {
-  return state.isLogged;
+  return !!state.isLogged;
 }
 
 export function hasErrorLogin(state) {
-  return state.errorLogin;
+  return !!state.errorLogin;
 }
 
 export function hasErrorSignup(state) {
-  return state.errorSignup;
+  return !!state.errorSignup;
 }
 
 export function isFetching(state) {
-  return state.isFetching;
+  return !!state.isFetching;
 }

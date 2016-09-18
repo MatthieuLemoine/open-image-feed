@@ -17,8 +17,8 @@ describe('User reducer', () => {
   const userState = {
     isFetching     : false,
     isLogged       : true,
-    hasErrorLogin  : false,
-    hasErrorSignup : false,
+    errorLogin  : false,
+    errorSignup : false,
     user           : {
       authHeader : 'Basic DSKF?LKDF?LDSFK?SFqsldm',
       password   : 'password',

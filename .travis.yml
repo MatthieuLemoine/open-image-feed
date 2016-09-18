@@ -1,10 +1,19 @@
 language: node_js
 node_js:
-  - "6"
+  - "6.5"
+env:
+  - CXX=g++-4.8
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
 before_install:
   - cp ./server/config.sample.json ./server/config.json
 install :
   - npm i
+  - cd mobile && npm i && cd -
 script :
   - npm test
   - npm run lint

@@ -1,9 +1,11 @@
 import fetch from 'isomorphic-fetch';
-import io from 'socket.io-client';
+import { getAPIURL, getFeedURL, isBrowser } from '../../utils/config.js';
+import io from 'socket.io-client/socket.io';
 import { browserHistory } from 'react-router';
 import { checkStatus, parseJSON } from '../../utils/http';
 
-const socket           = io(`${window.location.protocol}//${window.location.host}`);
+let socket;
+
 const POSTS_BATCH_SIZE = 10;
 
 export const REQUEST_ADD_POST    = 'REQUEST_ADD_POST';
@@ -86,7 +88,7 @@ function requestPostsCount() {
   };
 }
 
-function persistPost(post, state) {
+function persistPost(post, state, apiURL) {
   return dispatch => {
     dispatch(requestAddPost());
     const data = new FormData();
@@ -94,7 +96,7 @@ function persistPost(post, state) {
     data.append('imageHeight', post.imageHeight);
     data.append('imageWidth', post.imageWidth);
     data.append('title', post.title);
-    return fetch('/posts', {
+    return fetch(`${apiURL}/posts`, {
       method  : 'POST',
       headers : {
         Authorization  : state.user.user.authHeader
@@ -122,17 +124,25 @@ function shouldPersistPost(state) {
 export function persistPostIfNeeded(post) {
   return (dispatch, getState) => {
     if (shouldPersistPost(getState())) {
-      return dispatch(persistPost(post, getState()));
+      return dispatch(persistPost(post, getState(), getAPIURL(getState())));
     }
     return Promise.resolve();
   };
 }
 
-function watchFeed() {
+function watchFeed(feedURL, apiURL) {
   return dispatch => {
     // Watch feed
+    socket = isBrowser ? io(feedURL) :
+      io(feedURL, {
+        jsonp      : false,
+        transports : ['websocket']
+      });
     socket
       .on('post-created', (data) => {
+        if (!isBrowser) {
+          data.image = `${apiURL}${data.image}`;
+        }
         dispatch(newPostFetched(data));
       });
     socket
@@ -145,7 +155,7 @@ function watchFeed() {
       });
     // Fetch posts count for infinite feed
     dispatch(requestPostsCount());
-    return fetch('/posts/count')
+    return fetch(`${apiURL}/posts/count`)
       .then(checkStatus)
       .then(parseJSON)
       .then(count => dispatch(feedWatched(count.count)))
@@ -167,11 +177,12 @@ function isNotWatched(state) {
 export function watchFeedIfNeeded() {
   return (dispatch, getState) => {
     if (isNotWatched(getState())) {
-      return dispatch(watchFeed());
+      return dispatch(watchFeed(getFeedURL(getState()), getAPIURL(getState())));
     }
     return Promise.resolve();
   };
 }
+
 
 function isNotFetching(state) {
   const post = state.post;
@@ -184,13 +195,22 @@ function isNotFetching(state) {
   return true;
 }
 
-function doFetchPosts({ start, end }) {
+function doFetchPosts({ start, end, apiURL }) {
   return dispatch => {
     dispatch(requestFetchPosts());
     // Get initial POSTS
-    return fetch(`/posts?start=${start}&end=${end}`)
+    return fetch(`${apiURL}/posts?start=${start}&end=${end}`)
       .then(checkStatus)
       .then(parseJSON)
+      .then(posts => {
+        if (!isBrowser) {
+          return posts.map(post => {
+            post.image = `${apiURL}${post.image}`;
+            return post;
+          });
+        }
+        return posts;
+      })
       .then(posts => dispatch(postsFetched(posts)))
       .catch(() => dispatch(errorGetPosts()));
   };
@@ -199,9 +219,9 @@ function doFetchPosts({ start, end }) {
 export function fetchPosts() {
   return (dispatch, getState) => {
     if (isNotFetching(getState())) {
-      const start = getState().post.offset;
+      const start = getState().post.offset || 0;
       const end   = start + POSTS_BATCH_SIZE;
-      return dispatch(doFetchPosts({ start, end }));
+      return dispatch(doFetchPosts({ start, end, apiURL : getAPIURL(getState()) }));
     }
     return Promise.resolve();
   };

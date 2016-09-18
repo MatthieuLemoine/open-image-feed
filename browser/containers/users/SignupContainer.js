@@ -1,14 +1,5 @@
 import SignupForm from '../../components/users/SignupForm.jsx';
-import { connect } from 'react-redux';
-import { signup } from '../../../common/actions/users/signup';
-import { withRouter } from 'react-router';
-import { isFetchingUser } from '../../../common/reducers/app/app';
+import { withRouter, browserHistory } from 'react-router';
+import getSignupContainer from '../../../common/containers/users/SignupContainer.js';
 
-export default withRouter(connect(
-  state => ({
-    isFetching : !!isFetchingUser(state)
-  }),
-  {
-    signup
-  }
-)(SignupForm));
+export default getSignupContainer(SignupForm, withRouter, () => browserHistory.push('/'));
