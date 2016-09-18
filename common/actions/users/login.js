@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { checkStatus } from '../../utils/http';
-import { API_URL } from '../../utils/config.js';
+import { getAPIURL } from '../../utils/config.js';
 
 export const REQUEST_LOGIN  = 'REQUEST_LOGIN';
 export const SUCCESS_LOGIN  = 'SUCCESS_LOGIN';
@@ -27,10 +27,10 @@ function errorLogin() {
   };
 }
 
-function doLogin(user, onCompletion) {
+function doLogin(user, onCompletion, apiURL) {
   return dispatch => {
     dispatch(requestLogin());
-    return fetch(`${API_URL}/users/login`, {
+    return fetch(`${apiURL}/users/login`, {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',
@@ -64,7 +64,7 @@ function shouldLogin(state) {
 export function login(user, onCompletion) {
   return (dispatch, getState) => {
     if (shouldLogin(getState())) {
-      return dispatch(doLogin(user, onCompletion));
+      return dispatch(doLogin(user, onCompletion, getAPIURL(getState())));
     }
     return Promise.resolve();
   };

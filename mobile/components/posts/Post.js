@@ -3,7 +3,6 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { Card, IconToggle, Icon } from 'react-native-material-design';
 import { PRIMARY, SECONDARY } from '../../styles/material.js';
 import { since } from '../../../common/utils/date';
-import { API_URL } from '../../../common/utils/config.js';
 import CommentList from './CommentList.js';
 // eslint-disable-next-line import/no-unresolved
 import Dimensions from 'Dimensions';
@@ -83,7 +82,7 @@ class Post extends Component {
                   onLayout={(event) => {
                     this.postWidth = event.nativeEvent.layout.width;
                   }}
-                  source={{ uri : `${API_URL}${post.image}` }}
+                  source={{ uri : post.image }}
                   resizeMode="stretch"
                 />
               }

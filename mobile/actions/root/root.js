@@ -12,9 +12,13 @@ function stateLoaded(state) {
 }
 
 function feedConnected(feed) {
+  const url     = feed.feedUrl;
+  const length  = url.length;
+  const feedURL =
+    url.lastIndexOf('/') === length - 1 ? url.substring(0, length - 1) : url;
   return {
     type : CONNECT_TO_FEED,
-    url : feed.feedUrl
+    url : feedURL
   };
 }
 

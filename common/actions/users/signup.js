@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { checkStatus } from '../../utils/http';
-import { API_URL } from '../../utils/config.js';
+import { getAPIURL } from '../../utils/config.js';
 
 export const REQUEST_SIGNUP  = 'REQUEST_SIGNUP';
 export const SUCCESS_SIGNUP  = 'SUCCESS_SIGNUP';
@@ -27,10 +27,10 @@ function errorSignup() {
   };
 }
 
-function doSignup(user, onCompletion) {
+function doSignup(user, onCompletion, apiURL) {
   return dispatch => {
     dispatch(requestSignup());
-    return fetch(`${API_URL}/users/signup`, {
+    return fetch(`${apiURL}/users/signup`, {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',
@@ -64,7 +64,7 @@ function shouldSignup(state) {
 export function signup(user, onCompletion) {
   return (dispatch, getState) => {
     if (shouldSignup(getState())) {
-      return dispatch(doSignup(user, onCompletion));
+      return dispatch(doSignup(user, onCompletion, getAPIURL(getState())));
     }
     return Promise.resolve();
   };

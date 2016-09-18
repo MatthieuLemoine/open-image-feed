@@ -32,22 +32,23 @@ const Toolbar = ({
       style={styles.progress}
     />
   : null;
-  let action = {};
+  const actions = [];
   if (isAppLoaded) {
-    action = isLogged ? {
+    const action = isLogged ? {
       icon : 'add',
       onPress : () => Actions.addPost()
     } : {
       icon : 'account-circle',
       onPress : () => Actions.login()
     };
+    actions.push(action);
   }
   return (
     <View style={styles.toolbar}>
       <MaterialToolbar
         title={title}
         primary={PRIMARY}
-        actions={[action]}
+        actions={actions}
       />
       {progress}
     </View>

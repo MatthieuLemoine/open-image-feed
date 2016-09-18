@@ -19,6 +19,9 @@ function app(state = {
       return Object.assign({}, state, {
         root : {
           feedURL : action.url
+        },
+        user : {
+          user : {}
         }
       });
     default:
@@ -34,4 +37,8 @@ export function isAppLoaded(state) {
 
 export function getFeedURL(state) {
   return state.root.feedURL || '';
+}
+
+export function hasFeedURL(state) {
+  return !!state.root.feedURL;
 }

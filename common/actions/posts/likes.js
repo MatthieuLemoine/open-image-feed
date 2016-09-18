@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { checkStatus } from '../../utils/http';
-import { API_URL } from '../../utils/config.js';
+import { getAPIURL } from '../../utils/config.js';
 
 export const REQUEST_LIKE = 'REQUEST_LIKE';
 export const SUCCESS_LIKE = 'SUCCESS_LIKE';
@@ -28,7 +28,7 @@ function errorLike() {
 function doLike(postId, state) {
   return dispatch => {
     dispatch(requestLike());
-    return fetch(`${API_URL}/likes/${postId}`, {
+    return fetch(`${getAPIURL(state)}/likes/${postId}`, {
       method  : 'POST',
       headers : {
         Accept         : 'application/json',
