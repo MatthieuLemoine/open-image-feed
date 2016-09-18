@@ -11,6 +11,6 @@ export default (Header, wrapper, isAppLoaded) =>
       isLogged   : isLogged(state),
       isFetching : isFetchingPosts(state) || isPersistingPost(state) || isFetchingCount(state) ||
         isFetchingUser(state) || !!isLiking(state) || !!isCommenting(state),
-      isAppLoaded : isAppLoaded(state)
+      isAppLoaded : isAppLoaded ? isAppLoaded(state) : null
     })
 );

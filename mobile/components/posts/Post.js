@@ -48,9 +48,9 @@ class Post extends Component {
     const post             = this.props.post;
     const width            = this.postWidth;
     const like             = this.props.like;
-    const comment          = this.props.comment;
+    // const comment          = this.props.comment;
     const toggleComments   = this.props.toggleComments;
-    const isCommenting     = this.props.isCommenting;
+    // const isCommenting     = this.props.isCommenting;
     const toggleAddComment = this.props.toggleAddComment;
     // Compute image height
     let height;
