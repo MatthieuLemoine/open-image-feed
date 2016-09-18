@@ -24,20 +24,24 @@ const styles = StyleSheet.create({
 const Toolbar = ({
   title,
   isFetching,
-  isLogged
+  isLogged,
+  isAppLoaded
 }) => {
   const progress = isFetching ?
     <MKProgress.Indeterminate
       style={styles.progress}
     />
   : null;
-  const action = isLogged ? {
-    icon : 'add',
-    onPress : () => Actions['add-post']()
-  } : {
-    icon : 'account-circle',
-    onPress : () => Actions.login()
-  };
+  let action = {};
+  if (isAppLoaded) {
+    action = isLogged ? {
+      icon : 'add',
+      onPress : () => Actions.addPost()
+    } : {
+      icon : 'account-circle',
+      onPress : () => Actions.login()
+    };
+  }
   return (
     <View style={styles.toolbar}>
       <MaterialToolbar
@@ -53,7 +57,8 @@ const Toolbar = ({
 Toolbar.propTypes = {
   title : React.PropTypes.string.isRequired,
   isFetching : React.PropTypes.bool.isRequired,
-  isLogged : React.PropTypes.bool.isRequired
+  isLogged : React.PropTypes.bool.isRequired,
+  isAppLoaded : React.PropTypes.bool.isRequired
 };
 
 export default Toolbar;

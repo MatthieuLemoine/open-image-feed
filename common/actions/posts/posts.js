@@ -1,10 +1,15 @@
 import fetch from 'isomorphic-fetch';
-import io from 'socket.io-client';
+import { API_URL, SOCKET_URL, isBrowser } from '../../utils/config.js';
+import io from 'socket.io-client/socket.io';
 import { browserHistory } from 'react-router';
 import { checkStatus, parseJSON } from '../../utils/http';
-import { API_URL, SOCKET_URL, isBrowser } from '../../utils/config.js';
 
-const socket           = isBrowser ? io(SOCKET_URL) : io(SOCKET_URL, { jsonp : false });
+const socket = isBrowser ? io(SOCKET_URL) :
+  io(SOCKET_URL, {
+    jsonp      : false,
+    transports : ['websocket']
+  });
+
 const POSTS_BATCH_SIZE = 10;
 
 export const REQUEST_ADD_POST    = 'REQUEST_ADD_POST';

@@ -19,7 +19,6 @@ const Application = ({
         <Scene key="modal" component={Modal} >
           <Scene
             key="root"
-            hideNavBar
           >
             <Scene
               key="splashscreen"

@@ -5,11 +5,12 @@ import {
 } from '../../../common/reducers/app/app';
 import connect from '../connect.js';
 
-export default (Header, wrapper) =>
+export default (Header, wrapper, isAppLoaded) =>
   connect(Header, wrapper,
     state => ({
       isLogged   : isLogged(state),
       isFetching : isFetchingPosts(state) || isPersistingPost(state) || isFetchingCount(state) ||
-        isFetchingUser(state) || !!isLiking(state) || !!isCommenting(state)
+        isFetchingUser(state) || !!isLiking(state) || !!isCommenting(state),
+      isAppLoaded : isAppLoaded(state)
     })
 );

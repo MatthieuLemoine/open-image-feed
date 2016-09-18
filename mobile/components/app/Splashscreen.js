@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { MKSpinner } from 'react-native-material-kit';
 import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
@@ -46,7 +45,6 @@ class Splashscreen extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Open Image Feed</Text>
-        <MKSpinner style={styles.spinner} />
       </View>
     );
   }
