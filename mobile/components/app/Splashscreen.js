@@ -4,19 +4,16 @@ import { Actions } from 'react-native-router-flux';
 
 const styles = StyleSheet.create({
   container : {
-    flex           : 1,
-    flexDirection  : 'column',
-    alignItems     : 'center',
-    justifyContent : 'center'
-  },
-  spinner : {
-    width : 200,
-    height : 200
+    flex            : 1,
+    flexDirection   : 'column',
+    alignItems      : 'center',
+    justifyContent  : 'center',
+    backgroundColor : '#3F51B5'
   },
   title : {
     fontWeight : 'bold',
-    fontSize  : 16,
-    color : '#000000'
+    fontSize  : 25,
+    color : '#FFFFFF'
   }
 });
 

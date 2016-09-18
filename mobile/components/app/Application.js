@@ -8,11 +8,13 @@ import SignupContainer from '../../containers/users/SignupContainer.js';
 import SplashscreenContainer from '../../containers/app/SplashscreenContainer.js';
 import ChooseFeedContainer from '../../containers/app/ChooseFeedContainer.js';
 import TabIcon from '../../components/app/TabIcon.js';
+import { StatusBar } from 'react-native';
 
 const Application = ({
     store
   }) => {
   const RouterWithRedux = connect()(Router);
+  StatusBar.setBackgroundColor('#3F51B5');
   return (
     <Provider store={store}>
       <RouterWithRedux>
