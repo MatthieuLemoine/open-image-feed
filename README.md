@@ -70,6 +70,18 @@ You can find the installation instructions for your OS/distrib in [RethinkDB off
 
     npm start
 
+## Configuration
+
+Open Image Feed uses environment variables to configure rethinkdb access :
+
+| Environment variable  | Default value |
+| --------------------- |-------------- |
+| RETHINKDB_HOST        | localhost     |
+| RETHINKDB_PORT        | 28015         |
+| RETHINKDB_DB          | openImageFeed |
+| RETHINKDB_USER        | empty         |
+| RETHINKDB_PASSWORD    | empty         |
+
 ## Tooling :wrench:
 
 - [React](https://facebook.github.io/react/)
