@@ -1,8 +1,9 @@
 const express       = require('express');
-const router        = express.Router();
 const User          = require('../database/schema').User;
 const checkPassword = require('../utils/validator').checkPassword;
-const crypt         = require('../utils/crypt.js');
+const crypt         = require('../utils/crypt');
+
+const router        = express.Router();
 
 router
   .post('/login', (req, res) =>

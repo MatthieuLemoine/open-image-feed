@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { checkStatus } from '../../utils/http';
-import { getAPIURL } from '../../utils/config.js';
+import { getAPIURL } from '../../utils/config';
 
 export const REQUEST_LIKE = 'REQUEST_LIKE';
 export const SUCCESS_LIKE = 'SUCCESS_LIKE';

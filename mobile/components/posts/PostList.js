@@ -1,8 +1,8 @@
 import React from 'react';
 import { ListView } from 'react-native';
-import PostContainer from '../../containers/posts/PostContainer';
 import InfiniteScrollView from 'react-native-infinite-scroll-view';
-import styles from '../../styles/styles.js';
+import PostContainer from '../../containers/posts/PostContainer';
+import styles from '../../styles/styles';
 
 const PostList = ({
   posts,

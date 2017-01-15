@@ -1,7 +1,3 @@
-jest.unmock('../users');
-jest.unmock('../../../actions/users/login');
-jest.unmock('../../../actions/users/signup');
-
 import deepFreeze from 'deep-freeze';
 import userReducer, {
   getUser,

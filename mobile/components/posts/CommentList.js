@@ -1,6 +1,6 @@
 import React from 'react';
-import Comment from './Comment.js';
 import { ListView } from 'react-native';
+import Comment from './Comment';
 
 const CommentList = ({
   comments

@@ -1,9 +1,11 @@
 import { AsyncStorage } from 'react-native';
+
 export const initialState = {
   root : {},
   user : {},
   post : {}
 };
+
 // Load state from AsyncStorage
 export function loadState() {
   return AsyncStorage

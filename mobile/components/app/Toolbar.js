@@ -1,9 +1,9 @@
 import React from 'react';
 import { Toolbar as MaterialToolbar } from 'react-native-material-design';
-import { PRIMARY } from '../../styles/material.js';
 import { View, StyleSheet } from 'react-native';
 import { MKProgress } from 'react-native-material-kit';
 import { Actions } from 'react-native-router-flux';
+import { PRIMARY } from '../../styles/material';
 
 const styles = StyleSheet.create({
   progress : {
@@ -27,11 +27,7 @@ const Toolbar = ({
   isLogged,
   isAppLoaded
 }) => {
-  const progress = isFetching ?
-    <MKProgress.Indeterminate
-      style={styles.progress}
-    />
-  : null;
+  const progress = isFetching ? <MKProgress.Indeterminate style={styles.progress} /> : null;
   const actions = [];
   if (isAppLoaded) {
     const action = isLogged ? {

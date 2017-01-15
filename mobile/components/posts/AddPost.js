@@ -1,6 +1,6 @@
 import React from 'react';
-import Form from '../app/Form.js';
-import styles from '../../styles/styles.js';
+import Form from '../app/Form';
+import styles from '../../styles/styles';
 
 const AddPost = ({
   add,

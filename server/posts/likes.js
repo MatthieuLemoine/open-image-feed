@@ -1,8 +1,9 @@
 const express = require('express');
-const router  = express.Router();
 const auth    = require('../auth/auth');
 const Like    = require('../database/schema').Like;
 const Post    = require('../database/schema').Post;
+
+const router  = express.Router();
 
 router
   .post('/:postId', auth.isAuthenticated, (req, res, next) => {

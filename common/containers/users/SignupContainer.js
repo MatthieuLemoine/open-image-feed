@@ -1,6 +1,6 @@
 import { signup } from '../../../common/actions/users/signup';
 import { isFetchingUser } from '../../../common/reducers/app/app';
-import connect from '../connect.js';
+import connect from '../connect';
 
 export default (SignupForm, wrapper, redirect) =>
   connect(SignupForm, wrapper,

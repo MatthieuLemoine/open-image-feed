@@ -12,7 +12,7 @@ const Header = ({
             Open Image Feed
           </Link>
         </span>
-        <div className="mdl-layout-spacer"></div>
+        <div className="mdl-layout-spacer" />
         <nav className="mdl-navigation">
           <Link
             id="add-post"
@@ -44,7 +44,7 @@ const Header = ({
         display : isFetching ? 'block' : 'none'
       }}
       className="mdl-progress mdl-js-progress mdl-progress__indeterminate progress-indicator"
-    ></div>
+    />
   </div>;
 
 Header.propTypes = {

@@ -1,4 +1,5 @@
 const thinky  = require('../database/thinky');
+
 const r       = thinky.r;
 const type    = thinky.type;
 

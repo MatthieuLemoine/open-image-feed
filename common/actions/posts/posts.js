@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
-import { getAPIURL, getFeedURL, isBrowser } from '../../utils/config.js';
 import io from 'socket.io-client';
 import { browserHistory } from 'react-router';
+import { getAPIURL, getFeedURL, isBrowser } from '../../utils/config';
 import { checkStatus, parseJSON } from '../../utils/http';
 
 let socket;

@@ -1,5 +1,5 @@
-import Post from '../../components/posts/Post.jsx';
 import { withRouter } from 'react-router';
-import getPostContainer from '../../../common/containers/posts/PostContainer.js';
+import Post from '../../components/posts/Post.jsx';
+import getPostContainer from '../../../common/containers/posts/PostContainer';
 
 export default getPostContainer(Post, withRouter);

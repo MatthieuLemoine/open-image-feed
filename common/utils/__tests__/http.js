@@ -1,5 +1,3 @@
-jest.unmock('../http');
-
 import { checkStatus } from '../http';
 
 describe('Http util', () => {

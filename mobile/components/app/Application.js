@@ -1,14 +1,14 @@
 import React from 'react';
 import { Router, Scene, Modal } from 'react-native-router-flux';
 import { Provider, connect } from 'react-redux';
-import FeedContainer from '../../containers/posts/FeedContainer.js';
-import AddPostContainer from '../../containers/posts/AddPostContainer.js';
-import LoginContainer from '../../containers/users/LoginContainer.js';
-import SignupContainer from '../../containers/users/SignupContainer.js';
-import SplashscreenContainer from '../../containers/app/SplashscreenContainer.js';
-import ChooseFeedContainer from '../../containers/app/ChooseFeedContainer.js';
-import TabIcon from '../../components/app/TabIcon.js';
 import { StatusBar } from 'react-native';
+import FeedContainer from '../../containers/posts/FeedContainer';
+import AddPostContainer from '../../containers/posts/AddPostContainer';
+import LoginContainer from '../../containers/users/LoginContainer';
+import SignupContainer from '../../containers/users/SignupContainer';
+import SplashscreenContainer from '../../containers/app/SplashscreenContainer';
+import ChooseFeedContainer from '../../containers/app/ChooseFeedContainer';
+import TabIcon from '../../components/app/TabIcon';
 
 const Application = ({
     store

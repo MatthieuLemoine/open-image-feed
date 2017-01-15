@@ -1,7 +1,7 @@
 import { Link } from 'react-router';
 import Dropzone from 'react-dropzone';
-import { scaleImage } from '../../../common/utils/imageResizer';
 import { Component } from 'react';
+import { scaleImage } from '../../../common/utils/imageResizer';
 import { placeholderImage } from '../../../common/constants/stock';
 
 // Generic Form component
@@ -62,14 +62,14 @@ class Form extends Component {
     });
 
     // Second button such as a cancel button
-    const secondLink = secondLinkLabel && secondLinkTo ?
+    const secondLink = secondLinkLabel && secondLinkTo ? (
       <Link
         className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
         to={secondLinkTo}
       >
         {secondLinkLabel}
       </Link>
-      : null;
+    ) : null;
 
     // On image drop
     // Load image in preview & scale it down to 750px width
@@ -153,6 +153,7 @@ class Form extends Component {
           >
             <img
               role="presentation"
+              alt="presentation"
               src={placeholderImage}
               id="preview"
               style={{
@@ -176,7 +177,7 @@ class Form extends Component {
               }}
               disabled={!!submitDisabled}
             >
-               {submitLabel}
+              {submitLabel}
             </button>
             {secondLink}
           </div>

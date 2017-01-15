@@ -1,4 +1,4 @@
-import Post from '../../components/posts/Post.js';
-import getPostContainer from '../../../common/containers/posts/PostContainer.js';
+import Post from '../../components/posts/Post';
+import getPostContainer from '../../../common/containers/posts/PostContainer';
 
 export default getPostContainer(Post);

@@ -60,7 +60,7 @@ function applyBilinearInterpolation(srcCanvasData, destCanvasData, scale) {
   function inner(f00, f10, f01, f11, x, y) {
     const unX = 1.0 - x;
     const unY = 1.0 - y;
-    return (f00 * unX * unY + f10 * x * unY + f01 * unX * y + f11 * x * y);
+    return (f00 * unX * unY) + (f10 * x * unY) + (f01 * unX * y) + (f11 * x * y);
   }
   let i;
   let j;
@@ -93,12 +93,12 @@ function applyBilinearInterpolation(srcCanvasData, destCanvasData, scale) {
       // Math.ceil can go over bounds
       ix1 = (Math.ceil(ixv) > (srcCanvasData.width - 1) ?
         (srcCanvasData.width - 1) : Math.ceil(ixv));
-      idxD = (j + destCanvasData.width * i) * 4;
+      idxD = (j + (destCanvasData.width * i)) * 4;
       // matrix to vector indices
-      idxS00 = (ix0 + srcCanvasData.width * iy0) * 4;
-      idxS10 = (ix1 + srcCanvasData.width * iy0) * 4;
-      idxS01 = (ix0 + srcCanvasData.width * iy1) * 4;
-      idxS11 = (ix1 + srcCanvasData.width * iy1) * 4;
+      idxS00 = (ix0 + (srcCanvasData.width * iy0)) * 4;
+      idxS10 = (ix1 + (srcCanvasData.width * iy0)) * 4;
+      idxS01 = (ix0 + (srcCanvasData.width * iy1)) * 4;
+      idxS11 = (ix1 + (srcCanvasData.width * iy1)) * 4;
       // overall coordinates to unit square
       dx = ixv - ix0;
       dy = iyv - iy0;

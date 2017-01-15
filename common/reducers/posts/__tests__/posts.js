@@ -1,8 +1,3 @@
-jest.unmock('../posts');
-jest.unmock('../../../actions/posts/posts');
-jest.unmock('../../../actions/posts/likes');
-jest.unmock('../../../actions/posts/comments');
-
 import deepFreeze from 'deep-freeze';
 import postReducer, {
   getPosts,

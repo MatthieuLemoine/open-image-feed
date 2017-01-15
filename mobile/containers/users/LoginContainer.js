@@ -1,6 +1,6 @@
-import LoginForm from '../../components/users/LoginForm.js';
 import { Actions } from 'react-native-router-flux';
-import withNavigationBar from '../../components/app/NavigationBar.js';
-import getLoginContainer from '../../../common/containers/users/LoginContainer.js';
+import LoginForm from '../../components/users/LoginForm';
+import withNavigationBar from '../../components/app/NavigationBar';
+import getLoginContainer from '../../../common/containers/users/LoginContainer';
 
 export default getLoginContainer(LoginForm, withNavigationBar, () => Actions.feed());

@@ -1,5 +1,3 @@
-jest.unmock('../Header.jsx');
-
 import { shallow } from 'enzyme';
 import Header from '../Header.jsx';
 

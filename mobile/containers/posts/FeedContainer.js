@@ -1,5 +1,5 @@
-import PostList from '../../components/posts/PostList.js';
-import withNavigationBar from '../../components/app/NavigationBar.js';
-import getFeedContainer from '../../../common/containers/posts/FeedContainer.js';
+import PostList from '../../components/posts/PostList';
+import withNavigationBar from '../../components/app/NavigationBar';
+import getFeedContainer from '../../../common/containers/posts/FeedContainer';
 
 export default getFeedContainer(PostList, withNavigationBar);

@@ -1,3 +1,3 @@
-import { init } from './index.js';
+import init from './index';
 
 init();

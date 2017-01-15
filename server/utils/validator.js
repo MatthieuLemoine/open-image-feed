@@ -1,4 +1,6 @@
-const crypt              = require('./crypt');
+const crypt = require('./crypt');
+
+// eslint-disable-next-line no-useless-escape
 const forbiddenCaracters = /^[#&$£€/\\\[\]\(\){}_"@+* =°¤%§!?:;`|~,.^²<>0-9]+$/;
 const PASSWORD_MIN_SIZE  = 5;
 const USERNAME_MIN_SIZE  = 5;

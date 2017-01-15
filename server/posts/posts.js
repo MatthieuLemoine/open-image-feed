@@ -1,9 +1,10 @@
 const express = require('express');
-const router  = express.Router();
 const auth    = require('../auth/auth');
 const Post    = require('../database/schema').Post;
 const r       = require('../database/thinky').r;
 const upload  = require('../utils/upload');
+
+const router  = express.Router();
 
 router
   .get('/', (req, res, next) => {

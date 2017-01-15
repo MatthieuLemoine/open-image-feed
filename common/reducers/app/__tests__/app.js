@@ -1,12 +1,3 @@
-jest.unmock('../app');
-jest.unmock('../../../actions/users/login');
-jest.unmock('../../../actions/users/signup');
-jest.unmock('../../../actions/posts/posts');
-jest.unmock('../../../actions/posts/likes');
-jest.unmock('../../../actions/posts/comments');
-jest.unmock('../../../reducers/posts/posts');
-jest.unmock('../../../reducers/users/users');
-
 import deepFreeze from 'deep-freeze';
 import rootReducer, {
   message,

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "lodash": "^4.15.0",
+    "moment": "^2.14.1",
     "react": "^15.2.1",
     "react-native": "^0.31.0",
     "react-native-infinite-scroll-view": "^0.4.2",
@@ -16,14 +17,15 @@
     "react-native-material-kit": "^0.3.2",
     "react-native-router-flux": "^3.34.0",
     "react-native-tabs": "^1.0.9",
+    "react-redux": "^5.0.2",
     "react-router": "^2.5.2",
-    "react-router-native": "^2.0.0-alpha.2"
-  },
-  "devDependencies": {
-    "babel-preset-react-native": "^1.9.0",
-    "moment": "^2.14.1",
+    "react-router-native": "^2.0.0-alpha.2",
+    "redux": "^3.6.0",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.1.0",
     "socket.io-client": "^1.4.8"
+  },
+  "devDependencies": {
+    "babel-preset-react-native": "^1.9.0"
   }
 }

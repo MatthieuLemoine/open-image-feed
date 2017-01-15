@@ -1,6 +1,7 @@
 const Post  = require('../server/database/schema').Post;
 const fs    = require('fs');
 const mmm   = require('mmmagic');
+
 const Magic = mmm.Magic;
 const ROOT_PATH = `${__dirname}/../dist`;
 

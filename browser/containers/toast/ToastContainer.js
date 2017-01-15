@@ -1,7 +1,7 @@
 import { Component } from 'react';
-import Toast from '../../components/toast/Toast.jsx';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import Toast from '../../components/toast/Toast.jsx';
 import { message } from '../../../common/reducers/app/app';
 
 class ToastContainer extends Component {

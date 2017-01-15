@@ -3,7 +3,7 @@ import {
   isPersistingPost, isFetchingUser,
   isLiking, isCommenting, isFetchingCount
 } from '../../../common/reducers/app/app';
-import connect from '../connect.js';
+import connect from '../connect';
 
 export default (Header, wrapper, isAppLoaded) =>
   connect(Header, wrapper,

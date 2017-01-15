@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { getPosts, getUser, hasMorePosts } from '../../../common/reducers/app/app';
 import { watchFeedIfNeeded, fetchPosts } from '../../../common/actions/posts/posts';
-import connect from '../connect.js';
+import connect from '../connect';
 
 export default (PostList, wrapper) => {
   class FeedContainer extends Component {

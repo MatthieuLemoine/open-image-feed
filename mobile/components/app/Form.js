@@ -7,7 +7,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { Text, View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { Card } from 'react-native-material-design';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-extraneous-dependencies
 import dismissKeyboard from 'dismissKeyboard';
 
 const styles = StyleSheet.create({
@@ -81,7 +81,7 @@ const Form = ({
   );
 
   // Second button such as a cancel button
-  const secondLink = secondLinkLabel && secondLinkTo ?
+  const secondLink = secondLinkLabel && secondLinkTo ? (
     <MKButton
       onPress={() => Actions[secondLinkTo]()}
       shadowRadius={2}
@@ -98,14 +98,15 @@ const Form = ({
         {secondLinkLabel.toUpperCase()}
       </Text>
     </MKButton>
-    : null;
+  ) : null;
 
-  const titleComponent = hideTitle ? null :
+  const titleComponent = hideTitle ? null : (
     <Text
       style={styles.title}
     >
       {title}
-    </Text>;
+    </Text>
+  );
 
   const actions = (
     <View style={styles.actionsContainer}>

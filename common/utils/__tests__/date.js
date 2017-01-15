@@ -1,8 +1,5 @@
-jest.unmock('../date');
-jest.unmock('moment');
-
-import { since } from '../date';
 import moment from 'moment';
+import { since } from '../date';
 
 describe('Date util', () => {
   it('should return time passed since given date', () => {

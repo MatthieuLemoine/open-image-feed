@@ -49,7 +49,6 @@ class Splashscreen extends Component {
 
 Splashscreen.propTypes = {
   loaded      : React.PropTypes.bool,
-  redirect    : React.PropTypes.func,
   loadState   : React.PropTypes.func,
   feedURL     : React.PropTypes.string
 };

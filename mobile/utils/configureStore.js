@@ -1,9 +1,9 @@
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
+import throttle from 'lodash/throttle';
 import rootReducer from '../reducers/app';
 import { initialState, saveState } from './asyncStorage';
-import throttle from 'lodash/throttle';
 
 let store;
 

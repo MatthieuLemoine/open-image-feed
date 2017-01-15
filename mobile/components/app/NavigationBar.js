@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ToolbarContainer from '../../containers/app/ToolbarContainer';
 import { View } from 'react-native';
+import ToolbarContainer from '../../containers/app/ToolbarContainer';
 
 const withNavigationBar = (Wrapped, hide) =>
   class WithNavigationBar extends Component {        // (1)

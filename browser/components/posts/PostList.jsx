@@ -45,7 +45,7 @@ class PostList extends Component {
           }
         </Infinite>
       </div>
-  );
+    );
   }
 }
 

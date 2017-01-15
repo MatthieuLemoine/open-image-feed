@@ -1,7 +1,7 @@
 import React from 'react';
-import Form from './Form';
 import { Actions } from 'react-native-router-flux';
-import styles from '../../styles/styles.js';
+import Form from './Form';
+import styles from '../../styles/styles';
 
 const ChooseFeed = ({
   connectToFeed

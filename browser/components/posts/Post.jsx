@@ -87,7 +87,7 @@ class Post extends Component {
           }}
         >
           <div className="mdl-grid">
-            <div className="mdl-layout-spacer"></div>
+            <div className="mdl-layout-spacer" />
             <button
               id={`comment-${post.id}`}
               className="mdl-button mdl-js-button mdl-button--fab

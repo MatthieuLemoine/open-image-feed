@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { Card, IconToggle, Icon } from 'react-native-material-design';
-import { PRIMARY, SECONDARY } from '../../styles/material.js';
+import { PRIMARY, SECONDARY } from '../../styles/material';
 import { since } from '../../../common/utils/date';
-import CommentList from './CommentList.js';
-// eslint-disable-next-line import/no-unresolved
-import Dimensions from 'Dimensions';
+import CommentList from './CommentList';
 
 const styles = StyleSheet.create({
   title : {
@@ -154,9 +152,9 @@ class Post extends Component {
 Post.propTypes = {
   post             : React.PropTypes.object.isRequired,
   like             : React.PropTypes.func.isRequired,
-  comment          : React.PropTypes.func.isRequired,
+  // comment          : React.PropTypes.func.isRequired,
   toggleComments   : React.PropTypes.func.isRequired,
-  isCommenting     : React.PropTypes.bool.isRequired,
+  // isCommenting     : React.PropTypes.bool.isRequired,
   toggleAddComment : React.PropTypes.func.isRequired
 };
 
