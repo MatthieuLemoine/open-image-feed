@@ -45,11 +45,11 @@
     "express": "^4.14.0",
     "mmmagic": "^0.4.5",
     "multer": "^1.1.0",
-    "node-uuid": "^1.4.7",
     "path": "^0.12.7",
     "react-router": "^2.6.1",
     "socket.io": "^1.4.8",
-    "thinky": "^2.3.3"
+    "thinky": "^2.3.3",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.9.1",

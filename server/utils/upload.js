@@ -1,5 +1,5 @@
 const multer = require('multer');
-const uuid   = require('node-uuid');
+const uuid   = require('uuid');
 
 // Config upload
 
