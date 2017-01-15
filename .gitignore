@@ -4,3 +4,4 @@ rethinkdb_data
 server/config.json
 coverage
 .eslintcache
+npm-debug.log
